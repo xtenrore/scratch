@@ -32,7 +32,8 @@ STAGE_VARS = {
     "v_fx_x": ["FX_X", 0],
     "v_fx_y": ["FX_Y", 0],
     "v_next_id": ["NEXT_ENTITY_ID", 1],
-    "v_save_code": ["SAVE_CODE", ""]
+    "v_save_code": ["SAVE_CODE", ""],
+    "v_comp_tab": ["COMPENDIUM_TAB", 1]
 }
 
 STAGE_LISTS = {
@@ -162,7 +163,8 @@ def build_stage():
         sound_meta["snd_cosmic"],
         sound_meta["snd_delete"],
         sound_meta["snd_freeze"],
-        sound_meta["snd_discover"]
+        sound_meta["snd_discover"],
+        sound_meta["snd_ambient"]
     ]
 
     return {

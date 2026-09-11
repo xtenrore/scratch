@@ -138,6 +138,71 @@ def gen_discover():
         samples.append(val)
     return make_wav(samples)
 
+def gen_ambient():
+    dur = 6.0
+    n = int(RATE * dur)
+    samples = []
+    
+    # Pre-generate smooth cyclic noise buffer (6.0s seamless loop)
+    random.seed(1337)
+    raw_noise = [random.random() * 2.0 - 1.0 for _ in range(n)]
+    # 2-pass moving average for smooth low-pass filtered vacuum chamber air tone
+    filt_noise = [0.0] * n
+    k = 80
+    window_sum = sum(raw_noise[:k])
+    for i in range(n):
+        window_sum += raw_noise[(i + k) % n] - raw_noise[i]
+        filt_noise[i] = (window_sum / k) * 0.08
+
+    for i in range(n):
+        t = i / RATE
+        # Cyclic LFOs (exact integer periods over 6s)
+        # LFO 1: 0.3333 Hz (period 3.0s, exactly 2 cycles over 6s)
+        lfo1 = 0.5 + 0.5 * math.cos(2 * math.pi * (2.0 / dur) * t)
+        # LFO 2: 0.1666 Hz (period 6.0s, exactly 1 cycle over 6s)
+        lfo2 = 0.5 + 0.5 * math.sin(2 * math.pi * (1.0 / dur) * t)
+
+        # 1. Fundamental sub drone (A1 = 55 Hz, 330 cycles over 6s)
+        sub = math.sin(2 * math.pi * 55.0 * t) * 0.32
+        
+        # 2. Detuned binaural vacuum hum (329 and 331 cycles over 6s -> 0.333 Hz beat)
+        beat1 = math.sin(2 * math.pi * (329.0 / dur) * t) * 0.14
+        beat2 = math.sin(2 * math.pi * (331.0 / dur) * t) * 0.14
+
+        # 3. Sub-octave deep warmth (27.5 Hz, 165 cycles over 6s)
+        deep = math.sin(2 * math.pi * 27.5 * t) * 0.22
+
+        # 4. Fifth harmonic warmth (82.5 Hz, 495 cycles over 6s)
+        fifth = math.sin(2 * math.pi * 82.5 * t) * 0.14
+
+        # 5. Octave harmonic with subtle breathing (110 Hz, 660 cycles over 6s)
+        octave = math.sin(2 * math.pi * 110.0 * t) * (0.09 + 0.06 * lfo1)
+
+        # 6. Ethereal atmospheric fifth (165 Hz, 990 cycles over 6s)
+        air1 = math.sin(2 * math.pi * 165.0 * t) * (0.05 * lfo2)
+
+        # 7. Sci-fi crystalline shimmer resonance (330 Hz, 1980 cycles over 6s)
+        shimmer = math.sin(2 * math.pi * 330.0 * t) * (0.02 + 0.015 * lfo1)
+
+        # 8. Vacuum chamber low-pass ambient air tone
+        hiss = filt_noise[i]
+
+        val = (sub + beat1 + beat2 + deep + fifth + octave + air1 + shimmer + hiss) * 19000
+        samples.append(val)
+
+    # 10ms smooth crossfade at loop boundaries to ensure 100% zero-pop seamless looping
+    fade_len = int(RATE * 0.01)  # 220 samples
+    for j in range(fade_len):
+        w = 0.5 * (1.0 - math.cos(math.pi * j / fade_len))
+        # blend head and tail
+        tail_val = samples[n - fade_len + j]
+        head_val = samples[j]
+        blended = tail_val * (1.0 - w) + head_val * w
+        samples[j] = blended
+        samples[n - fade_len + j] = blended
+
+    return make_wav(samples)
+
 SOUNDS_GENERATORS = {
     "snd_click": gen_click,
     "snd_bond": gen_bond,
@@ -146,7 +211,8 @@ SOUNDS_GENERATORS = {
     "snd_cosmic": gen_cosmic,
     "snd_delete": gen_delete,
     "snd_freeze": gen_freeze,
-    "snd_discover": gen_discover
+    "snd_discover": gen_discover,
+    "snd_ambient": gen_ambient
 }
 
 def generate_all_sounds():

@@ -558,73 +558,277 @@ def generate_fx_assets():
 def generate_compendium_assets():
     costumes = {}
 
-    def base_comp_modal(title, subtitle):
+    def base_comp_modal(active_tab_idx, title, subtitle):
+        tabs = [
+            (1, "SUMMARY", 14, 78, "#6366F1"),
+            (2, "ATOMS", 96, 78, "#10B981"),
+            (3, "MOLECULES", 178, 86, "#38BDF8"),
+            (4, "RADICALS", 268, 80, "#EF4444"),
+            (5, "IONS", 352, 74, "#A855F7")
+        ]
+        tab_svg = []
+        for tid, tname, tx, tw, tcol in tabs:
+            is_active = (tid == active_tab_idx)
+            bg = "#162032" if is_active else "#0E1522"
+            border = tcol if is_active else "#1E293B"
+            fg = tcol if is_active else "#64748B"
+            weight = "bold" if is_active else "normal"
+            tab_svg.append(f'<rect x="{tx}" y="28" width="{tw}" height="18" rx="2" fill="{bg}" stroke="{border}" stroke-width="1"/>')
+            tab_svg.append(f'<text x="{tx + tw/2}" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="{weight}" fill="{fg}" text-anchor="middle">[{tid}] {tname}</text>')
+            if is_active:
+                tab_svg.append(f'<line x1="{tx+2}" y1="46" x2="{tx+tw-2}" y2="46" stroke="{tcol}" stroke-width="1.8"/>')
+
+        tabs_str = "\n  ".join(tab_svg)
+
         return f'''
-  <rect width="440" height="250" rx="8" fill="#0A0F1D" stroke="#6366F1" stroke-width="1.8"/>
-  <rect x="0" y="0" width="440" height="28" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
-  <text x="16" y="19" font-family="monospace, sans-serif" font-size="9" font-weight="bold" fill="#818CF8" letter-spacing="1">{title}</text>
-  <text x="424" y="18" font-family="monospace, sans-serif" font-size="8" fill="#94A3B8" text-anchor="end">{subtitle}</text>
+  <!-- Chassis Frame -->
+  <rect width="440" height="250" rx="4" fill="#080D18" stroke="#1E293B" stroke-width="1.5"/>
   
-  <!-- Category Filter Bar (Y: 32 to 52) -->
-  <rect x="12" y="32" width="98" height="18" rx="3" fill="#1E1B4B" stroke="#6366F1" stroke-width="1"/>
-  <text x="61" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#C7D2FE" text-anchor="middle">[1] SUMMARY</text>
+  <!-- Header Bar (Y: 0 to 26) -->
+  <rect x="0" y="0" width="440" height="26" rx="4" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="14" cy="13" r="3.5" fill="#38BDF8"/>
+  <text x="24" y="16.5" font-family="monospace, sans-serif" font-size="8.5" font-weight="bold" fill="#38BDF8" letter-spacing="0.8">{title}</text>
+  <text x="390" y="16.5" font-family="monospace, sans-serif" font-size="7.5" fill="#64748B" text-anchor="end">{subtitle}</text>
+  
+  <!-- Close button in top right -->
+  <rect x="406" y="5" width="22" height="16" rx="2" fill="#1C121A" stroke="#EF4444" stroke-width="1"/>
+  <text x="417" y="16.5" font-family="sans-serif" font-size="11" font-weight="bold" fill="#EF4444" text-anchor="middle">×</text>
 
-  <rect x="116" y="32" width="98" height="18" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
-  <text x="165" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">[2] ELEMENTS</text>
+  <!-- Tab Bar (Y: 28 to 48) -->
+  {tabs_str}
 
-  <rect x="220" y="32" width="98" height="18" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
-  <text x="269" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">[3] MOLECULES</text>
-
-  <rect x="324" y="32" width="104" height="18" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
-  <text x="376" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">[4] IONS / RADICALS</text>
+  <!-- Bottom Action Bar (Y: 222 to 244) -->
+  <rect x="0" y="222" width="440" height="28" fill="#0A0F1D" stroke="#1E293B" stroke-width="1"/>
+  
+  <!-- Reset Button [D] -->
+  <rect x="14" y="226" width="110" height="20" rx="2" fill="#1A0F14" stroke="#EF4444" stroke-width="1"/>
+  <text x="69" y="239" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#F87171" text-anchor="middle">RESET ARCHIVE [D]</text>
+  
+  <!-- Center Status -->
+  <text x="220" y="239" font-family="monospace, sans-serif" font-size="7" fill="#64748B" text-anchor="middle">CLICK SPECIES TO INJECT OR INSPECT • [×] TO CLOSE</text>
+  
+  <!-- Close Catalog Button -->
+  <rect x="316" y="226" width="110" height="20" rx="2" fill="#0B1C2E" stroke="#38BDF8" stroke-width="1"/>
+  <text x="371" y="239" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">CLOSE CATALOG [×]</text>
 '''
 
-    # Page 1: Overview Summary
+    # Helper to render an 8-card grid
+    def render_8_card_grid(tab_idx, title, sub_title, page_nav_left, page_nav_right, cards):
+        svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">']
+        svg.append(base_comp_modal(tab_idx, title, sub_title))
+        
+        # Sub-header with page switcher
+        svg.append('  <!-- Sub-header -->')
+        svg.append('  <rect x="14" y="52" width="412" height="18" rx="2" fill="#0D1525" stroke="#1E293B" stroke-width="1"/>')
+        svg.append('  <text x="24" y="64.5" font-family="monospace, sans-serif" font-size="7" fill="#64748B">CLICK SPECIES CARD TO INJECT INTO CHAMBER &amp; INSPECT</text>')
+        
+        # Page buttons on right
+        svg.append(f'  <rect x="270" y="54" width="70" height="14" rx="2" fill="{page_nav_left[2]}" stroke="{page_nav_left[3]}" stroke-width="0.8"/>')
+        svg.append(f'  <text x="305" y="64" font-family="monospace, sans-serif" font-size="6" font-weight="bold" fill="{page_nav_left[4]}" text-anchor="middle">{page_nav_left[0]}</text>')
+        
+        svg.append(f'  <rect x="348" y="54" width="70" height="14" rx="2" fill="{page_nav_right[2]}" stroke="{page_nav_right[3]}" stroke-width="0.8"/>')
+        svg.append(f'  <text x="383" y="64" font-family="monospace, sans-serif" font-size="6" font-weight="bold" fill="{page_nav_right[4]}" text-anchor="middle">{page_nav_right[0]}</text>')
+
+        # 2 rows of 4 cards
+        for idx, card in enumerate(cards):
+            row = idx // 4
+            col = idx % 4
+            x = 14 + col * 104
+            y = 74 + row * 72
+            
+            formula = card['formula']
+            disp_form = format_subscripts(formula)
+            name = card['name'][:14]
+            desc = card.get('recipe', card.get('desc', ''))[:20]
+            tag = card.get('tag', 'INJECT')
+            col_accent = card.get('accent', '#38BDF8')
+            
+            svg.append(f'  <g>')
+            svg.append(f'    <rect x="{x}" y="{y}" width="98" height="68" rx="3" fill="#0D1525" stroke="{col_accent}" stroke-width="1"/>')
+            # Formula box
+            svg.append(f'    <rect x="{x+6}" y="{y+6}" width="86" height="24" rx="2" fill="#131E33"/>')
+            svg.append(f'    <text x="{x+49}" y="{y+23}" font-family="sans-serif" font-size="13" font-weight="bold" fill="{col_accent}" text-anchor="middle">{disp_form}</text>')
+            # Name
+            svg.append(f'    <text x="{x+49}" y="{y+41}" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">{name}</text>')
+            # Recipe / Description
+            svg.append(f'    <text x="{x+49}" y="{y+51}" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">{desc}</text>')
+            # Button pill
+            svg.append(f'    <rect x="{x+24}" y="{y+56}" width="50" height="9" rx="1.5" fill="#082032" stroke="{col_accent}" stroke-width="0.6"/>')
+            svg.append(f'    <text x="{x+49}" y="{y+63.5}" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="{col_accent}" text-anchor="middle">{tag}</text>')
+            svg.append(f'  </g>')
+
+        svg.append('</svg>')
+        return "\n".join(svg)
+
+    # 1. comp_summary (Overview Page)
     p1 = f'''<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
-{base_comp_modal("DISCOVERY COMPENDIUM // ARCHIVE OVERVIEW", "129 TOTAL SPECIES")}
-  <!-- Progress meter -->
-  <rect x="16" y="58" width="408" height="38" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
-  <text x="28" y="74" font-family="monospace, sans-serif" font-size="8" fill="#64748B">ARCHIVAL COMPLETION RATE</text>
-  <text x="28" y="88" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38BDF8">SYNTHESIZE &amp; CATALOG ALL 129 SPECIES</text>
-  <text x="412" y="82" font-family="monospace, sans-serif" font-size="12" font-weight="bold" fill="#818CF8" text-anchor="end">129 TARGETS</text>
+{base_comp_modal(1, "ARCHIVAL COMPENDIUM // OVERVIEW", "129 TOTAL SPECIES")}
+  <!-- Archival Progress Meter (Y: 52 to 84) -->
+  <rect x="14" y="52" width="412" height="32" rx="3" fill="#0D1525" stroke="#1E293B" stroke-width="1"/>
+  <text x="26" y="65" font-family="monospace, sans-serif" font-size="7.5" fill="#64748B">ARCHIVAL COMPLETION STATUS</text>
+  <text x="414" y="65" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8" text-anchor="end">129 TARGET SPECIES</text>
+  <rect x="26" y="71" width="388" height="6" rx="2" fill="#151E2E"/>
+  <rect x="26" y="71" width="110" height="6" rx="2" fill="#38BDF8"/>
 
-  <!-- 4 Category Cards -->
-  <!-- Elements -->
-  <rect x="16" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
-  <text x="64" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">BASE ELEMENTS</text>
-  <text x="64" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">19</text>
-  <text x="64" y="166" font-family="monospace, sans-serif" font-size="7" fill="#10B981" text-anchor="middle">100% UNLOCKED</text>
-  <text x="64" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">H through I</text>
+  <!-- 4 Interactive Category Jump Cards (Y: 90 to 216) -->
+  <!-- Card 1: Atoms -->
+  <rect x="14" y="90" width="98" height="124" rx="3" fill="#0D1626" stroke="#10B981" stroke-width="1"/>
+  <text x="63" y="106" font-family="sans-serif" font-size="8" font-weight="bold" fill="#10B981" text-anchor="middle">BASE ATOMS</text>
+  <text x="63" y="136" font-family="monospace, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">19</text>
+  <text x="63" y="154" font-family="monospace, sans-serif" font-size="7" fill="#10B981" text-anchor="middle">100% UNLOCKED</text>
+  <text x="63" y="168" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">H through I</text>
+  <rect x="22" y="186" width="82" height="18" rx="2" fill="#0E231C" stroke="#10B981" stroke-width="0.8"/>
+  <text x="63" y="198" font-family="monospace, sans-serif" font-size="6.5" font-weight="bold" fill="#10B981" text-anchor="middle">OPEN ATOMS →</text>
 
-  <!-- Neutral Molecules -->
-  <rect x="120" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
-  <text x="168" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">NEUTRAL MOLECULES</text>
-  <text x="168" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">65</text>
-  <text x="168" y="166" font-family="monospace, sans-serif" font-size="7" fill="#FACC15" text-anchor="middle">SYNTHESIS REQ</text>
-  <text x="168" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">Water, Acids, Salts</text>
+  <!-- Card 2: Molecules -->
+  <rect x="118" y="90" width="98" height="124" rx="3" fill="#0D1626" stroke="#38BDF8" stroke-width="1"/>
+  <text x="167" y="106" font-family="sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">MOLECULES</text>
+  <text x="167" y="136" font-family="monospace, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">75</text>
+  <text x="167" y="154" font-family="monospace, sans-serif" font-size="7" fill="#FACC15" text-anchor="middle">SYNTHESIS REQ</text>
+  <text x="167" y="168" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">Water, Acids, Salts</text>
+  <rect x="126" y="186" width="82" height="18" rx="2" fill="#0B2136" stroke="#38BDF8" stroke-width="0.8"/>
+  <text x="167" y="198" font-family="monospace, sans-serif" font-size="6.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">BROWSE MOLECULES →</text>
 
-  <!-- Radicals -->
-  <rect x="224" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
-  <text x="272" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#EF4444" text-anchor="middle">RADICAL SPECIES</text>
-  <text x="272" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">23</text>
-  <text x="272" y="166" font-family="monospace, sans-serif" font-size="7" fill="#EF4444" text-anchor="middle">UNPAIRED e⁻</text>
-  <text x="272" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">•CH3, •OH, •NO</text>
+  <!-- Card 3: Radicals -->
+  <rect x="222" y="90" width="98" height="124" rx="3" fill="#0D1626" stroke="#EF4444" stroke-width="1"/>
+  <text x="271" y="106" font-family="sans-serif" font-size="8" font-weight="bold" fill="#EF4444" text-anchor="middle">RADICALS</text>
+  <text x="271" y="136" font-family="monospace, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">13</text>
+  <text x="271" y="154" font-family="monospace, sans-serif" font-size="7" fill="#EF4444" text-anchor="middle">UNPAIRED e⁻</text>
+  <text x="271" y="168" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">•CH3, •OH, •NO</text>
+  <rect x="230" y="186" width="82" height="18" rx="2" fill="#241014" stroke="#EF4444" stroke-width="0.8"/>
+  <text x="271" y="198" font-family="monospace, sans-serif" font-size="6.5" font-weight="bold" fill="#EF4444" text-anchor="middle">BROWSE RADICALS →</text>
 
-  <!-- Ions -->
-  <rect x="328" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
-  <text x="376" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#A855F7" text-anchor="middle">CHARGED IONS</text>
-  <text x="376" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">22</text>
-  <text x="376" y="166" font-family="monospace, sans-serif" font-size="7" fill="#A855F7" text-anchor="middle">COSMIC IONIZED</text>
-  <text x="376" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">Cations &amp; Anions</text>
-
-  <!-- Bottom Action Bar -->
-  <rect x="16" y="202" width="160" height="26" rx="4" fill="#1F1523" stroke="#DC2626" stroke-width="1"/>
-  <text x="96" y="218" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#F87171" text-anchor="middle">RESET CATALOG [D]</text>
-
-  <rect x="264" y="202" width="160" height="26" rx="4" fill="#0C2338" stroke="#38BDF8" stroke-width="1"/>
-  <text x="344" y="218" font-family="monospace, sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">CLOSE BROWSER [×]</text>
+  <!-- Card 4: Ions -->
+  <rect x="326" y="90" width="98" height="124" rx="3" fill="#0D1626" stroke="#A855F7" stroke-width="1"/>
+  <text x="375" y="106" font-family="sans-serif" font-size="8" font-weight="bold" fill="#A855F7" text-anchor="middle">CHARGED IONS</text>
+  <text x="375" y="136" font-family="monospace, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">22</text>
+  <text x="375" y="154" font-family="monospace, sans-serif" font-size="7" fill="#A855F7" text-anchor="middle">COSMIC IONIZED</text>
+  <text x="375" y="168" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">Cations &amp; Anions</text>
+  <rect x="334" y="186" width="82" height="18" rx="2" fill="#1C102E" stroke="#A855F7" stroke-width="0.8"/>
+  <text x="375" y="198" font-family="monospace, sans-serif" font-size="6.5" font-weight="bold" fill="#A855F7" text-anchor="middle">BROWSE IONS →</text>
 </svg>'''
     costumes["comp_summary"] = make_svg_asset(p1, "comp_summary", 220, 125)
+
+    # 2. comp_elements (Atoms Injection Array)
+    el_svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">']
+    el_svg.append(base_comp_modal(2, "ARCHIVAL COMPENDIUM // 19 BASE ATOMS", "INJECTION ARRAY"))
+    el_svg.append('  <!-- Header Sub-banner -->')
+    el_svg.append('  <rect x="14" y="52" width="412" height="16" rx="2" fill="#0C1F2E" stroke="#0284C7" stroke-width="0.8"/>')
+    el_svg.append('  <text x="220" y="63" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#38BDF8" text-anchor="middle">ATOMIC INJECTOR — CLICK ANY ELEMENT TO INJECT INTO VACUUM CHAMBER</text>')
+
+    row1 = db_chemistry.SPECIES[:10]
+    row2 = db_chemistry.SPECIES[10:19]
+
+    # Row 1 (10 elements)
+    for i, el in enumerate(row1):
+        x = 14 + i * 41.2
+        y = 72
+        color = el["color"]
+        border = el["border"]
+        fg = "#0A0F1A" if color in ["#E2E8F0", "#FACC15", "#A3E635", "#67E8F9"] else "#FFFFFF"
+        el_svg.append(f'  <g>')
+        el_svg.append(f'    <rect x="{x}" y="{y}" width="39" height="68" rx="3" fill="#0E1626" stroke="{border}" stroke-width="1"/>')
+        el_svg.append(f'    <text x="{x+5}" y="{y+11}" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">{el["z"]}</text>')
+        el_svg.append(f'    <circle cx="{x+19.5}" cy="{y+26}" r="11" fill="{color}" stroke="{border}" stroke-width="1"/>')
+        el_svg.append(f'    <text x="{x+19.5}" y="{y+30}" font-family="sans-serif" font-size="9" font-weight="bold" fill="{fg}" text-anchor="middle">{el["symbol"]}</text>')
+        el_svg.append(f'    <text x="{x+19.5}" y="{y+48}" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">{el["name"][:7]}</text>')
+        el_svg.append(f'    <text x="{x+19.5}" y="{y+60}" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>')
+        el_svg.append(f'  </g>')
+
+    # Row 2 (9 elements)
+    for i, el in enumerate(row2):
+        x = 34 + i * 41.2
+        y = 144
+        color = el["color"]
+        border = el["border"]
+        fg = "#0A0F1A" if color in ["#E2E8F0", "#FACC15", "#A3E635", "#67E8F9"] else "#FFFFFF"
+        el_svg.append(f'  <g>')
+        el_svg.append(f'    <rect x="{x}" y="{y}" width="39" height="68" rx="3" fill="#0E1626" stroke="{border}" stroke-width="1"/>')
+        el_svg.append(f'    <text x="{x+5}" y="{y+11}" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">{el["z"]}</text>')
+        el_svg.append(f'    <circle cx="{x+19.5}" cy="{y+26}" r="11" fill="{color}" stroke="{border}" stroke-width="1"/>')
+        el_svg.append(f'    <text x="{x+19.5}" y="{y+30}" font-family="sans-serif" font-size="9" font-weight="bold" fill="{fg}" text-anchor="middle">{el["symbol"]}</text>')
+        el_svg.append(f'    <text x="{x+19.5}" y="{y+48}" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">{el["name"][:7]}</text>')
+        el_svg.append(f'    <text x="{x+19.5}" y="{y+60}" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>')
+        el_svg.append(f'  </g>')
+
+    el_svg.append('</svg>')
+    costumes["comp_elements"] = make_svg_asset("\n".join(el_svg), "comp_elements", 220, 125)
+
+    # 3. comp_molecules_1
+    mol1_cards = [
+        {"formula": "H2", "name": "Hydrogen Gas", "recipe": "H + H → H2", "accent": "#38BDF8"},
+        {"formula": "H2O", "name": "Water", "recipe": "2H + O → H2O", "accent": "#38BDF8"},
+        {"formula": "O2", "name": "Oxygen Gas", "recipe": "O + O → O2", "accent": "#38BDF8"},
+        {"formula": "N2", "name": "Nitrogen Gas", "recipe": "N + N → N2", "accent": "#38BDF8"},
+        {"formula": "CO", "name": "Carbon Monoxide", "recipe": "C + O → CO", "accent": "#38BDF8"},
+        {"formula": "CO2", "name": "Carbon Dioxide", "recipe": "CO + O → CO2", "accent": "#38BDF8"},
+        {"formula": "CH4", "name": "Methane", "recipe": "C + 4H → CH4", "accent": "#38BDF8"},
+        {"formula": "NH3", "name": "Ammonia", "recipe": "N + 3H → NH3", "accent": "#38BDF8"}
+    ]
+    p3 = render_8_card_grid(
+        3, "ARCHIVAL COMPENDIUM // NEUTRAL MOLECULES (1/2)", "COMMON COMPOUNDS",
+        ("PAGE 1 (CURR)", 1, "#0B2238", "#38BDF8", "#38BDF8"),
+        ("NEXT: P2", 2, "#111827", "#334155", "#94A3B8"),
+        mol1_cards
+    )
+    costumes["comp_molecules_1"] = make_svg_asset(p3, "comp_molecules_1", 220, 125)
+
+    # 4. comp_molecules_2
+    mol2_cards = [
+        {"formula": "HCl", "name": "Hydrochloric Acid", "recipe": "H + Cl → HCl", "accent": "#38BDF8"},
+        {"formula": "NaCl", "name": "Sodium Chloride", "recipe": "Na + Cl → NaCl", "accent": "#38BDF8"},
+        {"formula": "H2S", "name": "Hydrogen Sulfide", "recipe": "2H + S → H2S", "accent": "#38BDF8"},
+        {"formula": "SO2", "name": "Sulfur Dioxide", "recipe": "S + O2 → SO2", "accent": "#38BDF8"},
+        {"formula": "H2SO4", "name": "Sulfuric Acid", "recipe": "SO3 + H2O → H2SO4", "accent": "#38BDF8"},
+        {"formula": "SiO2", "name": "Silicon Dioxide", "recipe": "Si + O2 → SiO2", "accent": "#38BDF8"},
+        {"formula": "P4O10", "name": "Phosphorus Oxide", "recipe": "P4 + 5O2 → P4O10", "accent": "#38BDF8"},
+        {"formula": "CaCO3", "name": "Calcium Carbonate", "recipe": "CaO + CO2 → CaCO3", "accent": "#38BDF8"}
+    ]
+    p4 = render_8_card_grid(
+        3, "ARCHIVAL COMPENDIUM // NEUTRAL MOLECULES (2/2)", "ACIDS &amp; SALTS",
+        ("PREV: P1", 1, "#111827", "#334155", "#94A3B8"),
+        ("PAGE 2 (CURR)", 2, "#0B2238", "#38BDF8", "#38BDF8"),
+        mol2_cards
+    )
+    costumes["comp_molecules_2"] = make_svg_asset(p4, "comp_molecules_2", 220, 125)
+
+    # 5. comp_radicals
+    rad_cards = [
+        {"formula": "CH•", "name": "Methylidyne", "recipe": "Photolysis C-H", "accent": "#EF4444"},
+        {"formula": "CH2•", "name": "Methylene", "recipe": "Photolysis CH3", "accent": "#EF4444"},
+        {"formula": "CH3•", "name": "Methyl Radical", "recipe": "CH4 + hν → CH3•", "accent": "#EF4444"},
+        {"formula": "NH•", "name": "Imidogen", "recipe": "Photolysis NH2", "accent": "#EF4444"},
+        {"formula": "NH2•", "name": "Amino Radical", "recipe": "NH3 + hν → NH2•", "accent": "#EF4444"},
+        {"formula": "NO•", "name": "Nitric Oxide", "recipe": "N + O radical", "accent": "#EF4444"},
+        {"formula": "OH•", "name": "Hydroxyl Radical", "recipe": "H2O + hν → •OH", "accent": "#EF4444"},
+        {"formula": "HS•", "name": "Mercapto Radical", "recipe": "H2S + hν → HS•", "accent": "#EF4444"}
+    ]
+    p5 = render_8_card_grid(
+        4, "ARCHIVAL COMPENDIUM // RADICAL SPECIES", "UNPAIRED ELECTRONS",
+        ("RADICALS", 1, "#251015", "#EF4444", "#EF4444"),
+        ("UV ACTIVE", 2, "#111827", "#334155", "#64748B"),
+        rad_cards
+    )
+    costumes["comp_radicals"] = make_svg_asset(p5, "comp_radicals", 220, 125)
+
+    # 6. comp_ions
+    ion_cards = [
+        {"formula": "H+", "name": "Hydron Cation", "recipe": "H - e⁻ → H+", "accent": "#A855F7"},
+        {"formula": "OH-", "name": "Hydroxide Anion", "recipe": "H2O + e⁻ → OH-", "accent": "#A855F7"},
+        {"formula": "Na+", "name": "Sodium Cation", "recipe": "Na - e⁻ → Na+", "accent": "#A855F7"},
+        {"formula": "Cl-", "name": "Chloride Anion", "recipe": "Cl + e⁻ → Cl-", "accent": "#A855F7"},
+        {"formula": "H3O+", "name": "Hydronium Cation", "recipe": "H+ + H2O → H3O+", "accent": "#A855F7"},
+        {"formula": "SO4-2", "name": "Sulfate Dianion", "recipe": "H2SO4 deproton", "accent": "#A855F7"},
+        {"formula": "CO3-2", "name": "Carbonate Dianion", "recipe": "H2CO3 deproton", "accent": "#A855F7"},
+        {"formula": "PO4-3", "name": "Phosphate Trianion", "recipe": "H3PO4 deproton", "accent": "#A855F7"}
+    ]
+    p6 = render_8_card_grid(
+        5, "ARCHIVAL COMPENDIUM // CHARGED IONS", "COSMIC IONIZATION",
+        ("IONS", 1, "#1D102E", "#A855F7", "#A855F7"),
+        ("COSMIC RAYS", 2, "#111827", "#334155", "#64748B"),
+        ion_cards
+    )
+    costumes["comp_ions"] = make_svg_asset(p6, "comp_ions", 220, 125)
 
     return costumes
 

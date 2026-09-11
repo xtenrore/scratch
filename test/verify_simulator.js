@@ -138,22 +138,111 @@ async function testAll() {
   assert.strictEqual(survivingEntities, 0, 'CLEAR_ALL should purge all active particle clones');
   console.log('[PASS] CLEAR_ALL successfully evacuated all particles from chamber');
 
-  // 9. Test Compendium Modal
+  // 9. Test Compendium Modal & Multi-Tab Costumes
   setVar('SHOW_COMPENDIUM', 1);
+  setVar('COMPENDIUM_TAB', 1);
   vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
   for (let i = 0; i < 5; i++) vm.runtime._step();
   const compUI = vm.runtime.targets.find(t => t.getName() === 'CompendiumUI');
   assert.strictEqual(compUI.visible, true, 'CompendiumUI should be visible when SHOW_COMPENDIUM == 1');
-  console.log('[PASS] CompendiumUI modal opens correctly');
+  assert.strictEqual(compUI.getCostumes().length, 6, 'CompendiumUI must have 6 interactive vector costumes');
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_summary', 'Tab 1 should display comp_summary');
+  console.log('[PASS] CompendiumUI modal opens correctly on Tab 1 (comp_summary)');
 
-  // Dismiss Compendium
-  setVar('SHOW_COMPENDIUM', 0);
+  // Test Tab 2: Elements Injection Array
+  setVar('COMPENDIUM_TAB', 2);
   vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
   for (let i = 0; i < 5; i++) vm.runtime._step();
-  assert.strictEqual(compUI.visible, false, 'CompendiumUI should be hidden when SHOW_COMPENDIUM == 0');
-  console.log('[PASS] CompendiumUI modal closes correctly');
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_elements', 'Tab 2 should display comp_elements');
+  console.log('[PASS] CompendiumUI switches to Tab 2 (comp_elements)');
 
-  // 10. Test Inspector HUD Card
+  // Test Tab 3: Molecules Page 1
+  setVar('COMPENDIUM_TAB', 3);
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_molecules_1', 'Tab 3 should display comp_molecules_1');
+  console.log('[PASS] CompendiumUI switches to Tab 3 (comp_molecules_1)');
+
+  // Test Tab 4: Molecules Page 2
+  setVar('COMPENDIUM_TAB', 4);
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_molecules_2', 'Tab 4 should display comp_molecules_2');
+  console.log('[PASS] CompendiumUI switches to Tab 4 (comp_molecules_2)');
+
+  // Test Tab 5: Radicals
+  setVar('COMPENDIUM_TAB', 5);
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_radicals', 'Tab 5 should display comp_radicals');
+  console.log('[PASS] CompendiumUI switches to Tab 5 (comp_radicals)');
+
+  // Test Tab 6: Charged Ions
+  setVar('COMPENDIUM_TAB', 6);
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_ions', 'Tab 6 should display comp_ions');
+  console.log('[PASS] CompendiumUI switches to Tab 6 (comp_ions)');
+
+  // Verify Stage Ambient Sound
+  const ambSound = stage.getSounds().find(s => s.name === 'snd_ambient');
+  assert(ambSound, 'Stage must contain snd_ambient background sound');
+  console.log('[PASS] Stage background ambient sound (snd_ambient) verified');
+
+  // Helper to simulate mouse coordinates in Scratch VM
+  const setMouse = (sx, sy) => {
+    const cw = 480, ch = 360;
+    const cx = (sx / 480 + 0.5) * cw;
+    const cy = (-sy / 360 + 0.5) * ch;
+    vm.runtime.ioDevices.mouse.postData({ x: cx, y: cy, canvasWidth: cw, canvasHeight: ch });
+  };
+
+  // 10. Test Interactive CompendiumUI Click Dispatches (Tab bar, Item spawning, Close button)
+  // Re-open Compendium on Tab 1
+  setVar('SHOW_COMPENDIUM', 1);
+  setVar('COMPENDIUM_TAB', 1);
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+
+  // A. Click Tab 2 ('Elements') on the top navigation rail (X=-90, Y=75)
+  setMouse(-90, 75);
+  vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+  for (let i = 0; i < 20; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('COMPENDIUM_TAB')), 2, 'Clicking Tab 2 should set COMPENDIUM_TAB to 2');
+  assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 1, 'Clicking Tab 2 must keep catalog open');
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_elements');
+  console.log('[PASS] Interactive click on Tab 2 switches tab and preserves catalog visibility');
+
+  // B. Click Tab 3 ('Molecules') on the top navigation rail (X=0, Y=75)
+  setMouse(0, 75);
+  vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+  for (let i = 0; i < 20; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('COMPENDIUM_TAB')), 3, 'Clicking Tab 3 should set COMPENDIUM_TAB to 3');
+  assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 1, 'Clicking Tab 3 must keep catalog open');
+  assert.strictEqual(compUI.getCostumes()[compUI.currentCostume].name, 'comp_molecules_1');
+  console.log('[PASS] Interactive click on Tab 3 switches tab and preserves catalog visibility');
+
+  // C. Switch back to Tab 2 and click an Element card to inject particle (X=-100, Y=35)
+  setMouse(-90, 75);
+  vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+  for (let i = 0; i < 20; i++) vm.runtime._step();
+
+  setMouse(-100, 35);
+  vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+  for (let i = 0; i < 20; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 1, 'Clicking element card must NOT close the catalog');
+  assert(Number(getVar('SPAWN_SPECIES_ID')) > 0, 'Clicking element card must set SPAWN_SPECIES_ID');
+  console.log(`[PASS] Interactive click on element card injected species #${getVar('SPAWN_SPECIES_ID')} without dismissing catalog`);
+
+  // D. Click Close [x] button (X=195, Y=105)
+  setMouse(195, 105);
+  vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+  for (let i = 0; i < 20; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 0, 'Clicking [x] button must close catalog');
+  assert.strictEqual(compUI.visible, false, 'CompendiumUI must be hidden after close');
+  console.log('[PASS] Interactive click on close [x] successfully dismisses catalog');
+
+  // 11. Test Inspector HUD Card
   setVar('SHOW_INFO', 1);
   setVar('INSPECT_SPECIES_ID', 20); // H2
   vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
@@ -163,7 +252,7 @@ async function testAll() {
   console.log('[PASS] InspectorUI HUD opens with dedicated card for species #20');
 
   
-  // 11. Test Chemical Reaction Synthesis (H + H -> H2)
+  // 12. Test Chemical Reaction Synthesis (H + H -> H2)
   console.log('Testing reaction synthesis: Spawning 2 reactive H atoms...');
   setVar('SPAWN_SPECIES_ID', 1); // H
   setVar('SPAWN_X', 0);

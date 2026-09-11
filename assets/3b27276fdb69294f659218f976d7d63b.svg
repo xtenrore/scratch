@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
+
+  <!-- Chassis Frame -->
+  <rect width="440" height="250" rx="4" fill="#080D18" stroke="#1E293B" stroke-width="1.5"/>
+  
+  <!-- Header Bar (Y: 0 to 26) -->
+  <rect x="0" y="0" width="440" height="26" rx="4" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="14" cy="13" r="3.5" fill="#38BDF8"/>
+  <text x="24" y="16.5" font-family="monospace, sans-serif" font-size="8.5" font-weight="bold" fill="#38BDF8" letter-spacing="0.8">ARCHIVAL COMPENDIUM // 19 BASE ATOMS</text>
+  <text x="390" y="16.5" font-family="monospace, sans-serif" font-size="7.5" fill="#64748B" text-anchor="end">INJECTION ARRAY</text>
+  
+  <!-- Close button in top right -->
+  <rect x="406" y="5" width="22" height="16" rx="2" fill="#1C121A" stroke="#EF4444" stroke-width="1"/>
+  <text x="417" y="16.5" font-family="sans-serif" font-size="11" font-weight="bold" fill="#EF4444" text-anchor="middle">×</text>
+
+  <!-- Tab Bar (Y: 28 to 48) -->
+  <rect x="14" y="28" width="78" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="53.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[1] SUMMARY</text>
+  <rect x="96" y="28" width="78" height="18" rx="2" fill="#162032" stroke="#10B981" stroke-width="1"/>
+  <text x="135.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#10B981" text-anchor="middle">[2] ATOMS</text>
+  <line x1="98" y1="46" x2="172" y2="46" stroke="#10B981" stroke-width="1.8"/>
+  <rect x="178" y="28" width="86" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="221.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[3] MOLECULES</text>
+  <rect x="268" y="28" width="80" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="308.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[4] RADICALS</text>
+  <rect x="352" y="28" width="74" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="389.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[5] IONS</text>
+
+  <!-- Bottom Action Bar (Y: 222 to 244) -->
+  <rect x="0" y="222" width="440" height="28" fill="#0A0F1D" stroke="#1E293B" stroke-width="1"/>
+  
+  <!-- Reset Button [D] -->
+  <rect x="14" y="226" width="110" height="20" rx="2" fill="#1A0F14" stroke="#EF4444" stroke-width="1"/>
+  <text x="69" y="239" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#F87171" text-anchor="middle">RESET ARCHIVE [D]</text>
+  
+  <!-- Center Status -->
+  <text x="220" y="239" font-family="monospace, sans-serif" font-size="7" fill="#64748B" text-anchor="middle">CLICK SPECIES TO INJECT OR INSPECT • [×] TO CLOSE</text>
+  
+  <!-- Close Catalog Button -->
+  <rect x="316" y="226" width="110" height="20" rx="2" fill="#0B1C2E" stroke="#38BDF8" stroke-width="1"/>
+  <text x="371" y="239" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">CLOSE CATALOG [×]</text>
+
+  <!-- Header Sub-banner -->
+  <rect x="14" y="52" width="412" height="16" rx="2" fill="#0C1F2E" stroke="#0284C7" stroke-width="0.8"/>
+  <text x="220" y="63" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#38BDF8" text-anchor="middle">ATOMIC INJECTOR — CLICK ANY ELEMENT TO INJECT INTO VACUUM CHAMBER</text>
+  <g>
+    <rect x="14.0" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#94A3B8" stroke-width="1"/>
+    <text x="19.0" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">1</text>
+    <circle cx="33.5" cy="98" r="11" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
+    <text x="33.5" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0A0F1A" text-anchor="middle">H</text>
+    <text x="33.5" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Hydroge</text>
+    <text x="33.5" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="55.2" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#0891B2" stroke-width="1"/>
+    <text x="60.2" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">2</text>
+    <circle cx="74.7" cy="98" r="11" fill="#67E8F9" stroke="#0891B2" stroke-width="1"/>
+    <text x="74.7" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0A0F1A" text-anchor="middle">He</text>
+    <text x="74.7" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Helium</text>
+    <text x="74.7" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="96.4" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#E11D48" stroke-width="1"/>
+    <text x="101.4" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">3</text>
+    <circle cx="115.9" cy="98" r="11" fill="#FB7185" stroke="#E11D48" stroke-width="1"/>
+    <text x="115.9" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Li</text>
+    <text x="115.9" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Lithium</text>
+    <text x="115.9" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="137.60000000000002" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#059669" stroke-width="1"/>
+    <text x="142.60000000000002" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">4</text>
+    <circle cx="157.10000000000002" cy="98" r="11" fill="#34D399" stroke="#059669" stroke-width="1"/>
+    <text x="157.10000000000002" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Be</text>
+    <text x="157.10000000000002" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Berylli</text>
+    <text x="157.10000000000002" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="178.8" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#0F172A" stroke-width="1"/>
+    <text x="183.8" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">6</text>
+    <circle cx="198.3" cy="98" r="11" fill="#475569" stroke="#0F172A" stroke-width="1"/>
+    <text x="198.3" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">C</text>
+    <text x="198.3" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Carbon</text>
+    <text x="198.3" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="220.0" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#0284C7" stroke-width="1"/>
+    <text x="225.0" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">7</text>
+    <circle cx="239.5" cy="98" r="11" fill="#38BDF8" stroke="#0284C7" stroke-width="1"/>
+    <text x="239.5" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">N</text>
+    <text x="239.5" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Nitroge</text>
+    <text x="239.5" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="261.20000000000005" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#B91C1C" stroke-width="1"/>
+    <text x="266.20000000000005" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">8</text>
+    <circle cx="280.70000000000005" cy="98" r="11" fill="#EF4444" stroke="#B91C1C" stroke-width="1"/>
+    <text x="280.70000000000005" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">O</text>
+    <text x="280.70000000000005" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Oxygen</text>
+    <text x="280.70000000000005" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="302.40000000000003" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#65A30D" stroke-width="1"/>
+    <text x="307.40000000000003" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">9</text>
+    <circle cx="321.90000000000003" cy="98" r="11" fill="#A3E635" stroke="#65A30D" stroke-width="1"/>
+    <text x="321.90000000000003" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0A0F1A" text-anchor="middle">F</text>
+    <text x="321.90000000000003" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Fluorin</text>
+    <text x="321.90000000000003" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="343.6" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#C2410C" stroke-width="1"/>
+    <text x="348.6" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">10</text>
+    <circle cx="363.1" cy="98" r="11" fill="#FB923C" stroke="#C2410C" stroke-width="1"/>
+    <text x="363.1" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ne</text>
+    <text x="363.1" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Neon</text>
+    <text x="363.1" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="384.8" y="72" width="39" height="68" rx="3" fill="#0E1626" stroke="#7E22CE" stroke-width="1"/>
+    <text x="389.8" y="83" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">11</text>
+    <circle cx="404.3" cy="98" r="11" fill="#A855F7" stroke="#7E22CE" stroke-width="1"/>
+    <text x="404.3" y="102" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Na</text>
+    <text x="404.3" y="120" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Sodium</text>
+    <text x="404.3" y="132" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="34.0" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#B45309" stroke-width="1"/>
+    <text x="39.0" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">14</text>
+    <circle cx="53.5" cy="170" r="11" fill="#F59E0B" stroke="#B45309" stroke-width="1"/>
+    <text x="53.5" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Si</text>
+    <text x="53.5" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Silicon</text>
+    <text x="53.5" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="75.2" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#C2410C" stroke-width="1"/>
+    <text x="80.2" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">15</text>
+    <circle cx="94.7" cy="170" r="11" fill="#F97316" stroke="#C2410C" stroke-width="1"/>
+    <text x="94.7" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">P</text>
+    <text x="94.7" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Phospho</text>
+    <text x="94.7" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="116.4" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#CA8A04" stroke-width="1"/>
+    <text x="121.4" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">16</text>
+    <circle cx="135.9" cy="170" r="11" fill="#FACC15" stroke="#CA8A04" stroke-width="1"/>
+    <text x="135.9" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0A0F1A" text-anchor="middle">S</text>
+    <text x="135.9" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Sulfur</text>
+    <text x="135.9" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="157.60000000000002" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#15803D" stroke-width="1"/>
+    <text x="162.60000000000002" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">17</text>
+    <circle cx="177.10000000000002" cy="170" r="11" fill="#22C55E" stroke="#15803D" stroke-width="1"/>
+    <text x="177.10000000000002" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Cl</text>
+    <text x="177.10000000000002" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Chlorin</text>
+    <text x="177.10000000000002" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="198.8" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#0F766E" stroke-width="1"/>
+    <text x="203.8" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">18</text>
+    <circle cx="218.3" cy="170" r="11" fill="#2DD4BF" stroke="#0F766E" stroke-width="1"/>
+    <text x="218.3" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ar</text>
+    <text x="218.3" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Argon</text>
+    <text x="218.3" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="240.0" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#9333EA" stroke-width="1"/>
+    <text x="245.0" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">19</text>
+    <circle cx="259.5" cy="170" r="11" fill="#C084FC" stroke="#9333EA" stroke-width="1"/>
+    <text x="259.5" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">K</text>
+    <text x="259.5" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Potassi</text>
+    <text x="259.5" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="281.20000000000005" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#0F766E" stroke-width="1"/>
+    <text x="286.20000000000005" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">20</text>
+    <circle cx="300.70000000000005" cy="170" r="11" fill="#14B8A6" stroke="#0F766E" stroke-width="1"/>
+    <text x="300.70000000000005" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ca</text>
+    <text x="300.70000000000005" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Calcium</text>
+    <text x="300.70000000000005" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="322.40000000000003" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#92400E" stroke-width="1"/>
+    <text x="327.40000000000003" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">35</text>
+    <circle cx="341.90000000000003" cy="170" r="11" fill="#D97706" stroke="#92400E" stroke-width="1"/>
+    <text x="341.90000000000003" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Br</text>
+    <text x="341.90000000000003" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Bromine</text>
+    <text x="341.90000000000003" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="363.6" y="144" width="39" height="68" rx="3" fill="#0E1626" stroke="#5B21B6" stroke-width="1"/>
+    <text x="368.6" y="155" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B">53</text>
+    <circle cx="383.1" cy="170" r="11" fill="#8B5CF6" stroke="#5B21B6" stroke-width="1"/>
+    <text x="383.1" y="174" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">I</text>
+    <text x="383.1" y="192" font-family="sans-serif" font-size="5.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">Iodine</text>
+    <text x="383.1" y="204" font-family="monospace, sans-serif" font-size="5.5" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
+
+  <!-- Chassis Frame -->
+  <rect width="440" height="250" rx="4" fill="#080D18" stroke="#1E293B" stroke-width="1.5"/>
+  
+  <!-- Header Bar (Y: 0 to 26) -->
+  <rect x="0" y="0" width="440" height="26" rx="4" fill="#0C1424" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="14" cy="13" r="3.5" fill="#38BDF8"/>
+  <text x="24" y="16.5" font-family="monospace, sans-serif" font-size="8.5" font-weight="bold" fill="#38BDF8" letter-spacing="0.8">ARCHIVAL COMPENDIUM // CHARGED IONS</text>
+  <text x="390" y="16.5" font-family="monospace, sans-serif" font-size="7.5" fill="#64748B" text-anchor="end">COSMIC IONIZATION</text>
+  
+  <!-- Close button in top right -->
+  <rect x="406" y="5" width="22" height="16" rx="2" fill="#1C121A" stroke="#EF4444" stroke-width="1"/>
+  <text x="417" y="16.5" font-family="sans-serif" font-size="11" font-weight="bold" fill="#EF4444" text-anchor="middle">×</text>
+
+  <!-- Tab Bar (Y: 28 to 48) -->
+  <rect x="14" y="28" width="78" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="53.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[1] SUMMARY</text>
+  <rect x="96" y="28" width="78" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="135.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[2] ATOMS</text>
+  <rect x="178" y="28" width="86" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="221.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[3] MOLECULES</text>
+  <rect x="268" y="28" width="80" height="18" rx="2" fill="#0E1522" stroke="#1E293B" stroke-width="1"/>
+  <text x="308.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="normal" fill="#64748B" text-anchor="middle">[4] RADICALS</text>
+  <rect x="352" y="28" width="74" height="18" rx="2" fill="#162032" stroke="#A855F7" stroke-width="1"/>
+  <text x="389.0" y="40.5" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#A855F7" text-anchor="middle">[5] IONS</text>
+  <line x1="354" y1="46" x2="424" y2="46" stroke="#A855F7" stroke-width="1.8"/>
+
+  <!-- Bottom Action Bar (Y: 222 to 244) -->
+  <rect x="0" y="222" width="440" height="28" fill="#0A0F1D" stroke="#1E293B" stroke-width="1"/>
+  
+  <!-- Reset Button [D] -->
+  <rect x="14" y="226" width="110" height="20" rx="2" fill="#1A0F14" stroke="#EF4444" stroke-width="1"/>
+  <text x="69" y="239" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#F87171" text-anchor="middle">RESET ARCHIVE [D]</text>
+  
+  <!-- Center Status -->
+  <text x="220" y="239" font-family="monospace, sans-serif" font-size="7" fill="#64748B" text-anchor="middle">CLICK SPECIES TO INJECT OR INSPECT • [×] TO CLOSE</text>
+  
+  <!-- Close Catalog Button -->
+  <rect x="316" y="226" width="110" height="20" rx="2" fill="#0B1C2E" stroke="#38BDF8" stroke-width="1"/>
+  <text x="371" y="239" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">CLOSE CATALOG [×]</text>
+
+  <!-- Sub-header -->
+  <rect x="14" y="52" width="412" height="18" rx="2" fill="#0D1525" stroke="#1E293B" stroke-width="1"/>
+  <text x="24" y="64.5" font-family="monospace, sans-serif" font-size="7" fill="#64748B">CLICK SPECIES CARD TO INJECT INTO CHAMBER &amp; INSPECT</text>
+  <rect x="270" y="54" width="70" height="14" rx="2" fill="#1D102E" stroke="#A855F7" stroke-width="0.8"/>
+  <text x="305" y="64" font-family="monospace, sans-serif" font-size="6" font-weight="bold" fill="#A855F7" text-anchor="middle">IONS</text>
+  <rect x="348" y="54" width="70" height="14" rx="2" fill="#111827" stroke="#334155" stroke-width="0.8"/>
+  <text x="383" y="64" font-family="monospace, sans-serif" font-size="6" font-weight="bold" fill="#64748B" text-anchor="middle">COSMIC RAYS</text>
+  <g>
+    <rect x="14" y="74" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="20" y="80" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="63" y="97" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">H⁺</text>
+    <text x="63" y="115" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Hydron Cation</text>
+    <text x="63" y="125" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">H - e⁻ → H+</text>
+    <rect x="38" y="130" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="63" y="137.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="118" y="74" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="124" y="80" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="167" y="97" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">OH⁻</text>
+    <text x="167" y="115" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Hydroxide Anio</text>
+    <text x="167" y="125" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">H2O + e⁻ → OH-</text>
+    <rect x="142" y="130" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="167" y="137.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="222" y="74" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="228" y="80" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="271" y="97" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">Na⁺</text>
+    <text x="271" y="115" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Sodium Cation</text>
+    <text x="271" y="125" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Na - e⁻ → Na+</text>
+    <rect x="246" y="130" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="271" y="137.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="326" y="74" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="332" y="80" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="375" y="97" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">Cl⁻</text>
+    <text x="375" y="115" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Chloride Anion</text>
+    <text x="375" y="125" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Cl + e⁻ → Cl-</text>
+    <rect x="350" y="130" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="375" y="137.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="14" y="146" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="20" y="152" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="63" y="169" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">H₃O⁺</text>
+    <text x="63" y="187" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Hydronium Cati</text>
+    <text x="63" y="197" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">H+ + H2O → H3O+</text>
+    <rect x="38" y="202" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="63" y="209.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="118" y="146" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="124" y="152" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="167" y="169" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">SO₄⁻₂</text>
+    <text x="167" y="187" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Sulfate Dianio</text>
+    <text x="167" y="197" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">H2SO4 deproton</text>
+    <rect x="142" y="202" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="167" y="209.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="222" y="146" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="228" y="152" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="271" y="169" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">CO₃⁻₂</text>
+    <text x="271" y="187" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Carbonate Dian</text>
+    <text x="271" y="197" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">H2CO3 deproton</text>
+    <rect x="246" y="202" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="271" y="209.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="326" y="146" width="98" height="68" rx="3" fill="#0D1525" stroke="#A855F7" stroke-width="1"/>
+    <rect x="332" y="152" width="86" height="24" rx="2" fill="#131E33"/>
+    <text x="375" y="169" font-family="sans-serif" font-size="13" font-weight="bold" fill="#A855F7" text-anchor="middle">PO₄⁻₃</text>
+    <text x="375" y="187" font-family="sans-serif" font-size="7" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Phosphate Tria</text>
+    <text x="375" y="197" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">H3PO4 deproton</text>
+    <rect x="350" y="202" width="50" height="9" rx="1.5" fill="#082032" stroke="#A855F7" stroke-width="0.6"/>
+    <text x="375" y="209.5" font-family="monospace, sans-serif" font-size="5.5" font-weight="bold" fill="#A855F7" text-anchor="middle">INJECT</text>
+  </g>
+</svg>
