@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="40" viewBox="0 0 240 40">
+  <rect x="2" y="2" width="236" height="36" rx="18" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+  <circle cx="22" cy="20" r="12" fill="#38BDF8"/>
+  <text x="22" y="24" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0F172A" text-anchor="middle">★</text>
+  <text x="44" y="18" font-family="sans-serif" font-size="9" font-weight="bold" fill="#38BDF8">NEW COMPOUND DISCOVERED!</text>
+  <text x="44" y="30" font-family="sans-serif" font-size="10" font-weight="bold" fill="#FFFFFF">Added to Compendium</text>
+</svg>

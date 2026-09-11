@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360">
+
+  <!-- Vacuum Chamber Outer Hull -->
+  <rect width="480" height="360" fill="#070A12"/>
+  
+  <!-- Starfield / Cosmic Vacuum Dust -->
+  <circle cx="50" cy="80" r="1" fill="#475569" opacity="0.6"/>
+  <circle cx="120" cy="220" r="1.5" fill="#38BDF8" opacity="0.5"/>
+  <circle cx="210" cy="130" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="340" cy="95" r="1.5" fill="#FACC15" opacity="0.4"/>
+  <circle cx="420" cy="260" r="1" fill="#A855F7" opacity="0.6"/>
+  <circle cx="80" cy="290" r="1" fill="#ffffff" opacity="0.5"/>
+  <circle cx="280" cy="270" r="1.5" fill="#38BDF8" opacity="0.6"/>
+  <circle cx="390" cy="160" r="1" fill="#475569" opacity="0.7"/>
+
+  <!-- Chamber Boundary Frame -->
+  <rect x="10" y="44" width="460" height="268" rx="8" fill="#0B1120" stroke="#1E293B" stroke-width="2"/>
+  
+  <!-- Subtle Chamber Grid Lines -->
+  <line x1="10" y1="111" x2="470" y2="111" stroke="#131C2E" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="10" y1="178" x2="470" y2="178" stroke="#131C2E" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="10" y1="245" x2="470" y2="245" stroke="#131C2E" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="125" y1="44" x2="125" y2="312" stroke="#131C2E" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="240" y1="44" x2="240" y2="312" stroke="#131C2E" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="355" y1="44" x2="355" y2="312" stroke="#131C2E" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Top Control Bar Panel -->
+  <rect x="0" y="0" width="480" height="42" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+  
+  <!-- Bottom Status Strip -->
+  <rect x="0" y="314" width="480" height="46" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+  <text x="16" y="336" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38BDF8">VACUUM CHAMBER</text>
+  <text x="16" y="349" font-family="sans-serif" font-size="9" fill="#94A3B8">Drag &amp; drop to react • Click atom to inspect • UV &amp; Cosmic rays active</text>
+  <text x="464" y="340" font-family="sans-serif" font-size="10" font-weight="bold" fill="#64748B" text-anchor="end">PRESSURE: 10⁻¹⁰ TORR</text>
+
+</svg>
