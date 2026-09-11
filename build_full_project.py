@@ -21,6 +21,7 @@ STAGE_VARS = {
     "v_palette": ["SHOW_PALETTE", 0],
     "v_compendium": ["SHOW_COMPENDIUM", 0],
     "v_info": ["SHOW_INFO", 0],
+    "v_onboarding": ["SHOW_ONBOARDING", 1],
     "v_volume": ["MASTER_VOLUME", 100],
     "v_discovered": ["TOTAL_DISCOVERED", 19],
     "v_spawn_id": ["SPAWN_SPECIES_ID", 1],
@@ -71,6 +72,7 @@ BROADCASTS = {
     "b_spawn_photon": "SPAWN_PHOTON",
     "b_show_info": "SHOW_INFO",
     "b_show_toast": "SHOW_TOAST",
+    "b_show_onb": "SHOW_ONBOARDING",
     "b_prompt_save": "PROMPT_SAVE_LOAD"
 }
 

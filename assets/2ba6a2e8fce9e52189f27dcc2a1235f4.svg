@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="105" viewBox="0 0 460 105">
+  <!-- Drawer Background -->
+  <rect width="460" height="105" rx="6" fill="#0A0F1D" stroke="#1E293B" stroke-width="2"/>
+  <!-- Header / Tabs -->
+  <rect x="0" y="0" width="460" height="20" rx="4" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+  <text x="16" y="14" font-family="monospace, sans-serif" font-size="8.5" font-weight="bold" fill="#38BDF8">MATERIAL SPAWNER // PERIODIC PALETTE</text>
+  <text x="444" y="14" font-family="monospace, sans-serif" font-size="8" fill="#64748B" text-anchor="end">CLICK ELEMENT TO SPAWN</text>
+  <g>
+    <rect x="14" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#94A3B8" stroke-width="1.2"/>
+    <circle cx="34" cy="40" r="9" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
+    <text x="34" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#0A0F1A" text-anchor="middle">H</text>
+    <text x="34" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=1</text>
+  </g>
+  <g>
+    <rect x="58" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#0891B2" stroke-width="1.2"/>
+    <circle cx="78" cy="40" r="9" fill="#67E8F9" stroke="#0891B2" stroke-width="1"/>
+    <text x="78" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#0A0F1A" text-anchor="middle">He</text>
+    <text x="78" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=2</text>
+  </g>
+  <g>
+    <rect x="102" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#E11D48" stroke-width="1.2"/>
+    <circle cx="122" cy="40" r="9" fill="#FB7185" stroke="#E11D48" stroke-width="1"/>
+    <text x="122" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Li</text>
+    <text x="122" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=3</text>
+  </g>
+  <g>
+    <rect x="146" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#059669" stroke-width="1.2"/>
+    <circle cx="166" cy="40" r="9" fill="#34D399" stroke="#059669" stroke-width="1"/>
+    <text x="166" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Be</text>
+    <text x="166" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=4</text>
+  </g>
+  <g>
+    <rect x="190" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#0F172A" stroke-width="1.2"/>
+    <circle cx="210" cy="40" r="9" fill="#475569" stroke="#0F172A" stroke-width="1"/>
+    <text x="210" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">C</text>
+    <text x="210" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=6</text>
+  </g>
+  <g>
+    <rect x="234" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#0284C7" stroke-width="1.2"/>
+    <circle cx="254" cy="40" r="9" fill="#38BDF8" stroke="#0284C7" stroke-width="1"/>
+    <text x="254" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">N</text>
+    <text x="254" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=7</text>
+  </g>
+  <g>
+    <rect x="278" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#B91C1C" stroke-width="1.2"/>
+    <circle cx="298" cy="40" r="9" fill="#EF4444" stroke="#B91C1C" stroke-width="1"/>
+    <text x="298" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">O</text>
+    <text x="298" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=8</text>
+  </g>
+  <g>
+    <rect x="322" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#65A30D" stroke-width="1.2"/>
+    <circle cx="342" cy="40" r="9" fill="#A3E635" stroke="#65A30D" stroke-width="1"/>
+    <text x="342" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#0A0F1A" text-anchor="middle">F</text>
+    <text x="342" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=9</text>
+  </g>
+  <g>
+    <rect x="366" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#C2410C" stroke-width="1.2"/>
+    <circle cx="386" cy="40" r="9" fill="#FB923C" stroke="#C2410C" stroke-width="1"/>
+    <text x="386" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ne</text>
+    <text x="386" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=10</text>
+  </g>
+  <g>
+    <rect x="410" y="26" width="40" height="34" rx="4" fill="#131C2E" stroke="#7E22CE" stroke-width="1.2"/>
+    <circle cx="430" cy="40" r="9" fill="#A855F7" stroke="#7E22CE" stroke-width="1"/>
+    <text x="430" y="43.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Na</text>
+    <text x="430" y="56" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=11</text>
+  </g>
+  <g>
+    <rect x="36" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#B45309" stroke-width="1.2"/>
+    <circle cx="56" cy="78" r="9" fill="#F59E0B" stroke="#B45309" stroke-width="1"/>
+    <text x="56" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Si</text>
+    <text x="56" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=14</text>
+  </g>
+  <g>
+    <rect x="80" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#C2410C" stroke-width="1.2"/>
+    <circle cx="100" cy="78" r="9" fill="#F97316" stroke="#C2410C" stroke-width="1"/>
+    <text x="100" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">P</text>
+    <text x="100" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=15</text>
+  </g>
+  <g>
+    <rect x="124" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#CA8A04" stroke-width="1.2"/>
+    <circle cx="144" cy="78" r="9" fill="#FACC15" stroke="#CA8A04" stroke-width="1"/>
+    <text x="144" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#0A0F1A" text-anchor="middle">S</text>
+    <text x="144" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=16</text>
+  </g>
+  <g>
+    <rect x="168" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#15803D" stroke-width="1.2"/>
+    <circle cx="188" cy="78" r="9" fill="#22C55E" stroke="#15803D" stroke-width="1"/>
+    <text x="188" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Cl</text>
+    <text x="188" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=17</text>
+  </g>
+  <g>
+    <rect x="212" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#0F766E" stroke-width="1.2"/>
+    <circle cx="232" cy="78" r="9" fill="#2DD4BF" stroke="#0F766E" stroke-width="1"/>
+    <text x="232" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ar</text>
+    <text x="232" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=18</text>
+  </g>
+  <g>
+    <rect x="256" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#9333EA" stroke-width="1.2"/>
+    <circle cx="276" cy="78" r="9" fill="#C084FC" stroke="#9333EA" stroke-width="1"/>
+    <text x="276" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">K</text>
+    <text x="276" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=19</text>
+  </g>
+  <g>
+    <rect x="300" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#0F766E" stroke-width="1.2"/>
+    <circle cx="320" cy="78" r="9" fill="#14B8A6" stroke="#0F766E" stroke-width="1"/>
+    <text x="320" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ca</text>
+    <text x="320" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=20</text>
+  </g>
+  <g>
+    <rect x="344" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#92400E" stroke-width="1.2"/>
+    <circle cx="364" cy="78" r="9" fill="#D97706" stroke="#92400E" stroke-width="1"/>
+    <text x="364" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Br</text>
+    <text x="364" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=35</text>
+  </g>
+  <g>
+    <rect x="388" y="64" width="40" height="34" rx="4" fill="#131C2E" stroke="#5B21B6" stroke-width="1.2"/>
+    <circle cx="408" cy="78" r="9" fill="#8B5CF6" stroke="#5B21B6" stroke-width="1"/>
+    <text x="408" y="81.5" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">I</text>
+    <text x="408" y="94" font-family="monospace, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">Z=53</text>
+  </g>
+</svg>

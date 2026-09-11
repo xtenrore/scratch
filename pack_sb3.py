@@ -4,7 +4,8 @@ import generate_all_sprites
 from generate_all_sprites import (
     build_stage, build_simulation_engine, build_entity,
     build_cosmic_ray, build_photon, build_effects,
-    build_top_bar_ui, build_palette_ui, build_info_card_ui, build_compendium_ui,
+    build_tool_rail_ui, build_palette_ui, build_inspector_ui,
+    build_compendium_ui, build_onboarding_ui, build_telemetry_ui,
     costume_meta, sound_meta
 )
 
@@ -28,17 +29,23 @@ photon["layerOrder"] = 4
 effects = build_effects()
 effects["layerOrder"] = 5
 
-top_bar = build_top_bar_ui()
-top_bar["layerOrder"] = 6
+telemetry = build_telemetry_ui()
+telemetry["layerOrder"] = 6
+
+tool_rail = build_tool_rail_ui()
+tool_rail["layerOrder"] = 7
 
 palette = build_palette_ui()
-palette["layerOrder"] = 7
+palette["layerOrder"] = 8
 
-info_card = build_info_card_ui()
-info_card["layerOrder"] = 8
+inspector = build_inspector_ui()
+inspector["layerOrder"] = 9
 
 compendium = build_compendium_ui()
-compendium["layerOrder"] = 9
+compendium["layerOrder"] = 10
+
+onboarding = build_onboarding_ui()
+onboarding["layerOrder"] = 11
 
 targets = [
     stage,
@@ -47,10 +54,12 @@ targets = [
     cosmic_ray,
     photon,
     effects,
-    top_bar,
+    telemetry,
+    tool_rail,
     palette,
-    info_card,
-    compendium
+    inspector,
+    compendium,
+    onboarding
 ]
 
 # Clean costumes and sounds in each target to remove "raw" bytes
@@ -58,27 +67,8 @@ for t in targets:
     t["costumes"] = [clean_costume(c) for c in t["costumes"]]
     t["sounds"] = [clean_sound(s) for s in t["sounds"]]
 
-# Monitor for TOTAL_DISCOVERED
-monitors = [
-    {
-        "id": "v_discovered",
-        "mode": "default",
-        "opcode": "data_variable",
-        "params": {
-            "VARIABLE": "TOTAL_DISCOVERED"
-        },
-        "spriteName": None,
-        "value": 19,
-        "width": 0,
-        "height": 0,
-        "x": 350,
-        "y": 6,
-        "visible": True,
-        "sliderMin": 0,
-        "sliderMax": 129,
-        "isDiscrete": True
-    }
-]
+# Monitor for TOTAL_DISCOVERED in top right header strip
+monitors = []
 
 project_json = {
     "targets": targets,

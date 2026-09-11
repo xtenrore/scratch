@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="14" viewBox="0 0 64 14">
+  <defs>
+    <linearGradient id="cosmic_streak" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C084FC" stop-opacity="0.0"/>
+      <stop offset="40%" stop-color="#38BDF8" stop-opacity="0.6"/>
+      <stop offset="85%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="1.0"/>
+    </linearGradient>
+  </defs>
+  <line x1="2" y1="7" x2="60" y2="7" stroke="url(#cosmic_streak)" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="58" cy="7" r="4" fill="#FFFFFF"/>
+</svg>

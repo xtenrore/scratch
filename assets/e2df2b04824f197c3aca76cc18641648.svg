@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
+
+  <rect width="440" height="250" rx="8" fill="#0A0F1D" stroke="#6366F1" stroke-width="1.8"/>
+  <rect x="0" y="0" width="440" height="28" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+  <text x="16" y="19" font-family="monospace, sans-serif" font-size="9" font-weight="bold" fill="#818CF8" letter-spacing="1">DISCOVERY COMPENDIUM // ARCHIVE OVERVIEW</text>
+  <text x="424" y="18" font-family="monospace, sans-serif" font-size="8" fill="#94A3B8" text-anchor="end">129 TOTAL SPECIES</text>
+  
+  <!-- Category Filter Bar (Y: 32 to 52) -->
+  <rect x="12" y="32" width="98" height="18" rx="3" fill="#1E1B4B" stroke="#6366F1" stroke-width="1"/>
+  <text x="61" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#C7D2FE" text-anchor="middle">[1] SUMMARY</text>
+
+  <rect x="116" y="32" width="98" height="18" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
+  <text x="165" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">[2] ELEMENTS</text>
+
+  <rect x="220" y="32" width="98" height="18" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
+  <text x="269" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">[3] MOLECULES</text>
+
+  <rect x="324" y="32" width="104" height="18" rx="3" fill="#111827" stroke="#334155" stroke-width="1"/>
+  <text x="376" y="44" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">[4] IONS / RADICALS</text>
+
+  <!-- Progress meter -->
+  <rect x="16" y="58" width="408" height="38" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
+  <text x="28" y="74" font-family="monospace, sans-serif" font-size="8" fill="#64748B">ARCHIVAL COMPLETION RATE</text>
+  <text x="28" y="88" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38BDF8">SYNTHESIZE &amp; CATALOG ALL 129 SPECIES</text>
+  <text x="412" y="82" font-family="monospace, sans-serif" font-size="12" font-weight="bold" fill="#818CF8" text-anchor="end">129 TARGETS</text>
+
+  <!-- 4 Category Cards -->
+  <!-- Elements -->
+  <rect x="16" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
+  <text x="64" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">BASE ELEMENTS</text>
+  <text x="64" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">19</text>
+  <text x="64" y="166" font-family="monospace, sans-serif" font-size="7" fill="#10B981" text-anchor="middle">100% UNLOCKED</text>
+  <text x="64" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">H through I</text>
+
+  <!-- Neutral Molecules -->
+  <rect x="120" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
+  <text x="168" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">NEUTRAL MOLECULES</text>
+  <text x="168" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">65</text>
+  <text x="168" y="166" font-family="monospace, sans-serif" font-size="7" fill="#FACC15" text-anchor="middle">SYNTHESIS REQ</text>
+  <text x="168" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">Water, Acids, Salts</text>
+
+  <!-- Radicals -->
+  <rect x="224" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
+  <text x="272" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#EF4444" text-anchor="middle">RADICAL SPECIES</text>
+  <text x="272" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">23</text>
+  <text x="272" y="166" font-family="monospace, sans-serif" font-size="7" fill="#EF4444" text-anchor="middle">UNPAIRED e⁻</text>
+  <text x="272" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">•CH3, •OH, •NO</text>
+
+  <!-- Ions -->
+  <rect x="328" y="104" width="96" height="88" rx="4" fill="#0E1626" stroke="#1E293B" stroke-width="1"/>
+  <text x="376" y="122" font-family="sans-serif" font-size="8" font-weight="bold" fill="#A855F7" text-anchor="middle">CHARGED IONS</text>
+  <text x="376" y="148" font-family="monospace, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">22</text>
+  <text x="376" y="166" font-family="monospace, sans-serif" font-size="7" fill="#A855F7" text-anchor="middle">COSMIC IONIZED</text>
+  <text x="376" y="180" font-family="monospace, sans-serif" font-size="6.5" fill="#64748B" text-anchor="middle">Cations &amp; Anions</text>
+
+  <!-- Bottom Action Bar -->
+  <rect x="16" y="202" width="160" height="26" rx="4" fill="#1F1523" stroke="#DC2626" stroke-width="1"/>
+  <text x="96" y="218" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#F87171" text-anchor="middle">RESET CATALOG [D]</text>
+
+  <rect x="264" y="202" width="160" height="26" rx="4" fill="#0C2338" stroke="#38BDF8" stroke-width="1"/>
+  <text x="344" y="218" font-family="monospace, sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">CLOSE BROWSER [×]</text>
+</svg>

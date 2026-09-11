@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="28" viewBox="0 0 44 28">
+  <rect x="1" y="1" width="42" height="26" rx="4" fill="#111827" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="3" y1="3" x2="41" y2="3" stroke="#FFFFFF" stroke-width="0.8" stroke-opacity="0.1"/>
+  
+          <path d="M 22 5 A 5 5 0 1 1 17 12" fill="none" stroke="#CBD5E1" stroke-width="1.4" stroke-linecap="round"/>
+          <polyline points="20,4 23,5 22,8" fill="none" stroke="#CBD5E1" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="22" cy="10" r="1.5" fill="#CBD5E1"/>
+        
+  <text x="22" y="24" font-family="monospace, sans-serif" font-size="6.5" font-weight="bold" fill="#64748B" text-anchor="middle" letter-spacing="0.5">PURGE</text>
+</svg>

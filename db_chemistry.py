@@ -333,7 +333,12 @@ REACTIONS_RAW = [
     ("Na", "PO4-3", "Na3PO4", True, False, "Trisodium phosphate formation"),
     ("K", "H2PO4-", "KH2PO4", True, False, "Monopotassium phosphate formation"),
     ("Na", "HSO4-", "NaHSO4", True, False, "Sodium bisulfate formation"),
-    ("K", "HSO4-", "KHSO4", True, False, "Potassium bisulfate formation")
+    ("K", "HSO4-", "KHSO4", True, False, "Potassium bisulfate formation"),
+    ("CO2", "OH-", "HCO3-", True, False, "Carbon dioxide hydration to bicarbonate"),
+    ("CO2", "NaOH", "Na2CO3", True, False, "Carbon dioxide absorption by lye"),
+    ("CO2", "O", "CO3-2", False, False, "Carbonate ion synthesis"),
+    ("SiO2", "NaOH", "Na2SiO3", True, False, "Silica dissolution by alkali"),
+    ("SiO2", "O", "SiO3-2", False, False, "Silicate ion synthesis")
 ]
 
 # Standardize reaction dictionary keyed by sorted reactant IDs

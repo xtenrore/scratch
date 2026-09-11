@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="155" viewBox="0 0 180 155">
+  <rect width="180" height="155" rx="6" fill="#0A0F1D" stroke="#1E293B" stroke-width="1.5"/>
+  <path d="M 8 16 L 8 8 L 16 8" fill="none" stroke="#38BDF8" stroke-width="1.5"/>
+  <path d="M 172 16 L 172 8 L 164 8" fill="none" stroke="#38BDF8" stroke-width="1.5"/>
+  <path d="M 8 139 L 8 147 L 16 147" fill="none" stroke="#38BDF8" stroke-width="1.5"/>
+  <path d="M 172 139 L 172 147 L 164 147" fill="none" stroke="#38BDF8" stroke-width="1.5"/>
+
+  <rect x="18" y="6" width="144" height="14" rx="2" fill="#0F172A"/>
+  <text x="90" y="16" font-family="monospace, sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">SPECTROMETER HUD // #4</text>
+
+  <rect x="12" y="24" width="46" height="34" rx="4" fill="#34D399" stroke="#059669" stroke-width="1.5"/>
+  <text x="35" y="47" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0A0F1A" text-anchor="middle">Be</text>
+
+  <text x="66" y="36" font-family="sans-serif" font-size="9" font-weight="bold" fill="#FFFFFF">Beryllium</text>
+  <text x="66" y="48" font-family="monospace, sans-serif" font-size="7" fill="#38BDF8">Alkaline Earth</text>
+  <text x="66" y="58" font-family="monospace, sans-serif" font-size="7" fill="#94A3B8">CHARGE: 0 (Neutral)</text>
+
+  <line x1="12" y1="64" x2="168" y2="64" stroke="#1E293B" stroke-width="1"/>
+
+  <text x="14" y="76" font-family="monospace, sans-serif" font-size="7" fill="#64748B">COMPOSITION:</text>
+  <text x="76" y="76" font-family="sans-serif" font-size="7.5" font-weight="bold" fill="#E2E8F0">Be: 1</text>
+
+  <text x="14" y="90" font-family="monospace, sans-serif" font-size="7" fill="#64748B">FORMULA:</text>
+  <text x="76" y="90" font-family="sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8">Be</text>
+
+  <text x="14" y="104" font-family="monospace, sans-serif" font-size="7" fill="#64748B">STATUS:</text>
+  <text x="76" y="104" font-family="monospace, sans-serif" font-size="7" font-weight="bold" fill="#10B981">CATALOGED ★</text>
+
+  <rect x="12" y="112" width="156" height="34" rx="3" fill="#070C16" stroke="#1E293B" stroke-width="1"/>
+  <text x="16" y="125" font-family="sans-serif" font-size="6.5" fill="#94A3B8">Lightweight, rigid alkaline eart</text>
+  <text x="16" y="136" font-family="sans-serif" font-size="6.5" fill="#94A3B8">h metal.</text>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360">
+  <defs>
+    <radialGradient id="frost_corner" cx="0%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#38BDF8" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer Instrument Chassis -->
+  <rect width="480" height="360" fill="#070A12"/>
+  
+  <!-- Top Branded Header Bar (Y: 0 to 22) -->
+  <rect x="0" y="0" width="480" height="22" fill="#0A0F1A" stroke="#1E293B" stroke-width="1"/>
+  <text x="14" y="15" font-family="monospace, sans-serif" font-size="9" font-weight="bold" fill="#38BDF8" letter-spacing="1">VACUUM CHEMISTRY SIMULATOR // VC-3000</text>
+  <text x="260" y="15" font-family="monospace, sans-serif" font-size="8" fill="#64748B" text-anchor="middle">PRESSURE: 10⁻¹⁰ TORR • ULTRA-HIGH VACUUM</text>
+  <text x="466" y="15" font-family="monospace, sans-serif" font-size="8" font-weight="bold" fill="#94A3B8" text-anchor="end">LABORATORY SPEC</text>
+  
+  <!-- Tool Rail Mounting Bay (Y: 22 to 58) -->
+  <rect x="0" y="22" width="480" height="36" fill="#0D1424" stroke="#1E293B" stroke-width="1"/>
+  <!-- Bezel screw indicators -->
+  <circle cx="8" cy="40" r="1.5" fill="#334155"/>
+  <circle cx="472" cy="40" r="1.5" fill="#334155"/>
+
+  <!-- Vacuum Chamber Containment Area (Y: 60 to 328, height 268, width 464, x: 8 to 472) -->
+  <rect x="8" y="60" width="464" height="268" rx="6" fill="#050811" stroke="#1E293B" stroke-width="2"/>
+  <rect x="10" y="62" width="460" height="264" rx="4" fill="none" stroke="#0F172A" stroke-width="1"/>
+
+  <!-- Cosmic Vacuum Fluctuation Particles (Ambient dust) -->
+  <circle cx="45" cy="95" r="0.8" fill="#FFFFFF" opacity="0.6"/>
+  <circle cx="110" cy="180" r="1.2" fill="#38BDF8" opacity="0.4"/>
+  <circle cx="195" cy="115" r="0.7" fill="#FACC15" opacity="0.5"/>
+  <circle cx="280" cy="245" r="1.1" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="365" cy="140" r="0.8" fill="#38BDF8" opacity="0.4"/>
+  <circle cx="435" cy="270" r="1.0" fill="#A855F7" opacity="0.4"/>
+  <circle cx="85" cy="285" r="0.8" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="230" cy="290" r="0.9" fill="#38BDF8" opacity="0.4"/>
+  <circle cx="410" cy="90" r="0.7" fill="#FFFFFF" opacity="0.6"/>
+
+  <!-- Laser Alignment Precision Reticles -->
+  <!-- Center crosshair at (240, 194) -->
+  <line x1="230" y1="194" x2="250" y2="194" stroke="#1E293B" stroke-width="1"/>
+  <line x1="240" y1="184" x2="240" y2="204" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="240" cy="194" r="6" fill="none" stroke="#1E293B" stroke-width="0.8"/>
+  
+  <!-- Coordinate grid lines -->
+  <line x1="125" y1="62" x2="125" y2="326" stroke="#0F172A" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="355" y1="62" x2="355" y2="326" stroke="#0F172A" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="10" y1="128" x2="470" y2="128" stroke="#0F172A" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="10" y1="260" x2="470" y2="260" stroke="#0F172A" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Chamber Corner Brackets -->
+  <path d="M 16 74 L 16 66 L 24 66" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <path d="M 464 74 L 464 66 L 456 66" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <path d="M 16 314 L 16 322 L 24 322" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <path d="M 464 314 L 464 322 L 456 322" fill="none" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Bottom Telemetry Console Chassis (Y: 330 to 358) -->
+  <rect x="0" y="330" width="480" height="30" fill="#0A0F1A" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="16" cy="345" r="3" fill="#10B981"/>
+  <text x="26" y="348" font-family="monospace, sans-serif" font-size="9" fill="#10B981" font-weight="bold">&gt; DETECTOR ONLINE</text>
+  <text x="140" y="348" font-family="monospace, sans-serif" font-size="8" fill="#64748B">COLLIDE PARTICLES • PHOTOCHEMICAL &amp; COSMIC IONIZATION ACTIVE</text>
+
+  <!-- Frost Corner Overlays -->
+  <rect x="10" y="62" width="80" height="80" fill="url(#frost_corner)"/>
+  <rect x="390" y="62" width="80" height="80" fill="url(#frost_corner)" transform="scale(-1, 1) translate(-480, 0)"/>
+  <!-- Cryo Highlight Border -->
+  <rect x="8" y="60" width="464" height="268" rx="6" fill="none" stroke="#38BDF8" stroke-width="2" opacity="0.85"/>
+  <!-- Status Tag -->
+  <rect x="130" y="74" width="220" height="16" rx="3" fill="#0A0F1A" stroke="#38BDF8" stroke-width="1" opacity="0.9"/>
+  <text x="240" y="86" font-family="monospace, sans-serif" font-size="8" font-weight="bold" fill="#7DD3FC" text-anchor="middle" letter-spacing="1">❄ CRYO STASIS ENGAGED • 0 K • PAUSED</text>
+</svg>
