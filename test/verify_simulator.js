@@ -312,6 +312,107 @@ async function testAll() {
   assert(discCount >= 19, 'Discovered count should be at least 19');
   console.log(`[PASS] Reaction synthesis execution verified. Discovered count: ${discCount}`);
 
+  // 13. Test Telemetry Status Console Event-Driven Costume Transitions
+  const telem = vm.runtime.targets.find(t => t.getName() === 'TelemetryUI');
+  const getCostumeName = (target) => target.getCostumes()[target.currentCostume].name;
+
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'PLAY_FX_EXO' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getCostumeName(telem), 'telem_exo', 'Telemetry should be telem_exo');
+  console.log('[PASS] Telemetry HUD transitioned to telem_exo on exothermic event');
+
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'PLAY_FX_BOND' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getCostumeName(telem), 'telem_react', 'Telemetry should be telem_react');
+  console.log('[PASS] Telemetry HUD transitioned to telem_react on molecular bond event');
+
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'PLAY_FX_ZAP' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getCostumeName(telem), 'telem_cosmic', 'Telemetry should be telem_cosmic');
+  console.log('[PASS] Telemetry HUD transitioned to telem_cosmic on cosmic ionization event');
+
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'CLEAR_ALL' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getCostumeName(telem), 'telem_purge', 'Telemetry should be telem_purge');
+  console.log('[PASS] Telemetry HUD transitioned to telem_purge on chamber evacuation');
+
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'SHOW_TOAST' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getCostumeName(telem), 'telem_discover', 'Telemetry should be telem_discover');
+  console.log('[PASS] Telemetry HUD transitioned to telem_discover on new species discovery');
+
+  // 14. Test Complete Keyboard Shortcuts Suite on Stage
+  // Key [a]: Toggle Palette
+  setVar('SHOW_PALETTE', 0);
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'a' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('SHOW_PALETTE')), 1, 'Key [a] should toggle SHOW_PALETTE to 1');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'a' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('SHOW_PALETTE')), 0, 'Key [a] should toggle SHOW_PALETTE back to 0');
+  console.log('[PASS] Keyboard shortcut Key [a] successfully toggled material palette');
+
+  // Key [x]: Toggle Delete Mode
+  setVar('CURRENT_TOOL', 'drag');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'x' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getVar('CURRENT_TOOL'), 'delete', 'Key [x] should switch CURRENT_TOOL to delete');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'x' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getVar('CURRENT_TOOL'), 'drag', 'Key [x] should switch CURRENT_TOOL back to drag');
+  console.log('[PASS] Keyboard shortcut Key [x] successfully toggled delete tool mode');
+
+  // Key [i]: Toggle Inspect Mode
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'i' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getVar('CURRENT_TOOL'), 'inspect', 'Key [i] should switch CURRENT_TOOL to inspect');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'i' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(getVar('CURRENT_TOOL'), 'drag', 'Key [i] should switch CURRENT_TOOL back to drag');
+  console.log('[PASS] Keyboard shortcut Key [i] successfully toggled spectrometer inspect mode');
+
+  // Key [u]: Toggle UV Light
+  setVar('UV_ACTIVE', 0);
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'u' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('UV_ACTIVE')), 1, 'Key [u] should toggle UV_ACTIVE to 1');
+  assert.strictEqual(stage.currentCostume, 1, 'Key [u] should switch backdrop to UV chamber');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'u' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('UV_ACTIVE')), 0, 'Key [u] should toggle UV_ACTIVE to 0');
+  console.log('[PASS] Keyboard shortcut Key [u] successfully toggled UV photochemical irradiation');
+
+  // Key [f]: Toggle Cryo Freeze
+  setVar('TIME_FROZEN', 0);
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'f' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('TIME_FROZEN')), 1, 'Key [f] should toggle TIME_FROZEN to 1');
+  assert.strictEqual(stage.currentCostume, 2, 'Key [f] should switch backdrop to Cryo chamber');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'f' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('TIME_FROZEN')), 0, 'Key [f] should toggle TIME_FROZEN to 0');
+  console.log('[PASS] Keyboard shortcut Key [f] successfully toggled cryostatic time freeze');
+
+  // Key [c]: Toggle Compendium
+  setVar('SHOW_COMPENDIUM', 0);
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'c' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 1, 'Key [c] should toggle SHOW_COMPENDIUM to 1');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'c' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 0, 'Key [c] should toggle SHOW_COMPENDIUM to 0');
+  console.log('[PASS] Keyboard shortcut Key [c] successfully toggled discovery compendium');
+
+  // Key [m]: Toggle Master Audio Mute
+  setVar('MASTER_VOLUME', 100);
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'm' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('MASTER_VOLUME')), 0, 'Key [m] should mute volume to 0');
+  vm.runtime.startHats('event_whenkeypressed', { KEY_OPTION: 'm' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  assert.strictEqual(Number(getVar('MASTER_VOLUME')), 100, 'Key [m] should restore volume to 100');
+  console.log('[PASS] Keyboard shortcut Key [m] successfully toggled audio mute and unmute');
+
   console.log('================================================================');
   console.log('ALL VERIFICATION SUITE CHECKS COMPLETED AND PASSED WITH 100% SUCCESS!');
   console.log('================================================================');

@@ -74,6 +74,114 @@ def build_stage():
     ctx.blocks[if_amb]['parent'] = loop_amb
     ctx.chain([hat_bg, loop_amb])
 
+    # Keyboard Shortcuts (Stage has 0 clones, guarantees clean single-fire handling)
+    # Key 'a': Toggle Palette
+    hat_ka = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['a', None]}, topLevel=True, x=350, y=50)
+    t_pal_k = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_PALETTE', 'v_palette']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_PALETTE', 'v_palette'], [4, '0']]}), [4, '0']]})
+    bc_upd_ka = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_clk_ka = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_ka, t_pal_k, bc_upd_ka, snd_clk_ka])
+
+    # Key 'x': Toggle Delete Mode
+    hat_kx = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['x', None]}, topLevel=True, x=350, y=200)
+    is_del_k = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'delete']]})
+    set_drag_kx = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'drag']]})
+    set_del_kx = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'delete']]})
+    if_del_kx = ctx.add('control_if_else', inputs={'CONDITION': [2, is_del_k], 'SUBSTACK': [2, set_drag_kx], 'SUBSTACK2': [2, set_del_kx]})
+    ctx.blocks[set_drag_kx]['parent'] = if_del_kx
+    ctx.blocks[set_del_kx]['parent'] = if_del_kx
+    bc_upd_kx = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_clk_kx = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_kx, if_del_kx, bc_upd_kx, snd_clk_kx])
+
+    # Key 'i': Toggle Inspect Mode
+    hat_ki = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['i', None]}, topLevel=True, x=350, y=380)
+    is_insp_k = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'inspect']]})
+    set_drag_ki = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'drag']]})
+    set_insp_ki = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'inspect']]})
+    if_insp_ki = ctx.add('control_if_else', inputs={'CONDITION': [2, is_insp_k], 'SUBSTACK': [2, set_drag_ki], 'SUBSTACK2': [2, set_insp_ki]})
+    ctx.blocks[set_drag_ki]['parent'] = if_insp_ki
+    ctx.blocks[set_insp_ki]['parent'] = if_insp_ki
+    bc_upd_ki = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_clk_ki = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_ki, if_insp_ki, bc_upd_ki, snd_clk_ki])
+
+    # Key 'u': Toggle UV Light
+    hat_ku = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['u', None]}, topLevel=True, x=350, y=560)
+    t_uv_k = ctx.add('data_setvariableto', fields={'VARIABLE': ['UV_ACTIVE', 'v_uv']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'UV_ACTIVE', 'v_uv'], [4, '0']]}), [4, '0']]})
+    bc_bg_ku = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
+    bc_upd_ku = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_clk_ku = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_ku, t_uv_k, bc_bg_ku, bc_upd_ku, snd_clk_ku])
+
+    # Key 'f': Toggle Cryo Freeze
+    hat_kf = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['f', None]}, topLevel=True, x=350, y=740)
+    t_frz_kf = ctx.add('data_setvariableto', fields={'VARIABLE': ['TIME_FROZEN', 'v_freeze']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'TIME_FROZEN', 'v_freeze'], [4, '0']]}), [4, '0']]})
+    bc_bg_kf = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
+    bc_upd_kf = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_frz_kf = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_freeze', None]}, shadow=True)]})
+    ctx.chain([hat_kf, t_frz_kf, bc_bg_kf, bc_upd_kf, snd_frz_kf])
+
+    # Key 'space': Toggle Cryo Freeze
+    hat_ksp = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['space', None]}, topLevel=True, x=350, y=920)
+    t_frz_ksp = ctx.add('data_setvariableto', fields={'VARIABLE': ['TIME_FROZEN', 'v_freeze']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'TIME_FROZEN', 'v_freeze'], [4, '0']]}), [4, '0']]})
+    bc_bg_ksp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
+    bc_upd_ksp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_frz_ksp = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_freeze', None]}, shadow=True)]})
+    ctx.chain([hat_ksp, t_frz_ksp, bc_bg_ksp, bc_upd_ksp, snd_frz_ksp])
+
+    # Key 'c': Toggle Compendium
+    hat_kc = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['c', None]}, topLevel=True, x=650, y=50)
+    t_comp_kc = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_COMPENDIUM', 'v_compendium']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [4, '0']]}), [4, '0']]})
+    bc_upd_kc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_clk_kc = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_kc, t_comp_kc, bc_upd_kc, snd_clk_kc])
+
+    # Key 'm': Toggle Master Audio
+    hat_km = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['m', None]}, topLevel=True, x=650, y=200)
+    t_vol_km = ctx.add('data_setvariableto', fields={'VARIABLE': ['MASTER_VOLUME', 'v_volume']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '100']], 'NUM2': [3, [12, 'MASTER_VOLUME', 'v_volume'], [4, '0']]}), [4, '0']]})
+    bc_upd_km = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_clk_km = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_km, t_vol_km, bc_upd_km, snd_clk_km])
+
+    # Key 's': Prompt Save / Load
+    hat_ks = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['s', None]}, topLevel=True, x=650, y=380)
+    bc_save_ks = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'PROMPT_SAVE_LOAD', 'b_prompt_save']]})
+    ctx.chain([hat_ks, bc_save_ks])
+
+    # Key 'h': Toggle Onboarding Help
+    hat_kh = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['h', None]}, topLevel=True, x=650, y=500)
+    t_onb_kh = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_ONBOARDING', 'v_onboarding']}, inputs={'VALUE': [3, ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_ONBOARDING', 'v_onboarding'], [4, '0']]}), [4, '0']]})
+    bc_onb_kh = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SHOW_ONBOARDING', 'b_show_onb']]})
+    snd_clk_kh = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)]})
+    ctx.chain([hat_kh, t_onb_kh, bc_onb_kh, snd_clk_kh])
+
+    # Key 'p': Purge Chamber
+    hat_kp = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['p', None]}, topLevel=True, x=650, y=650)
+    bc_clear_kp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'CLEAR_ALL', 'b_clear_all']]})
+    snd_del_kp = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_delete', None]}, shadow=True)]})
+    ctx.chain([hat_kp, bc_clear_kp, snd_del_kp])
+
+    # Key 'd': Discovery Reset confirmation (Protected from accidental deletion)
+    hat_kd = ctx.add('event_whenkeypressed', fields={'KEY_OPTION': ['d', None]}, topLevel=True, x=650, y=800)
+    ask_rst = ctx.add('sensing_askandwait', inputs={'QUESTION': [1, [10, 'Type "RESET" to reset discovery catalog to base 19 elements:']]})
+    is_rst = ctx.add('operator_equals', inputs={'OPERAND1': [3, ctx.add('sensing_answer'), [10, '']], 'OPERAND2': [1, [10, 'RESET']]})
+    set_tot_19 = ctx.add('data_setvariableto', fields={'VARIABLE': ['TOTAL_DISCOVERED', 'v_discovered']}, inputs={'VALUE': [1, [4, '19']]})
+    set_k20 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '20']]})
+    rep_rst_item = ctx.add('data_replaceitemoflist', fields={'LIST': ['DB_DISCOVERED', 'l_db_disc']}, inputs={'INDEX': [3, [12, 'SPAWN_SPECIES_ID', 'v_spawn_id'], [7, '20']], 'ITEM': [1, [4, '0']]})
+    inc_rst_k = ctx.add('data_changevariableby', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '1']]})
+    ctx.chain([rep_rst_item, inc_rst_k])
+    rep_110 = ctx.add('control_repeat', inputs={'TIMES': [1, [6, '110']], 'SUBSTACK': [2, rep_rst_item]})
+    ctx.blocks[rep_rst_item]['parent'] = rep_110
+    rst_spc_id = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '1']]})
+    bc_rst_ui = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_rst_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_delete', None]}, shadow=True)
+    play_rst_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_rst_m]})
+    ctx.chain([set_tot_19, set_k20, rep_110, rst_spc_id, bc_rst_ui, play_rst_snd])
+    if_rst_conf = ctx.add('control_if', inputs={'CONDITION': [2, is_rst], 'SUBSTACK': [2, set_tot_19]})
+    ctx.blocks[set_tot_19]['parent'] = if_rst_conf
+    ctx.chain([hat_kd, ask_rst, if_rst_conf])
+
     stage_sounds = [
         sound_meta['snd_click'],
         sound_meta['snd_bond'],
@@ -184,20 +292,68 @@ def build_simulation_engine():
     ans = ctx.add('sensing_answer')
 
     is_save = ctx.add('operator_equals', inputs={'OPERAND1': [3, ans, [10, '']], 'OPERAND2': [1, [10, 'save']]})
-    join_sc = ctx.add('operator_join', inputs={'STRING1': [1, [10, 'CHEM-DATA-']], 'STRING2': [3, [12, 'TOTAL_DISCOVERED', 'v_discovered'], [10, '']]})
-    ask_copy = ctx.add('sensing_askandwait', inputs={'QUESTION': [3, join_sc, [10, '']]})
+    # Save logic
+    set_sc_init = ctx.add('data_setvariableto', fields={'VARIABLE': ['SAVE_CODE', 'v_save_code']}, inputs={'VALUE': [1, [10, 'CHEM:_']]})
+    set_sk20 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '20']]})
+    disc_item = ctx.add('data_itemoflist', fields={'LIST': ['DB_DISCOVERED', 'l_db_disc']}, inputs={'INDEX': [3, [12, 'SPAWN_SPECIES_ID', 'v_spawn_id'], [7, '20']]})
+    is_disc_1 = ctx.add('operator_equals', inputs={'OPERAND1': [3, disc_item, [10, '']], 'OPERAND2': [1, [10, '1']]})
+    join_id = ctx.add('operator_join', inputs={'STRING1': [3, [12, 'SPAWN_SPECIES_ID', 'v_spawn_id'], [10, '']], 'STRING2': [1, [10, '_']]})
+    append_sc = ctx.add('data_setvariableto', fields={'VARIABLE': ['SAVE_CODE', 'v_save_code']}, inputs={'VALUE': [3, ctx.add('operator_join', inputs={'STRING1': [3, [12, 'SAVE_CODE', 'v_save_code'], [10, '']], 'STRING2': [3, join_id, [10, '']]}), [10, '']]})
+    if_disc_append = ctx.add('control_if', inputs={'CONDITION': [2, is_disc_1], 'SUBSTACK': [2, append_sc]})
+    ctx.blocks[append_sc]['parent'] = if_disc_append
+    inc_sk = ctx.add('data_changevariableby', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '1']]})
+    ctx.chain([if_disc_append, inc_sk])
+    rep_save = ctx.add('control_repeat', inputs={'TIMES': [1, [6, '110']], 'SUBSTACK': [2, if_disc_append]})
+    ctx.blocks[if_disc_append]['parent'] = rep_save
+    rst_spc_s = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '1']]})
+    prompt_show_sc = ctx.add('sensing_askandwait', inputs={'QUESTION': [3, ctx.add('operator_join', inputs={'STRING1': [1, [10, 'Save Code (Ctrl+C to copy): ']], 'STRING2': [3, [12, 'SAVE_CODE', 'v_save_code'], [10, '']]}), [10, '']]})
+    ctx.chain([set_sc_init, set_sk20, rep_save, rst_spc_s, prompt_show_sc])
 
+    # Load logic
     is_load = ctx.add('operator_equals', inputs={'OPERAND1': [3, ans, [10, '']], 'OPERAND2': [1, [10, 'load']]})
-    ask_paste = ctx.add('sensing_askandwait', inputs={'QUESTION': [1, [10, 'Paste your Save Code to restore:']]})
-    play_disc = ctx.add('sound_play', inputs={'SOUND_MENU': [1, ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_discover', None]}, shadow=True)]})
-    ctx.blocks[ask_paste]['next'] = play_disc
-    ctx.blocks[play_disc]['parent'] = ask_paste
+    ask_paste = ctx.add('sensing_askandwait', inputs={'QUESTION': [1, [10, 'Paste your Save Code (CHEM:_...) to restore:']]})
+    ans_load = ctx.add('sensing_answer')
+    code_valid = ctx.add('operator_contains', inputs={'STRING1': [3, ans_load, [10, '']], 'STRING2': [1, [10, 'CHEM:']]})
+
+    set_tot_19_l = ctx.add('data_setvariableto', fields={'VARIABLE': ['TOTAL_DISCOVERED', 'v_discovered']}, inputs={'VALUE': [1, [4, '19']]})
+    set_lk20 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '20']]})
+
+    pat_mid = ctx.add('operator_join', inputs={'STRING1': [3, [12, 'SPAWN_SPECIES_ID', 'v_spawn_id'], [10, '']], 'STRING2': [1, [10, '_']]})
+    pat_str = ctx.add('operator_join', inputs={'STRING1': [1, [10, '_']], 'STRING2': [3, pat_mid, [10, '']]})
+    has_pat = ctx.add('operator_contains', inputs={'STRING1': [3, ans_load, [10, '']], 'STRING2': [3, pat_str, [10, '']]})
+
+    set_disc_1 = ctx.add('data_replaceitemoflist', fields={'LIST': ['DB_DISCOVERED', 'l_db_disc']}, inputs={'INDEX': [3, [12, 'SPAWN_SPECIES_ID', 'v_spawn_id'], [7, '20']], 'ITEM': [1, [4, '1']]})
+    inc_tot = ctx.add('data_changevariableby', fields={'VARIABLE': ['TOTAL_DISCOVERED', 'v_discovered']}, inputs={'VALUE': [1, [4, '1']]})
+    ctx.chain([set_disc_1, inc_tot])
+
+    set_disc_0 = ctx.add('data_replaceitemoflist', fields={'LIST': ['DB_DISCOVERED', 'l_db_disc']}, inputs={'INDEX': [3, [12, 'SPAWN_SPECIES_ID', 'v_spawn_id'], [7, '20']], 'ITEM': [1, [4, '0']]})
+
+    if_has_pat = ctx.add('control_if_else', inputs={'CONDITION': [2, has_pat], 'SUBSTACK': [2, set_disc_1], 'SUBSTACK2': [2, set_disc_0]})
+    ctx.blocks[set_disc_1]['parent'] = if_has_pat
+    ctx.blocks[set_disc_0]['parent'] = if_has_pat
+
+    inc_lk = ctx.add('data_changevariableby', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '1']]})
+    ctx.chain([if_has_pat, inc_lk])
+    rep_load = ctx.add('control_repeat', inputs={'TIMES': [1, [6, '110']], 'SUBSTACK': [2, if_has_pat]})
+    ctx.blocks[if_has_pat]['parent'] = rep_load
+    rst_spc_l = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, '1']]})
+    bc_load_ui = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+    snd_disc_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_discover', None]}, shadow=True)
+    play_load_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_disc_m]})
+    say_load_ok = ctx.add('looks_sayforsecs', inputs={'MESSAGE': [1, [10, 'Discoveries successfully restored!']], 'SECS': [1, [4, '2']]})
+    ctx.chain([set_tot_19_l, set_lk20, rep_load, rst_spc_l, bc_load_ui, play_load_snd, say_load_ok])
+
+    say_invalid = ctx.add('looks_sayforsecs', inputs={'MESSAGE': [1, [10, 'Invalid Save Code! Must contain CHEM:']], 'SECS': [1, [4, '2']]})
+    if_code_valid = ctx.add('control_if_else', inputs={'CONDITION': [2, code_valid], 'SUBSTACK': [2, set_tot_19_l], 'SUBSTACK2': [2, say_invalid]})
+    ctx.blocks[set_tot_19_l]['parent'] = if_code_valid
+    ctx.blocks[say_invalid]['parent'] = if_code_valid
+    ctx.chain([ask_paste, if_code_valid])
 
     if_load = ctx.add('control_if', inputs={'CONDITION': [2, is_load], 'SUBSTACK': [2, ask_paste]})
     ctx.blocks[ask_paste]['parent'] = if_load
 
-    if_save_else = ctx.add('control_if_else', inputs={'CONDITION': [2, is_save], 'SUBSTACK': [2, ask_copy], 'SUBSTACK2': [2, if_load]})
-    ctx.blocks[ask_copy]['parent'] = if_save_else
+    if_save_else = ctx.add('control_if_else', inputs={'CONDITION': [2, is_save], 'SUBSTACK': [2, set_sc_init], 'SUBSTACK2': [2, if_load]})
+    ctx.blocks[set_sc_init]['parent'] = if_save_else
     ctx.blocks[if_load]['parent'] = if_save_else
 
     ctx.chain([hat_save, ask_choice, if_save_else])
@@ -1027,9 +1183,8 @@ def build_tool_rail_ui():
     if_t_vol = ctx.add('control_if_else', inputs={'CONDITION': [2, is_vol_zero], 'SUBSTACK': [2, set_vol_100], 'SUBSTACK2': [2, set_vol_0]})
     ctx.blocks[set_vol_100]['parent'] = if_t_vol
     ctx.blocks[set_vol_0]['parent'] = if_t_vol
-    set_sys_vol = ctx.add('sound_setvolumeto', inputs={'VOLUME': [3, [12, 'MASTER_VOLUME', 'v_volume'], [4, '100']]})
     bc_upd7 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([if_t_vol, set_sys_vol, bc_upd7])
+    ctx.chain([if_t_vol, bc_upd7])
     act_b7 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b7], 'SUBSTACK': [2, if_t_vol]})
     ctx.blocks[if_t_vol]['parent'] = act_b7
 
@@ -1571,31 +1726,31 @@ def build_telemetry_ui(ASSETS=costume_meta):
     show_bar = ctx.add('looks_show')
     ctx.chain([hat_gf, goto_bar, set_size, sw_ready, show_bar])
 
-    # INIT_SIM
-    hat_init = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['INIT_SIM', 'b_init_sim']}, topLevel=True, x=50, y=220)
+    # INIT_SIMULATION
+    hat_init = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['INIT_SIMULATION', 'b_init_sim']}, topLevel=True, x=50, y=220)
     sw_ready_init = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_ready']]})
     ctx.chain([hat_init, sw_ready_init])
 
     # UPDATE_UI: check freeze
     hat_upd = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=340)
-    is_frz = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'FREEZE_ACTIVE', 'v_freeze'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+    is_frz = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'TIME_FROZEN', 'v_freeze'], [10, '']], 'OPERAND2': [1, [10, '1']]})
     sw_frz = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_frozen']]})
     if_frz = ctx.add('control_if', inputs={'CONDITION': [2, is_frz], 'SUBSTACK': [2, sw_frz]})
     ctx.blocks[sw_frz]['parent'] = if_frz
     ctx.chain([hat_upd, if_frz])
 
     # FX_EXOTHERMIC
-    hat_exo = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['FX_EXOTHERMIC', 'b_fx_exo']}, topLevel=True, x=50, y=480)
+    hat_exo = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['PLAY_FX_EXO', 'b_fx_exo']}, topLevel=True, x=50, y=480)
     sw_exo = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_exo']]})
     ctx.chain([hat_exo, sw_exo])
 
     # FX_BOND
-    hat_bond = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['FX_BOND', 'b_fx_bond']}, topLevel=True, x=50, y=580)
+    hat_bond = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['PLAY_FX_BOND', 'b_fx_bond']}, topLevel=True, x=50, y=580)
     sw_bond = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_react']]})
     ctx.chain([hat_bond, sw_bond])
 
     # FX_ZAP
-    hat_zap = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['FX_ZAP', 'b_fx_zap']}, topLevel=True, x=50, y=680)
+    hat_zap = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['PLAY_FX_ZAP', 'b_fx_zap']}, topLevel=True, x=50, y=680)
     sw_zap = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_cosmic']]})
     ctx.chain([hat_zap, sw_zap])
 
@@ -1604,13 +1759,17 @@ def build_telemetry_ui(ASSETS=costume_meta):
     sw_purge = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_purge']]})
     ctx.chain([hat_del, sw_purge])
 
+    hat_del2 = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['PLAY_FX_DELETE', 'b_fx_del']}, topLevel=True, x=250, y=780)
+    sw_purge2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_purge']]})
+    ctx.chain([hat_del2, sw_purge2])
+
     # SHOW_TOAST
     hat_toast = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['SHOW_TOAST', 'b_show_toast']}, topLevel=True, x=50, y=880)
     sw_disc = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_discover']]})
     ctx.chain([hat_toast, sw_disc])
 
-    # PROMPT_SAVE
-    hat_save = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['PROMPT_SAVE', 'b_prompt_save']}, topLevel=True, x=50, y=980)
+    # PROMPT_SAVE_LOAD
+    hat_save = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['PROMPT_SAVE_LOAD', 'b_prompt_save']}, topLevel=True, x=50, y=980)
     sw_save = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, 'telem_save']]})
     ctx.chain([hat_save, sw_save])
 
