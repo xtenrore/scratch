@@ -1112,8 +1112,10 @@ def build_palette_ui():
     # Row 1 (H to Ne, IDs 1 to 10)
     set_spc_r1 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [3, [12, 'calc_col', 'v_pal_col'], [4, '1']]})
 
-    # Row 2 (Na to I, IDs 11 to 19)
-    id_r2 = ctx.add('operator_add', inputs={'NUM1': [3, [12, 'calc_col', 'v_pal_col'], [4, '1']], 'NUM2': [1, [4, '10']]})
+    mx_row2 = ctx.add('operator_add', inputs={'NUM1': [3, mx, [4, '0']], 'NUM2': [1, [4, '194']]})
+    col_row2_raw = ctx.add('operator_divide', inputs={'NUM1': [3, mx_row2, [4, '0']], 'NUM2': [1, [4, '44']]})
+    col_row2 = ctx.add('operator_mathop', fields={'OPERATOR': ['floor', None]}, inputs={'NUM': [3, col_row2_raw, [4, '0']]})
+    id_r2 = ctx.add('operator_add', inputs={'NUM1': [3, col_row2, [4, '0']], 'NUM2': [1, [4, '11']]})
     set_spc_r2 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [3, id_r2, [4, '11']]})
 
     if_row_else = ctx.add('control_if_else', inputs={'CONDITION': [2, is_row1], 'SUBSTACK': [2, set_spc_r1], 'SUBSTACK2': [2, set_spc_r2]})
@@ -1376,9 +1378,9 @@ def build_compendium_ui(ASSETS=costume_meta):
 
     # Element Spawning in Tab 2 (Atoms)
     is_tab_2 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, '2']]})
-    gt_y5 = ctx.add('operator_gt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '5']]})
-    lt_y65 = ctx.add('operator_lt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '65']]})
-    in_r1_y = ctx.add('operator_and', inputs={'OPERAND1': [2, gt_y5], 'OPERAND2': [2, lt_y65]})
+    gt_y_m15 = ctx.add('operator_gt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '-15']]})
+    lt_y53 = ctx.add('operator_lt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '53']]})
+    in_r1_y = ctx.add('operator_and', inputs={'OPERAND1': [2, gt_y_m15], 'OPERAND2': [2, lt_y53]})
     is_el_r1 = ctx.add('operator_and', inputs={'OPERAND1': [2, is_tab_2], 'OPERAND2': [2, in_r1_y]})
 
     mx_s205 = ctx.add('operator_add', inputs={'NUM1': vx, 'NUM2': [1, [4, '205']]})
@@ -1386,9 +1388,9 @@ def build_compendium_ui(ASSETS=costume_meta):
     col_f1 = ctx.add('operator_mathop', fields={'OPERATOR': ['floor', None]}, inputs={'NUM': [3, col_raw1, [4, '0']]})
     col_id1 = ctx.add('operator_add', inputs={'NUM1': [3, col_f1, [4, '0']], 'NUM2': [1, [4, '1']]})
 
-    gt_ym55 = ctx.add('operator_gt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '-55']]})
-    lt_y5_2 = ctx.add('operator_lt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '5']]})
-    in_r2_y = ctx.add('operator_and', inputs={'OPERAND1': [2, gt_ym55], 'OPERAND2': [2, lt_y5_2]})
+    gt_ym87 = ctx.add('operator_gt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '-87']]})
+    lt_ym19 = ctx.add('operator_lt', inputs={'OPERAND1': vy, 'OPERAND2': [1, [10, '-19']]})
+    in_r2_y = ctx.add('operator_and', inputs={'OPERAND1': [2, gt_ym87], 'OPERAND2': [2, lt_ym19]})
     is_el_r2 = ctx.add('operator_and', inputs={'OPERAND1': [2, is_tab_2], 'OPERAND2': [2, in_r2_y]})
 
     mx_s185 = ctx.add('operator_add', inputs={'NUM1': vx, 'NUM2': [1, [4, '185']]})

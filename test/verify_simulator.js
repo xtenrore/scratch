@@ -234,6 +234,24 @@ async function testAll() {
   assert(Number(getVar('SPAWN_SPECIES_ID')) > 0, 'Clicking element card must set SPAWN_SPECIES_ID');
   console.log(`[PASS] Interactive click on element card injected species #${getVar('SPAWN_SPECIES_ID')} without dismissing catalog`);
 
+  const atomCardCenters = [];
+  for (let col = 0; col < 10; col++) {
+    atomCardCenters.push({ id: col + 1, x: -187 + Math.round(col * 41.2), y: 19 });
+  }
+  for (let col = 0; col < 9; col++) {
+    atomCardCenters.push({ id: col + 11, x: -167 + Math.round(col * 41.2), y: -53 });
+  }
+  for (const card of atomCardCenters) {
+    setMouse(card.x, card.y);
+    vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+    for (let i = 0; i < 8; i++) vm.runtime._step();
+    assert.strictEqual(Number(getVar('SPAWN_SPECIES_ID')), card.id,
+      `Element card ${card.id} should dispatch its own species ID`);
+    assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 1,
+      `Element card ${card.id} must keep the catalog open`);
+  }
+  console.log('[PASS] Exhaustive click audit verified all 19 base-atom cards');
+
   // D. Click Close [x] button (X=195, Y=105)
   setMouse(195, 105);
   vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
@@ -241,6 +259,28 @@ async function testAll() {
   assert.strictEqual(Number(getVar('SHOW_COMPENDIUM')), 0, 'Clicking [x] button must close catalog');
   assert.strictEqual(compUI.visible, false, 'CompendiumUI must be hidden after close');
   console.log('[PASS] Interactive click on close [x] successfully dismisses catalog');
+
+  setVar('SHOW_PALETTE', 1);
+  vm.runtime.startHats('event_whenbroadcastreceived', { BROADCAST_OPTION: 'UPDATE_UI' });
+  for (let i = 0; i < 5; i++) vm.runtime._step();
+  const paletteUI = vm.runtime.targets.find(t => t.getName() === 'PaletteUI');
+  assert.strictEqual(paletteUI.visible, true, 'PaletteUI should be visible when SHOW_PALETTE == 1');
+  const paletteCenters = [];
+  for (let col = 0; col < 10; col++) {
+    paletteCenters.push({ id: col + 1, x: -196 + col * 44, y: -116 });
+  }
+  for (let col = 0; col < 9; col++) {
+    paletteCenters.push({ id: col + 11, x: -174 + col * 44, y: -154 });
+  }
+  for (const card of paletteCenters) {
+    setMouse(card.x, card.y);
+    vm.runtime.startHats('event_whenthisspriteclicked', null, paletteUI);
+    for (let i = 0; i < 8; i++) vm.runtime._step();
+    assert.strictEqual(Number(getVar('SPAWN_SPECIES_ID')), card.id,
+      `Palette card ${card.id} should dispatch its own species ID`);
+  }
+  console.log('[PASS] Exhaustive click audit verified all 19 periodic-palette cards');
+  setVar('SHOW_PALETTE', 0);
 
   // 11. Test Inspector HUD Card
   setVar('SHOW_INFO', 1);
