@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="g_34" cx="35%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#EAB308" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#CA8A04" stop-opacity="1.0"/>
+    </radialGradient>
+  </defs>
+  <rect x="6" y="16" width="52" height="32" rx="10" fill="url(#g_34)" stroke="#CA8A04" stroke-width="1.8"/>
+  <line x1="14" y1="27" x2="50" y2="27" stroke="#FFFFFF" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="2,2"/>
+  <line x1="14" y1="37" x2="50" y2="37" stroke="#FFFFFF" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="2,2"/>
+  <text x="32" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">ClO₂</text>
+</svg>

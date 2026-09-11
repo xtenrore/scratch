@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="28" viewBox="0 0 44 28">
+  <rect x="1" y="1" width="42" height="26" rx="5" fill="#0E2A47" stroke="#DC2626" stroke-width="1.2"/>
+  
+          <path d="M 22 5 A 5 5 0 1 1 17 12" fill="none" stroke="#DC2626" stroke-width="1.4" stroke-linecap="round"/>
+          <polyline points="20,4 23,5 22,8" fill="none" stroke="#DC2626" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        
+  <text x="22" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="bold" fill="#DC2626" text-anchor="middle">Clear</text>
+</svg>

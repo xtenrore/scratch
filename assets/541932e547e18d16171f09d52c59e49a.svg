@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="g_10" cx="35%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#A855F7" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#7E22CE" stop-opacity="1.0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="25.5" fill="none" stroke="#7E22CE" stroke-width="0.75" stroke-dasharray="2,2" opacity="0.45"/>
+  <circle cx="32" cy="32" r="23" fill="url(#g_10)" stroke="#7E22CE" stroke-width="1.8"/>
+  <rect x="9" y="9" width="13" height="10" rx="3" fill="#0F172A" stroke="#7E22CE" stroke-width="0.8" opacity="0.9"/>
+  <text x="15.5" y="16.5" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">11</text>
+  <text x="32" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Na</text>
+</svg>

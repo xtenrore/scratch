@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
+
+  <!-- Chassis Frame -->
+  <rect width="440" height="250" rx="8" fill="#131D31" stroke="#334155" stroke-width="1.5"/>
+  
+  <!-- Header Bar -->
+  <rect x="0" y="0" width="440" height="26" rx="8" fill="#1E293B"/>
+  <line x1="0" y1="26" x2="440" y2="26" stroke="#334155" stroke-width="1"/>
+  <circle cx="14" cy="13" r="4" fill="#38BDF8"/>
+  <text x="26" y="17" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="bold" fill="#F8FAFC">Base Chemical Elements</text>
+  <text x="390" y="17" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#94A3B8" text-anchor="end">19 Available Elements</text>
+  
+  <!-- Close Button in Upper Right -->
+  <rect x="406" y="5" width="22" height="16" rx="3" fill="#1E293B" stroke="#EF4444" stroke-width="1"/>
+  <text x="417" y="16.5" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#EF4444" text-anchor="middle">×</text>
+
+  <!-- Navigation Tabs -->
+  <rect x="14" y="28" width="78" height="18" rx="3" fill="#111A2E" stroke="#1E293B" stroke-width="1"/>
+  <text x="53.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Overview</text>
+  <rect x="96" y="28" width="78" height="18" rx="3" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+  <text x="135.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#10B981" text-anchor="middle">Elements</text>
+  <line x1="100" y1="46" x2="170" y2="46" stroke="#10B981" stroke-width="2"/>
+  <rect x="178" y="28" width="86" height="18" rx="3" fill="#111A2E" stroke="#1E293B" stroke-width="1"/>
+  <text x="221.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Molecules</text>
+  <rect x="268" y="28" width="80" height="18" rx="3" fill="#111A2E" stroke="#1E293B" stroke-width="1"/>
+  <text x="308.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Radicals</text>
+  <rect x="352" y="28" width="74" height="18" rx="3" fill="#111A2E" stroke="#1E293B" stroke-width="1"/>
+  <text x="389.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Ions</text>
+
+  <!-- Bottom Action Bar -->
+  <rect x="0" y="222" width="440" height="28" rx="8" fill="#1E293B"/>
+  <line x1="0" y1="222" x2="440" y2="222" stroke="#334155" stroke-width="1"/>
+  
+  <!-- Reset Button [D] -->
+  <rect x="14" y="226" width="110" height="20" rx="3" fill="#2A171D" stroke="#EF4444" stroke-width="1"/>
+  <text x="69" y="239" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F87171" text-anchor="middle">Reset Archive [D]</text>
+  
+  <!-- Center Hint -->
+  <text x="220" y="239" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#94A3B8" text-anchor="middle">Click species to inject or inspect • [×] to close</text>
+  
+  <!-- Close Catalog Button -->
+  <rect x="316" y="226" width="110" height="20" rx="3" fill="#0B2338" stroke="#38BDF8" stroke-width="1"/>
+  <text x="371" y="239" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">Close Catalog [×]</text>
+
+  <rect x="14" y="52" width="412" height="18" rx="3" fill="#111A2E" stroke="#1E293B" stroke-width="1"/>
+  <text x="24" y="64.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#94A3B8">Click any species card to spawn it in the chamber</text>
+  <rect x="270" y="54" width="70" height="14" rx="2" fill="#0B2E20" stroke="#10B981" stroke-width="0.8"/>
+  <text x="305" y="64" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#10B981" text-anchor="middle">Page 1/3</text>
+  <rect x="348" y="54" width="70" height="14" rx="2" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+  <text x="383" y="64" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">Page 2 ></text>
+  <g>
+    <rect x="14" y="74" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="20" y="80" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="63" y="97" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">H</text>
+    <text x="63" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Hydrogen</text>
+    <text x="63" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=1 • Nonmetal</text>
+    <rect x="38" y="130" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="63" y="137.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="118" y="74" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="124" y="80" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="167" y="97" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">He</text>
+    <text x="167" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Helium</text>
+    <text x="167" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=2 • Noble Gas</text>
+    <rect x="142" y="130" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="167" y="137.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="222" y="74" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="228" y="80" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="271" y="97" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">Li</text>
+    <text x="271" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Lithium</text>
+    <text x="271" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=3 • Alkali Metal</text>
+    <rect x="246" y="130" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="271" y="137.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="326" y="74" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="332" y="80" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="375" y="97" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">Be</text>
+    <text x="375" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Beryllium</text>
+    <text x="375" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=4 • Alkaline</text>
+    <rect x="350" y="130" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="375" y="137.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="14" y="146" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="20" y="152" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="63" y="169" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">C</text>
+    <text x="63" y="187" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Carbon</text>
+    <text x="63" y="197" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=6 • Nonmetal</text>
+    <rect x="38" y="202" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="63" y="209.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="118" y="146" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="124" y="152" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="167" y="169" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">N</text>
+    <text x="167" y="187" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Nitrogen</text>
+    <text x="167" y="197" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=7 • Pnictogen</text>
+    <rect x="142" y="202" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="167" y="209.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="222" y="146" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="228" y="152" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="271" y="169" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">O</text>
+    <text x="271" y="187" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Oxygen</text>
+    <text x="271" y="197" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=8 • Chalcogen</text>
+    <rect x="246" y="202" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="271" y="209.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+  <g>
+    <rect x="326" y="146" width="98" height="68" rx="4" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+    <rect x="332" y="152" width="86" height="24" rx="3" fill="#0B1120"/>
+    <text x="375" y="169" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#10B981" text-anchor="middle">F</text>
+    <text x="375" y="187" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Fluorine</text>
+    <text x="375" y="197" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=9 • Halogen</text>
+    <rect x="350" y="202" width="50" height="9" rx="2" fill="#082032" stroke="#10B981" stroke-width="0.6"/>
+    <text x="375" y="209.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#10B981" text-anchor="middle">INJECT</text>
+  </g>
+</svg>

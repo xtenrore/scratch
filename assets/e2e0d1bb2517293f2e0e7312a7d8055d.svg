@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="155" viewBox="0 0 180 155">
+  <!-- Card Base Surface -->
+  <rect width="180" height="155" rx="8" fill="#131D31" stroke="#334155" stroke-width="1.5"/>
+  
+  <!-- Header Bar -->
+  <rect x="0" y="0" width="180" height="22" rx="8" fill="#1E293B"/>
+  <line x1="0" y1="22" x2="180" y2="22" stroke="#334155" stroke-width="1"/>
+  <text x="12" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#38BDF8">Compound Analysis</text>
+  <text x="168" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#64748B" text-anchor="end">#65</text>
+
+  <!-- Large Visual Formula Box -->
+  <rect x="12" y="28" width="46" height="34" rx="6" fill="#FACC15" stroke="#CA8A04" stroke-width="1.5"/>
+  <text x="35" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#0F172A" text-anchor="middle">S₄</text>
+
+  <!-- Species Name & Classification -->
+  <text x="66" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#F8FAFC">Tetrasulfur</text>
+  <text x="66" y="51" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#94A3B8">Polyatomic Molecule</text>
+  <text x="66" y="61" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#94A3B8">Neutral (0)</text>
+
+  <line x1="12" y1="68" x2="168" y2="68" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Properties Grid -->
+  <text x="14" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#64748B">Composition:</text>
+  <text x="76" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#F1F5F9">S: 4</text>
+
+  <text x="14" y="93" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#64748B">Formula:</text>
+  <text x="76" y="93" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#38BDF8">S4</text>
+
+  <text x="14" y="106" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#64748B">Catalog Status:</text>
+  <text x="76" y="106" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#10B981">Discovered ★</text>
+
+  <!-- Description Box -->
+  <rect x="10" y="114" width="160" height="34" rx="4" fill="#0B1120" stroke="#1E293B" stroke-width="1"/>
+  <text x="14" y="126" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8">Red allotrope of sulfur with open-</text>
+  <text x="14" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8">chain configuration.</text>
+</svg>

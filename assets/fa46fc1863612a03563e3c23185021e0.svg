@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="g_103" cx="35%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#14B8A6" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0F766E" stop-opacity="1.0"/>
+    </radialGradient>
+  </defs>
+  <rect x="9" y="17" width="46" height="30" rx="15" fill="url(#g_103)" stroke="#0F766E" stroke-width="1.8"/>
+  <line x1="20" y1="32" x2="44" y2="32" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="2,2"/>
+  <text x="32" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">CaO</text>
+</svg>

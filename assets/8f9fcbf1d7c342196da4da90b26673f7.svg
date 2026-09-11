@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="28" viewBox="0 0 44 28">
+  <rect x="1" y="1" width="42" height="26" rx="5" fill="#1E293B" stroke="#334155" stroke-width="1.2"/>
+  
+          <rect x="17" y="5" width="10" height="9" rx="1.5" fill="none" stroke="#F1F5F9" stroke-width="1.3"/>
+          <rect x="19" y="5" width="6" height="4" fill="#F1F5F9"/>
+        
+  <text x="22" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="bold" fill="#94A3B8" text-anchor="middle">Save</text>
+</svg>
