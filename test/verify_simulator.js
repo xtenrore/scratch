@@ -13,9 +13,9 @@ async function testAll() {
       parser(buf, false, (err, res) => {
         if (err) return reject(err);
         assert(res && res[0], 'Project empty');
-        assert.strictEqual(res[0].targets.length, 12, 'Must have 12 targets');
+        assert.strictEqual(res[0].targets.length, 106, 'Must have 106 targets');
         assert.strictEqual(res[0].meta.semver, '3.0.0', 'Semver must be 3.0.0');
-        console.log(`[PASS] ${file} is a valid Scratch 3.0 project (12 targets, semver 3.0.0)`);
+        console.log(`[PASS] ${file} is a valid Scratch 3.0 project (106 targets, semver 3.0.0)`);
         resolve();
       });
     });
@@ -89,14 +89,14 @@ async function testAll() {
 
   console.log('[PASS] All 129 species, 112 reaction rules, and 18 ionization rules verified in VM memory');
 
-  // 5. Verify Tool Rail UI Buttons Clones & Initial Particles Clones
-  const allClones = vm.runtime.targets.filter(t => !t.isOriginal);
-  const toolClones = allClones.filter(t => t.getName() === 'ToolRailUI');
-  const entityClones = allClones.filter(t => t.getName() === 'Entity');
+  // 5. Verify Tool Rail UI Independent Button Sprites & Initial Particles Clones
+  const allTargets = vm.runtime.targets;
+  const toolButtons = allTargets.filter(t => t.getName().startsWith('ToolBtn_'));
+  const entityClones = allTargets.filter(t => t.getName() === 'Entity' && !t.isOriginal);
 
-  assert.strictEqual(toolClones.length, 10, 'Expected 10 ToolRailUI clones');
+  assert.strictEqual(toolButtons.length, 10, 'Expected 10 independent ToolBtn sprites');
   assert.strictEqual(entityClones.length, 5, 'Expected 5 initial Entity particle clones');
-  console.log('[PASS] Tool rail initialized with 10 precision vector buttons across Y=144');
+  console.log('[PASS] Tool rail initialized with 10 independent vector button sprites across Y=144');
   console.log('[PASS] Simulation engine spawned 5 initial reactor atoms');
 
   // 6. Test Spawning an Additional Entity via SPAWN_REQUEST

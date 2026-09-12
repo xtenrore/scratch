@@ -783,6 +783,171 @@ def generate_fx_assets():
     return costumes
 
 
+# --- 10. Individual Clickable Element Asset Generators (md.md compliance) ---
+
+def generate_tool_rail_bar():
+    svg = '''<svg xmlns="http://www.w3.org/2000/svg" width="460" height="28" viewBox="0 0 460 28">
+  <rect width="460" height="28" rx="4" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+  <line x1="10" y1="14" x2="450" y2="14" stroke="#1E293B" stroke-width="1" stroke-dasharray="4,4"/>
+</svg>'''
+    return make_svg_asset(svg, "tool_rail_bar", 230, 14)
+
+
+def generate_palette_frame():
+    svg = '''<svg xmlns="http://www.w3.org/2000/svg" width="460" height="105" viewBox="0 0 460 105">
+  <rect width="460" height="105" rx="6" fill="#131D31" stroke="#334155" stroke-width="1.5"/>
+  <rect x="0" y="0" width="460" height="22" rx="6" fill="#1E293B"/>
+  <line x1="0" y1="22" x2="460" y2="22" stroke="#334155" stroke-width="1"/>
+  <text x="16" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="bold" fill="#38BDF8">PERIODIC ELEMENT SELECTOR</text>
+  <text x="444" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" fill="#94A3B8" text-anchor="end">Click any element to add to chamber</text>
+</svg>'''
+    return make_svg_asset(svg, "palette_drawer_frame", 230, 52)
+
+
+def generate_palette_item_costumes():
+    assets = {}
+    for s in db_chemistry.SPECIES[:19]:
+        color = s["color"]
+        border = s["border"]
+        fg = "#0F172A" if color in ["#E2E8F0", "#FACC15", "#A3E635", "#67E8F9"] else "#FFFFFF"
+        svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="40" height="34" viewBox="0 0 40 34">
+  <rect width="40" height="34" rx="4" fill="#1E293B" stroke="{border}" stroke-width="1.2"/>
+  <circle cx="20" cy="14" r="9.5" fill="{color}" stroke="{border}" stroke-width="1"/>
+  <text x="20" y="17.5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="{fg}" text-anchor="middle">{s["symbol"]}</text>
+  <text x="20" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">{s["name"][:5]}</text>
+</svg>'''
+        assets[f"pal_card_{s['id']}"] = make_svg_asset(svg, f"pal_card_{s['id']}", 20, 17)
+    return assets
+
+
+def generate_comp_tab_costumes():
+    tabs = [
+        ("overview", "Overview", 78, "#6366F1"),
+        ("elements", "Elements", 78, "#10B981"),
+        ("molecules", "Molecules", 86, "#38BDF8"),
+        ("radicals", "Radicals", 80, "#EF4444"),
+        ("ions", "Ions", 74, "#A855F7")
+    ]
+    assets = {}
+    for key, title, w, col in tabs:
+        svg_inact = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="18" viewBox="0 0 {w} 18">
+  <rect width="{w}" height="18" rx="3" fill="#111A2E" stroke="#1E293B" stroke-width="1"/>
+  <text x="{w/2}" y="12.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle">{title}</text>
+</svg>'''
+        svg_act = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="18" viewBox="0 0 {w} 18">
+  <rect width="{w}" height="18" rx="3" fill="#1E293B" stroke="{col}" stroke-width="1"/>
+  <text x="{w/2}" y="12.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="{col}" text-anchor="middle">{title}</text>
+  <line x1="4" y1="18" x2="{w-4}" y2="18" stroke="{col}" stroke-width="2"/>
+</svg>'''
+        assets[f"tab_{key}_inactive"] = make_svg_asset(svg_inact, f"tab_{key}_inactive", w // 2, 9)
+        assets[f"tab_{key}_active"] = make_svg_asset(svg_act, f"tab_{key}_active", w // 2, 9)
+    return assets
+
+
+def generate_comp_button_costumes():
+    assets = {}
+    svg_close_x = '''<svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16">
+  <rect width="22" height="16" rx="3" fill="#1E293B" stroke="#EF4444" stroke-width="1"/>
+  <text x="11" y="12" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#EF4444" text-anchor="middle">×</text>
+</svg>'''
+    assets["comp_btn_close_x"] = make_svg_asset(svg_close_x, "comp_btn_close_x", 11, 8)
+
+    svg_close_bot = '''<svg xmlns="http://www.w3.org/2000/svg" width="110" height="20" viewBox="0 0 110 20">
+  <rect width="110" height="20" rx="3" fill="#0B2338" stroke="#38BDF8" stroke-width="1"/>
+  <text x="55" y="13" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">Close Catalog [×]</text>
+</svg>'''
+    assets["comp_btn_close_bottom"] = make_svg_asset(svg_close_bot, "comp_btn_close_bottom", 55, 10)
+
+    svg_reset = '''<svg xmlns="http://www.w3.org/2000/svg" width="110" height="20" viewBox="0 0 110 20">
+  <rect width="110" height="20" rx="3" fill="#2A171D" stroke="#EF4444" stroke-width="1"/>
+  <text x="55" y="13" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F87171" text-anchor="middle">Reset Archive [D]</text>
+</svg>'''
+    assets["comp_btn_reset"] = make_svg_asset(svg_reset, "comp_btn_reset", 55, 10)
+
+    svg_next = '''<svg xmlns="http://www.w3.org/2000/svg" width="70" height="14" viewBox="0 0 70 14">
+  <rect width="70" height="14" rx="2" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+  <text x="35" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">Page 2 &gt;</text>
+</svg>'''
+    assets["comp_btn_next"] = make_svg_asset(svg_next, "comp_btn_next", 35, 7)
+
+    svg_prev = '''<svg xmlns="http://www.w3.org/2000/svg" width="70" height="14" viewBox="0 0 70 14">
+  <rect width="70" height="14" rx="2" fill="#0B2E20" stroke="#10B981" stroke-width="0.8"/>
+  <text x="35" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#10B981" text-anchor="middle">&lt; Page 1</text>
+</svg>'''
+    assets["comp_btn_prev"] = make_svg_asset(svg_prev, "comp_btn_prev", 35, 7)
+
+    return assets
+
+
+def generate_comp_category_cards():
+    cards = [
+        ("atoms", "Base Elements", "19", "Available", "H through I", "Browse [2]", "#10B981", "#0E2E22"),
+        ("molecules", "Molecules", "69", "Synthesizable", "Covalent &amp; Salts", "Browse [3]", "#38BDF8", "#0C253D"),
+        ("radicals", "Radicals", "19", "UV Photolysis", "Unpaired Electrons", "Browse [4]", "#EF4444", "#2E1117"),
+        ("ions", "Ions", "22", "Cosmic Ionization", "Charged Particles", "Browse [5]", "#A855F7", "#221133")
+    ]
+    assets = {}
+    for key, title, count, sub1, sub2, btn_text, col, btn_bg in cards:
+        svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="98" height="124" viewBox="0 0 98 124">
+  <rect width="98" height="124" rx="4" fill="#1E293B" stroke="{col}" stroke-width="1"/>
+  <text x="49" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="{col}" text-anchor="middle">{title}</text>
+  <text x="49" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">{count}</text>
+  <text x="49" y="64" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="{col}" text-anchor="middle">{sub1}</text>
+  <text x="49" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8" text-anchor="middle">{sub2}</text>
+  <rect x="8" y="96" width="82" height="18" rx="3" fill="{btn_bg}" stroke="{col}" stroke-width="0.8"/>
+  <text x="49" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="{col}" text-anchor="middle">{btn_text}</text>
+</svg>'''
+        assets[f"comp_cat_{key}"] = make_svg_asset(svg, f"comp_cat_{key}", 49, 62)
+    return assets
+
+
+def generate_comp_elem_cards():
+    assets = {}
+    for s in db_chemistry.SPECIES[:19]:
+        color = s["color"]
+        border = s["border"]
+        fg = "#0F172A" if color in ["#E2E8F0", "#FACC15", "#A3E635", "#67E8F9"] else "#FFFFFF"
+        svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="38" height="56" viewBox="0 0 38 56">
+  <rect width="38" height="56" rx="3" fill="#1E293B" stroke="{color}" stroke-width="1.2"/>
+  <text x="19" y="12" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8" text-anchor="middle">Z={s["z"]}</text>
+  <circle cx="19" cy="24" r="8.5" fill="{color}" stroke="{border}" stroke-width="0.8"/>
+  <text x="19" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="{fg}" text-anchor="middle">{s["symbol"]}</text>
+  <text x="19" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">{s["name"][:5]}</text>
+  <rect x="5" y="46" width="28" height="7" rx="1.5" fill="#0E2E22" stroke="{color}" stroke-width="0.5"/>
+  <text x="19" y="51.5" font-family="system-ui, -apple-system, sans-serif" font-size="5" font-weight="bold" fill="{color}" text-anchor="middle">[ADD]</text>
+</svg>'''
+        assets[f"comp_elem_card_{s['id']}"] = make_svg_asset(svg, f"comp_elem_card_{s['id']}", 19, 28)
+    return assets
+
+
+def generate_comp_species_cards():
+    assets = {}
+    sp_map = {s["id"]: s for s in db_chemistry.SPECIES}
+    tab_configs = [
+        ("mol1", [20, 21, 22, 25, 39, 40, 44, 47], "#38BDF8", "INJECT"),
+        ("mol2", [30, 32, 57, 58, 60, 71, 85, 106], "#38BDF8", "INJECT"),
+        ("rad", [41, 42, 43, 28, 46, 29, 27, 56], "#EF4444", "PHOTOLYSIS"),
+        ("ion", [109, 111, 118, 117, 123, 124, 119, 129], "#A855F7", "IONIZE")
+    ]
+    for prefix, ids, accent, tag in tab_configs:
+        for sid in ids:
+            s = sp_map[sid]
+            form = format_subscripts(s["formula"])
+            name = s["name"][:14]
+            desc = s.get("desc", "")[:20]
+            svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="98" height="68" viewBox="0 0 98 68">
+  <rect width="98" height="68" rx="4" fill="#1E293B" stroke="{accent}" stroke-width="1"/>
+  <rect x="6" y="6" width="86" height="24" rx="3" fill="#0B1120"/>
+  <text x="49" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="{accent}" text-anchor="middle">{form}</text>
+  <text x="49" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F8FAFC" text-anchor="middle">{name}</text>
+  <text x="49" y="51" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">{desc}</text>
+  <rect x="24" y="56" width="50" height="9" rx="2" fill="#082032" stroke="{accent}" stroke-width="0.6"/>
+  <text x="49" y="63.5" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="{accent}" text-anchor="middle">{tag}</text>
+</svg>'''
+            assets[f"comp_{prefix}_card_{sid}"] = make_svg_asset(svg, f"comp_{prefix}_card_{sid}", 49, 34)
+    return assets
+
+
 # --- Master Generation Routine ---
 def generate_all_assets():
     os.makedirs("/workspaces/scratch/assets", exist_ok=True)
@@ -846,8 +1011,19 @@ def generate_all_assets():
     fx_dict = generate_fx_assets()
     costumes.update(fx_dict)
 
+    # 10. Individual Clickable Element Costumes (md.md compliance)
+    costumes["tool_rail_bar"] = generate_tool_rail_bar()
+    costumes["palette_drawer_frame"] = generate_palette_frame()
+    costumes.update(generate_palette_item_costumes())
+    costumes.update(generate_comp_tab_costumes())
+    costumes.update(generate_comp_button_costumes())
+    costumes.update(generate_comp_category_cards())
+    costumes.update(generate_comp_elem_cards())
+    costumes.update(generate_comp_species_cards())
+
     print(f"SUCCESS: Generated {len(costumes)} verified vector graphic assets!")
     return costumes
 
 if __name__ == "__main__":
     generate_all_assets()
+

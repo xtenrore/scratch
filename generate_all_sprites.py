@@ -962,331 +962,251 @@ def build_effects():
         'draggable': False, 'rotationStyle': "don't rotate"
     }
 
-# 7. ToolRailUI Builder (10 Precision Instrument Buttons)
-def build_tool_rail_ui():
-    ctx = BlockContext()
-    top_vars = {'v_btn_id': ['btn_id', 0], 'v_init_i': ['init_i', 1]}
-
-    button_costumes = [
-        costume_meta['btn_add'], costume_meta['btn_add_active'],
-        costume_meta['btn_del'], costume_meta['btn_del_active'],
-        costume_meta['btn_insp'], costume_meta['btn_insp_active'],
-        costume_meta['btn_uv'], costume_meta['btn_uv_active'],
-        costume_meta['btn_freeze'], costume_meta['btn_freeze_active'],
-        costume_meta['btn_catalog'], costume_meta['btn_catalog_active'],
-        costume_meta['btn_audio'], costume_meta['btn_audio_muted'],
-        costume_meta['btn_save'], costume_meta['btn_save_active'],
-        costume_meta['btn_help'], costume_meta['btn_help_active'],
-        costume_meta['btn_purge'], costume_meta['btn_purge_active']
-    ]
-    button_sounds = [sound_meta['snd_click'], sound_meta['snd_freeze'], sound_meta['snd_delete']]
-
-    flag_id = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
-    set_zero = ctx.add('data_setvariableto', fields={'VARIABLE': ['btn_id', 'v_btn_id']}, inputs={'VALUE': [1, [4, '0']]})
-    set_i1 = ctx.add('data_setvariableto', fields={'VARIABLE': ['init_i', 'v_init_i']}, inputs={'VALUE': [1, [4, '1']]})
-    hide_main = ctx.add('looks_hide')
-
-    set_bid_i = ctx.add('data_setvariableto', fields={'VARIABLE': ['btn_id', 'v_btn_id']}, inputs={'VALUE': [3, [12, 'init_i', 'v_init_i'], [4, '1']]})
-    create_cl = ctx.add('control_create_clone_of', inputs={'CLONE_OPTION': [1, ctx.add('control_create_clone_of_menu', fields={'CLONE_OPTION': ['_myself_', None]}, shadow=True)]})
-    inc_i = ctx.add('data_changevariableby', fields={'VARIABLE': ['init_i', 'v_init_i']}, inputs={'VALUE': [1, [4, '1']]})
-    ctx.chain([set_bid_i, create_cl, inc_i])
-
-    rep_10 = ctx.add('control_repeat', inputs={'TIMES': [1, [6, '10']], 'SUBSTACK': [2, set_bid_i]})
-    ctx.blocks[set_bid_i]['parent'] = rep_10
-    bc_upd_flag = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([flag_id, set_zero, set_i1, hide_main, rep_10, bc_upd_flag])
-
-    # Position clone across Y = 144
-    hat_start = ctx.add('control_start_as_clone', topLevel=True, x=50, y=300)
-    calc_x_mult = ctx.add('operator_multiply', inputs={'NUM1': [3, [12, 'btn_id', 'v_btn_id'], [4, '1']], 'NUM2': [1, [4, '46']]})
-    calc_x = ctx.add('operator_add', inputs={'NUM1': [1, [4, '-253']], 'NUM2': [3, calc_x_mult, [4, '0']]})
-    goto_pos = ctx.add('motion_gotoxy', inputs={'X': [3, calc_x, [4, '0']], 'Y': [1, [4, '144']]})
-    show_cl = ctx.add('looks_show')
-    bc_upd_clone = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([hat_start, goto_pos, show_cl, bc_upd_clone])
-
-    hat_upd = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=450, y=50)
-
-    # 1. ADD
-    is_btn1 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    pal_active = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_PALETTE', 'v_palette'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    c_add_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_add_active', None]}, shadow=True)]})
-    c_add_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_add', None]}, shadow=True)]})
-    if_pal_else = ctx.add('control_if_else', inputs={'CONDITION': [2, pal_active], 'SUBSTACK': [2, c_add_act], 'SUBSTACK2': [2, c_add_inact]})
-    ctx.blocks[c_add_act]['parent'] = if_pal_else
-    ctx.blocks[c_add_inact]['parent'] = if_pal_else
-    if_b1 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn1], 'SUBSTACK': [2, if_pal_else]})
-    ctx.blocks[if_pal_else]['parent'] = if_b1
-
-    # 2. DEL
-    is_btn2 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '2']]})
-    del_active = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'delete']]})
-    c_del_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_del_active', None]}, shadow=True)]})
-    c_del_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_del', None]}, shadow=True)]})
-    if_del_else = ctx.add('control_if_else', inputs={'CONDITION': [2, del_active], 'SUBSTACK': [2, c_del_act], 'SUBSTACK2': [2, c_del_inact]})
-    ctx.blocks[c_del_act]['parent'] = if_del_else
-    ctx.blocks[c_del_inact]['parent'] = if_del_else
-    if_b2 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn2], 'SUBSTACK': [2, if_del_else]})
-    ctx.blocks[if_del_else]['parent'] = if_b2
-
-    # 3. INSP
-    is_btn3 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '3']]})
-    insp_active = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'inspect']]})
-    c_insp_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_insp_active', None]}, shadow=True)]})
-    c_insp_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_insp', None]}, shadow=True)]})
-    if_insp_else = ctx.add('control_if_else', inputs={'CONDITION': [2, insp_active], 'SUBSTACK': [2, c_insp_act], 'SUBSTACK2': [2, c_insp_inact]})
-    ctx.blocks[c_insp_act]['parent'] = if_insp_else
-    ctx.blocks[c_insp_inact]['parent'] = if_insp_else
-    if_b3 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn3], 'SUBSTACK': [2, if_insp_else]})
-    ctx.blocks[if_insp_else]['parent'] = if_b3
-
-    # 4. UV
-    is_btn4 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '4']]})
-    uv_is_on = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'UV_ACTIVE', 'v_uv'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    c_uv_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_uv_active', None]}, shadow=True)]})
-    c_uv_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_uv', None]}, shadow=True)]})
-    if_uv_else = ctx.add('control_if_else', inputs={'CONDITION': [2, uv_is_on], 'SUBSTACK': [2, c_uv_act], 'SUBSTACK2': [2, c_uv_inact]})
-    ctx.blocks[c_uv_act]['parent'] = if_uv_else
-    ctx.blocks[c_uv_inact]['parent'] = if_uv_else
-    if_b4 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn4], 'SUBSTACK': [2, if_uv_else]})
-    ctx.blocks[if_uv_else]['parent'] = if_b4
-
-    # 5. CRYO
-    is_btn5 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '5']]})
-    frz_is_on = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'TIME_FROZEN', 'v_freeze'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    c_frz_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_freeze_active', None]}, shadow=True)]})
-    c_frz_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_freeze', None]}, shadow=True)]})
-    if_frz_else = ctx.add('control_if_else', inputs={'CONDITION': [2, frz_is_on], 'SUBSTACK': [2, c_frz_act], 'SUBSTACK2': [2, c_frz_inact]})
-    ctx.blocks[c_frz_act]['parent'] = if_frz_else
-    ctx.blocks[c_frz_inact]['parent'] = if_frz_else
-    if_b5 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn5], 'SUBSTACK': [2, if_frz_else]})
-    ctx.blocks[if_frz_else]['parent'] = if_b5
-
-    # 6. CATALOG
-    is_btn6 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '6']]})
-    cat_is_on = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    c_cat_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_catalog_active', None]}, shadow=True)]})
-    c_cat_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_catalog', None]}, shadow=True)]})
-    if_cat_else = ctx.add('control_if_else', inputs={'CONDITION': [2, cat_is_on], 'SUBSTACK': [2, c_cat_act], 'SUBSTACK2': [2, c_cat_inact]})
-    ctx.blocks[c_cat_act]['parent'] = if_cat_else
-    ctx.blocks[c_cat_inact]['parent'] = if_cat_else
-    if_b6 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn6], 'SUBSTACK': [2, if_cat_else]})
-    ctx.blocks[if_cat_else]['parent'] = if_b6
-
-    # 7. AUDIO
-    is_btn7 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '7']]})
-    is_muted = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'MASTER_VOLUME', 'v_volume'], [10, '']], 'OPERAND2': [1, [10, '0']]})
-    c_snd_mut = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_audio_muted', None]}, shadow=True)]})
-    c_snd_on = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_audio', None]}, shadow=True)]})
-    if_snd_else = ctx.add('control_if_else', inputs={'CONDITION': [2, is_muted], 'SUBSTACK': [2, c_snd_mut], 'SUBSTACK2': [2, c_snd_on]})
-    ctx.blocks[c_snd_mut]['parent'] = if_snd_else
-    ctx.blocks[c_snd_on]['parent'] = if_snd_else
-    if_b7 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn7], 'SUBSTACK': [2, if_snd_else]})
-    ctx.blocks[if_snd_else]['parent'] = if_b7
-
-    # 8. REGISTER
-    is_btn8 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '8']]})
-    c_save = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_save', None]}, shadow=True)]})
-    if_b8 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn8], 'SUBSTACK': [2, c_save]})
-    ctx.blocks[c_save]['parent'] = if_b8
-
-    # 9. GUIDE
-    is_btn9 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '9']]})
-    c_help = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_help', None]}, shadow=True)]})
-    if_b9 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn9], 'SUBSTACK': [2, c_help]})
-    ctx.blocks[c_help]['parent'] = if_b9
-
-    # 10. PURGE
-    is_btn10 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '10']]})
-    c_purge = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, ctx.add('looks_costume', fields={'COSTUME': ['btn_purge', None]}, shadow=True)]})
-    if_b10 = ctx.add('control_if', inputs={'CONDITION': [2, is_btn10], 'SUBSTACK': [2, c_purge]})
-    ctx.blocks[c_purge]['parent'] = if_b10
-
-    ctx.chain([hat_upd, if_b1, if_b2, if_b3, if_b4, if_b5, if_b6, if_b7, if_b8, if_b9, if_b10])
-
-    # Click handling
-    hat_click = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=700)
-    snd_clk_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)
-    play_clk = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_clk_m]})
-
-    # Action 1: ADD toggle
-    is_act_b1 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    inv_pal = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_PALETTE', 'v_palette'], [4, '0']]})
-    t_pal = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_PALETTE', 'v_palette']}, inputs={'VALUE': [3, inv_pal, [4, '0']]})
-    bc_upd1 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([t_pal, bc_upd1])
-    act_b1 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b1], 'SUBSTACK': [2, t_pal]})
-    ctx.blocks[t_pal]['parent'] = act_b1
-
-    # Action 2: DEL toggle
-    is_act_b2 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '2']]})
-    is_del_now = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'delete']]})
-    set_drag2 = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'drag']]})
-    set_del2 = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'delete']]})
-    if_t_del = ctx.add('control_if_else', inputs={'CONDITION': [2, is_del_now], 'SUBSTACK': [2, set_drag2], 'SUBSTACK2': [2, set_del2]})
-    ctx.blocks[set_drag2]['parent'] = if_t_del
-    ctx.blocks[set_del2]['parent'] = if_t_del
-    bc_upd2 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([if_t_del, bc_upd2])
-    act_b2 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b2], 'SUBSTACK': [2, if_t_del]})
-    ctx.blocks[if_t_del]['parent'] = act_b2
-
-    # Action 3: INSP toggle
-    is_act_b3 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '3']]})
-    is_insp_now = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'inspect']]})
-    set_drag3 = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'drag']]})
-    set_insp3 = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'inspect']]})
-    if_t_insp = ctx.add('control_if_else', inputs={'CONDITION': [2, is_insp_now], 'SUBSTACK': [2, set_drag3], 'SUBSTACK2': [2, set_insp3]})
-    ctx.blocks[set_drag3]['parent'] = if_t_insp
-    ctx.blocks[set_insp3]['parent'] = if_t_insp
-    bc_upd3 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([if_t_insp, bc_upd3])
-    act_b3 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b3], 'SUBSTACK': [2, if_t_insp]})
-    ctx.blocks[if_t_insp]['parent'] = act_b3
-
-    # Action 4: UV toggle
-    is_act_b4 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '4']]})
-    inv_uv = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'UV_ACTIVE', 'v_uv'], [4, '0']]})
-    t_uv = ctx.add('data_setvariableto', fields={'VARIABLE': ['UV_ACTIVE', 'v_uv']}, inputs={'VALUE': [3, inv_uv, [4, '0']]})
-    bc_bg4 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
-    bc_upd4 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([t_uv, bc_bg4, bc_upd4])
-    act_b4 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b4], 'SUBSTACK': [2, t_uv]})
-    ctx.blocks[t_uv]['parent'] = act_b4
-
-    # Action 5: CRYO toggle
-    is_act_b5 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '5']]})
-    inv_frz = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'TIME_FROZEN', 'v_freeze'], [4, '0']]})
-    t_frz = ctx.add('data_setvariableto', fields={'VARIABLE': ['TIME_FROZEN', 'v_freeze']}, inputs={'VALUE': [3, inv_frz, [4, '0']]})
-    bc_bg5 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
-    bc_upd5 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    snd_frz_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_freeze', None]}, shadow=True)
-    play_frz = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_frz_m]})
-    ctx.chain([t_frz, bc_bg5, bc_upd5, play_frz])
-    act_b5 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b5], 'SUBSTACK': [2, t_frz]})
-    ctx.blocks[t_frz]['parent'] = act_b5
-
-    # Action 6: CATALOG toggle
-    is_act_b6 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '6']]})
-    inv_comp = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [4, '0']]})
-    t_comp = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_COMPENDIUM', 'v_compendium']}, inputs={'VALUE': [3, inv_comp, [4, '0']]})
-    bc_upd6 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([t_comp, bc_upd6])
-    act_b6 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b6], 'SUBSTACK': [2, t_comp]})
-    ctx.blocks[t_comp]['parent'] = act_b6
-
-    # Action 7: AUDIO toggle
-    is_act_b7 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '7']]})
-    is_vol_zero = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'MASTER_VOLUME', 'v_volume'], [10, '']], 'OPERAND2': [1, [10, '0']]})
-    set_vol_100 = ctx.add('data_setvariableto', fields={'VARIABLE': ['MASTER_VOLUME', 'v_volume']}, inputs={'VALUE': [1, [4, '100']]})
-    set_vol_0 = ctx.add('data_setvariableto', fields={'VARIABLE': ['MASTER_VOLUME', 'v_volume']}, inputs={'VALUE': [1, [4, '0']]})
-    if_t_vol = ctx.add('control_if_else', inputs={'CONDITION': [2, is_vol_zero], 'SUBSTACK': [2, set_vol_100], 'SUBSTACK2': [2, set_vol_0]})
-    ctx.blocks[set_vol_100]['parent'] = if_t_vol
-    ctx.blocks[set_vol_0]['parent'] = if_t_vol
-    bc_upd7 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
-    ctx.chain([if_t_vol, bc_upd7])
-    act_b7 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b7], 'SUBSTACK': [2, if_t_vol]})
-    ctx.blocks[if_t_vol]['parent'] = act_b7
-
-    # Action 8: REGISTER (Save/Load)
-    is_act_b8 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '8']]})
-    bc_save8 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'PROMPT_SAVE_LOAD', 'b_prompt_save']]})
-    act_b8 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b8], 'SUBSTACK': [2, bc_save8]})
-    ctx.blocks[bc_save8]['parent'] = act_b8
-
-    # Action 9: GUIDE (Help)
-    is_act_b9 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '9']]})
-    inv_onb = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_ONBOARDING', 'v_onboarding'], [4, '0']]})
-    t_onb = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_ONBOARDING', 'v_onboarding']}, inputs={'VALUE': [3, inv_onb, [4, '0']]})
-    bc_onb9 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SHOW_ONBOARDING', 'b_show_onb']]})
-    ctx.chain([t_onb, bc_onb9])
-    act_b9 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b9], 'SUBSTACK': [2, t_onb]})
-    ctx.blocks[t_onb]['parent'] = act_b9
-
-    # Action 10: PURGE
-    is_act_b10 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'btn_id', 'v_btn_id'], [10, '']], 'OPERAND2': [1, [10, '10']]})
-    bc_clear10 = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'CLEAR_ALL', 'b_clear_all']]})
-    snd_del_m10 = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_delete', None]}, shadow=True)
-    play_del10 = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_del_m10]})
-    ctx.chain([bc_clear10, play_del10])
-    act_b10 = ctx.add('control_if', inputs={'CONDITION': [2, is_act_b10], 'SUBSTACK': [2, bc_clear10]})
-    ctx.blocks[bc_clear10]['parent'] = act_b10
-
-    ctx.chain([hat_click, play_clk, act_b1, act_b2, act_b3, act_b4, act_b5, act_b6, act_b7, act_b8, act_b9, act_b10])
-
+def make_sprite(name, costumes, sounds, blocks, visible=True, x=0, y=0, variables=None, lists=None):
     return {
         'isStage': False,
-        'name': 'ToolRailUI',
-        'variables': top_vars,
-        'lists': {},
+        'name': name,
+        'variables': variables or {},
+        'lists': lists or {},
         'broadcasts': {},
-        'blocks': ctx.blocks,
+        'blocks': blocks,
         'comments': {},
         'currentCostume': 0,
-        'costumes': button_costumes,
-        'sounds': button_sounds,
+        'costumes': costumes,
+        'sounds': sounds,
         'volume': 100,
-        'visible': True,
-        'x': 0, 'y': 144, 'size': 100, 'direction': 90,
+        'visible': visible,
+        'x': x, 'y': y, 'size': 100, 'direction': 90,
         'draggable': False, 'rotationStyle': "don't rotate"
     }
 
-# 8. PaletteUI Builder (Categorized Material Spawner)
-def build_palette_ui():
+# 7. ToolRailUI Chassis Builder & 10 Independent Tool Button Sprites
+def build_tool_rail_ui(ASSETS=costume_meta):
     ctx = BlockContext()
-    pal_vars = {'v_pal_col': ['calc_col', 1]}
+    hat_gf = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+    goto_pos = ctx.add('motion_gotoxy', inputs={'X': [1, [4, '0']], 'Y': [1, [4, '144']]})
+    show_it = ctx.add('looks_show')
+    ctx.chain([hat_gf, goto_pos, show_it])
+    costume = ASSETS.get('tool_rail_bar', ASSETS['btn_add'])
+    return make_sprite('ToolRailUI', [costume], [], ctx.blocks, visible=True, x=0, y=144)
 
-    flag_id = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
-    hide_pal = ctx.add('looks_hide')
-    goto_pal = ctx.add('motion_gotoxy', inputs={'X': [1, [4, '0']], 'Y': [1, [4, '-125']]})
-    ctx.chain([flag_id, hide_pal, goto_pal])
+def build_all_tool_buttons(ASSETS=costume_meta):
+    btn_defs = [
+        ('ToolBtn_Add', -207, 'btn_add', 'btn_add_active', 'v_palette', 'toggle_palette', 'snd_click'),
+        ('ToolBtn_Delete', -161, 'btn_del', 'btn_del_active', 'v_tool', 'toggle_delete', 'snd_click'),
+        ('ToolBtn_Inspect', -115, 'btn_insp', 'btn_insp_active', 'v_tool', 'toggle_inspect', 'snd_click'),
+        ('ToolBtn_UV', -69, 'btn_uv', 'btn_uv_active', 'v_uv', 'toggle_uv', 'snd_click'),
+        ('ToolBtn_Freeze', -23, 'btn_freeze', 'btn_freeze_active', 'v_freeze', 'toggle_freeze', 'snd_freeze'),
+        ('ToolBtn_Catalog', 23, 'btn_catalog', 'btn_catalog_active', 'v_compendium', 'toggle_compendium', 'snd_click'),
+        ('ToolBtn_Audio', 69, 'btn_audio', 'btn_audio_muted', 'v_volume', 'toggle_audio', 'snd_click'),
+        ('ToolBtn_Save', 115, 'btn_save', 'btn_save_active', None, 'broadcast_save', 'snd_click'),
+        ('ToolBtn_Help', 161, 'btn_help', 'btn_help_active', 'v_onboarding', 'toggle_onboarding', 'snd_click'),
+        ('ToolBtn_Purge', 207, 'btn_purge', 'btn_purge_active', None, 'broadcast_purge', 'snd_delete')
+    ]
+    sprites = []
+    for name, x, c_norm, c_act, var_name, act_type, snd_name in btn_defs:
+        ctx = BlockContext()
+        # 1. Flag clicked
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, '144']]})
+        f_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        f_show = ctx.add('looks_show')
+        ctx.chain([f_hat, f_goto, f_front, f_show])
 
-    hat_upd = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=180)
-    is_show = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_PALETTE', 'v_palette'], [10, '']], 'OPERAND2': [1, [10, '1']]})
-    show_pal = ctx.add('looks_show')
-    front_pal = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front', None]})
-    hide_pal2 = ctx.add('looks_hide')
-    ctx.chain([show_pal, front_pal])
-    if_show_else = ctx.add('control_if_else', inputs={'CONDITION': [2, is_show], 'SUBSTACK': [2, show_pal], 'SUBSTACK2': [2, hide_pal2]})
-    ctx.blocks[show_pal]['parent'] = if_show_else
-    ctx.blocks[hide_pal2]['parent'] = if_show_else
-    ctx.chain([hat_upd, if_show_else])
+        # 2. UPDATE_UI
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        if var_name == 'v_palette':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_PALETTE', 'v_palette'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_tool' and act_type == 'toggle_delete':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'delete']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_tool' and act_type == 'toggle_inspect':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'inspect']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_uv':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'UV_ACTIVE', 'v_uv'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_freeze':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'TIME_FROZEN', 'v_freeze'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_compendium':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_volume':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'MASTER_VOLUME', 'v_volume'], [10, '']], 'OPERAND2': [1, [10, '0']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        elif var_name == 'v_onboarding':
+            cond = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_ONBOARDING', 'v_onboarding'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act]]})
+            c2 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            if_block = ctx.add('control_if_else', inputs={'CONDITION': [2, cond], 'SUBSTACK': [2, c1], 'SUBSTACK2': [2, c2]})
+            ctx.blocks[c1]['parent'] = if_block
+            ctx.blocks[c2]['parent'] = if_block
+            ctx.chain([u_hat, if_block, u_front, u_show])
+        else:
+            c1 = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_norm]]})
+            ctx.chain([u_hat, c1, u_front, u_show])
 
-    # Click handling: map mouse coordinates to element 1..19
-    hat_click = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=380)
+        # 3. Click
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': [snd_name, None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        if act_type == 'toggle_palette':
+            inv_p = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_PALETTE', 'v_palette'], [4, '0']]})
+            s_p = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_PALETTE', 'v_palette']}, inputs={'VALUE': [3, inv_p, [4, '0']]})
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, s_p, bc, p_snd])
+        elif act_type == 'toggle_delete':
+            is_d = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'delete']]})
+            s_drag = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'drag']]})
+            s_del = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'delete']]})
+            if_d = ctx.add('control_if_else', inputs={'CONDITION': [2, is_d], 'SUBSTACK': [2, s_drag], 'SUBSTACK2': [2, s_del]})
+            ctx.blocks[s_drag]['parent'] = if_d
+            ctx.blocks[s_del]['parent'] = if_d
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, if_d, bc, p_snd])
+        elif act_type == 'toggle_inspect':
+            is_i = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'CURRENT_TOOL', 'v_tool'], [10, '']], 'OPERAND2': [1, [10, 'inspect']]})
+            s_drag = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'drag']]})
+            s_insp = ctx.add('data_setvariableto', fields={'VARIABLE': ['CURRENT_TOOL', 'v_tool']}, inputs={'VALUE': [1, [10, 'inspect']]})
+            if_i = ctx.add('control_if_else', inputs={'CONDITION': [2, is_i], 'SUBSTACK': [2, s_drag], 'SUBSTACK2': [2, s_insp]})
+            ctx.blocks[s_drag]['parent'] = if_i
+            ctx.blocks[s_insp]['parent'] = if_i
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, if_i, bc, p_snd])
+        elif act_type == 'toggle_uv':
+            inv_u = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'UV_ACTIVE', 'v_uv'], [4, '0']]})
+            s_u = ctx.add('data_setvariableto', fields={'VARIABLE': ['UV_ACTIVE', 'v_uv']}, inputs={'VALUE': [3, inv_u, [4, '0']]})
+            bc_bg = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
+            bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, s_u, bc_bg, bc_u, p_snd])
+        elif act_type == 'toggle_freeze':
+            inv_f = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'TIME_FROZEN', 'v_freeze'], [4, '0']]})
+            s_f = ctx.add('data_setvariableto', fields={'VARIABLE': ['TIME_FROZEN', 'v_freeze']}, inputs={'VALUE': [3, inv_f, [4, '0']]})
+            bc_bg = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_BACKDROP', 'b_update_bg']]})
+            bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, s_f, bc_bg, bc_u, p_snd])
+        elif act_type == 'toggle_compendium':
+            inv_c = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [4, '0']]})
+            s_c = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_COMPENDIUM', 'v_compendium']}, inputs={'VALUE': [3, inv_c, [4, '0']]})
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, s_c, bc, p_snd])
+        elif act_type == 'toggle_audio':
+            is_z = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'MASTER_VOLUME', 'v_volume'], [10, '']], 'OPERAND2': [1, [10, '0']]})
+            s_100 = ctx.add('data_setvariableto', fields={'VARIABLE': ['MASTER_VOLUME', 'v_volume']}, inputs={'VALUE': [1, [4, '100']]})
+            s_0 = ctx.add('data_setvariableto', fields={'VARIABLE': ['MASTER_VOLUME', 'v_volume']}, inputs={'VALUE': [1, [4, '0']]})
+            if_v = ctx.add('control_if_else', inputs={'CONDITION': [2, is_z], 'SUBSTACK': [2, s_100], 'SUBSTACK2': [2, s_0]})
+            ctx.blocks[s_100]['parent'] = if_v
+            ctx.blocks[s_0]['parent'] = if_v
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, if_v, bc, p_snd])
+        elif act_type == 'broadcast_save':
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'PROMPT_SAVE_LOAD', 'b_prompt_save']]})
+            ctx.chain([c_hat, bc, p_snd])
+        elif act_type == 'toggle_onboarding':
+            inv_o = ctx.add('operator_subtract', inputs={'NUM1': [1, [4, '1']], 'NUM2': [3, [12, 'SHOW_ONBOARDING', 'v_onboarding'], [4, '0']]})
+            s_o = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_ONBOARDING', 'v_onboarding']}, inputs={'VALUE': [3, inv_o, [4, '0']]})
+            bc_o = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SHOW_ONBOARDING', 'b_show_onb']]})
+            bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, s_o, bc_o, bc_u, p_snd])
+        elif act_type == 'broadcast_purge':
+            bc = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'CLEAR_ALL', 'b_clear_all']]})
+            ctx.chain([c_hat, bc, p_snd])
+
+        costumes = [ASSETS[c_norm], ASSETS[c_act]]
+        sounds = [sound_meta[snd_name]]
+        sprites.append(make_sprite(name, costumes, sounds, ctx.blocks, visible=True, x=x, y=144))
+    return sprites
+
+# 8. PaletteUI Chassis & 19 Independent Element Selector Sprites
+def build_palette_ui(ASSETS=costume_meta):
+    ctx = BlockContext()
+    hat_gf = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+    goto_pos = ctx.add('motion_gotoxy', inputs={'X': [1, [4, '0']], 'Y': [1, [4, '-125']]})
+    hide_it = ctx.add('looks_hide')
+    ctx.chain([hat_gf, goto_pos, hide_it])
+
+    hat_upd = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+    pal_act = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_PALETTE', 'v_palette'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+    front_b = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+    show_b = ctx.add('looks_show')
+    ctx.chain([front_b, show_b])
+    hide_upd = ctx.add('looks_hide')
+    if_pal = ctx.add('control_if_else', inputs={'CONDITION': [2, pal_act], 'SUBSTACK': [2, front_b], 'SUBSTACK2': [2, hide_upd]})
+    ctx.blocks[front_b]['parent'] = if_pal
+    ctx.blocks[hide_upd]['parent'] = if_pal
+    ctx.chain([hat_upd, if_pal])
+
+    # Fallback coordinate check handler on drawer chassis for compatibility
+    hat_click = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=400)
     mx = ctx.add('sensing_mousex')
-    mx_shifted = ctx.add('operator_add', inputs={'NUM1': [3, mx, [4, '0']], 'NUM2': [1, [4, '230']]})
-    col_raw = ctx.add('operator_divide', inputs={'NUM1': [3, mx_shifted, [4, '0']], 'NUM2': [1, [4, '44']]})
-    col_int = ctx.add('operator_mathop', fields={'OPERATOR': ['floor', None]}, inputs={'NUM': [3, col_raw, [4, '0']]})
-    col_1_based = ctx.add('operator_add', inputs={'NUM1': [3, col_int, [4, '0']], 'NUM2': [1, [4, '1']]})
-    set_col = ctx.add('data_setvariableto', fields={'VARIABLE': ['calc_col', 'v_pal_col']}, inputs={'VALUE': [3, col_1_based, [4, '1']]})
+    calc_c1 = ctx.add('operator_divide', inputs={'NUM1': [3, ctx.add('operator_add', inputs={'NUM1': [3, mx, [10, '0']], 'NUM2': [1, [4, '216']]}), [4, '0']], 'NUM2': [1, [4, '44']]})
+    flr1 = ctx.add('operator_mathop', fields={'OPERATOR': ['floor', None]}, inputs={'NUM': [3, calc_c1, [4, '0']]})
+    col1 = ctx.add('operator_add', inputs={'NUM1': [3, flr1, [4, '0']], 'NUM2': [1, [4, '1']]})
+    s_col = ctx.add('data_setvariableto', fields={'VARIABLE': ['calc_col', 'v_pal_col']}, inputs={'VALUE': [3, col1, [4, '1']]})
 
     my = ctx.add('sensing_mousey')
-    is_row1 = ctx.add('operator_gt', inputs={'OPERAND1': [3, my, [10, '']], 'OPERAND2': [1, [10, '-130']]})
+    is_r1 = ctx.add('operator_gt', inputs={'OPERAND1': [3, my, [10, '0']], 'OPERAND2': [1, [10, '-135']]})
+    s_sp1 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [3, [12, 'calc_col', 'v_pal_col'], [4, '1']]})
 
-    # Row 1 (H to Ne, IDs 1 to 10)
-    set_spc_r1 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [3, [12, 'calc_col', 'v_pal_col'], [4, '1']]})
+    calc_c2 = ctx.add('operator_divide', inputs={'NUM1': [3, ctx.add('operator_add', inputs={'NUM1': [3, mx, [10, '0']], 'NUM2': [1, [4, '194']]}), [4, '0']], 'NUM2': [1, [4, '44']]})
+    flr2 = ctx.add('operator_mathop', fields={'OPERATOR': ['floor', None]}, inputs={'NUM': [3, calc_c2, [4, '0']]})
+    col2 = ctx.add('operator_add', inputs={'NUM1': [3, flr2, [4, '0']], 'NUM2': [1, [4, '11']]})
+    s_sp2 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [3, col2, [4, '11']]})
 
-    mx_row2 = ctx.add('operator_add', inputs={'NUM1': [3, mx, [4, '0']], 'NUM2': [1, [4, '194']]})
-    col_row2_raw = ctx.add('operator_divide', inputs={'NUM1': [3, mx_row2, [4, '0']], 'NUM2': [1, [4, '44']]})
-    col_row2 = ctx.add('operator_mathop', fields={'OPERATOR': ['floor', None]}, inputs={'NUM': [3, col_row2_raw, [4, '0']]})
-    id_r2 = ctx.add('operator_add', inputs={'NUM1': [3, col_row2, [4, '0']], 'NUM2': [1, [4, '11']]})
-    set_spc_r2 = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [3, id_r2, [4, '11']]})
+    if_row = ctx.add('control_if_else', inputs={'CONDITION': [2, is_r1], 'SUBSTACK': [2, s_sp1], 'SUBSTACK2': [2, s_sp2]})
+    ctx.blocks[s_sp1]['parent'] = if_row
+    ctx.blocks[s_sp2]['parent'] = if_row
 
-    if_row_else = ctx.add('control_if_else', inputs={'CONDITION': [2, is_row1], 'SUBSTACK': [2, set_spc_r1], 'SUBSTACK2': [2, set_spc_r2]})
-    ctx.blocks[set_spc_r1]['parent'] = if_row_else
-    ctx.blocks[set_spc_r2]['parent'] = if_row_else
+    rx = ctx.add('operator_random', inputs={'FROM': [1, [4, '-100']], 'TO': [1, [4, '100']]})
+    s_rx = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_X', 'v_spawn_x']}, inputs={'VALUE': [3, rx, [4, '0']]})
+    ry = ctx.add('operator_random', inputs={'FROM': [1, [4, '-60']], 'TO': [1, [4, '40']]})
+    s_ry = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_Y', 'v_spawn_y']}, inputs={'VALUE': [3, ry, [4, '0']]})
+    bc_sp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SPAWN_REQUEST', 'b_spawn_req']]})
+    snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)
+    p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+    ctx.chain([hat_click, s_col, if_row, s_rx, s_ry, bc_sp, p_snd])
 
-    rnd_sx = ctx.add('operator_random', inputs={'FROM': [1, [4, '-90']], 'TO': [1, [4, '90']]})
-    set_sx = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_X', 'v_spawn_x']}, inputs={'VALUE': [3, rnd_sx, [4, '0']]})
-    rnd_sy = ctx.add('operator_random', inputs={'FROM': [1, [4, '-30']], 'TO': [1, [4, '40']]})
-    set_sy = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_Y', 'v_spawn_y']}, inputs={'VALUE': [3, rnd_sy, [4, '0']]})
-    bc_spawn = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SPAWN_REQUEST', 'b_spawn_req']]})
-    snd_bnd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_bond', None]}, shadow=True)
-    play_bnd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_bnd_m]})
-
-    ctx.chain([hat_click, set_col, if_row_else, set_sx, set_sy, bc_spawn, play_bnd])
-
+    pal_vars = {'v_pal_col': ['calc_col', 1]}
+    pal_costume = ASSETS.get('palette_drawer', ASSETS.get('palette_drawer_frame'))
     return {
         'isStage': False,
         'name': 'PaletteUI',
@@ -1296,13 +1216,56 @@ def build_palette_ui():
         'blocks': ctx.blocks,
         'comments': {},
         'currentCostume': 0,
-        'costumes': [costume_meta['palette_drawer']],
-        'sounds': [sound_meta['snd_bond']],
+        'costumes': [pal_costume],
+        'sounds': [sound_meta['snd_click']],
         'volume': 100,
         'visible': False,
         'x': 0, 'y': -125, 'size': 100, 'direction': 90,
         'draggable': False, 'rotationStyle': "don't rotate"
     }
+
+def build_all_palette_items(ASSETS=costume_meta):
+    sprites = []
+    for i in range(19):
+        sid = i + 1
+        if i < 10:
+            x = -196 + i * 44
+            y = -116
+        else:
+            x = -174 + (i - 10) * 44
+            y = -154
+
+        ctx = BlockContext()
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+        f_hide = ctx.add('looks_hide')
+        ctx.chain([f_hat, f_goto, f_hide])
+
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        pal_act = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_PALETTE', 'v_palette'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        ctx.chain([u_front, u_show])
+        u_hide = ctx.add('looks_hide')
+        if_pal = ctx.add('control_if_else', inputs={'CONDITION': [2, pal_act], 'SUBSTACK': [2, u_front], 'SUBSTACK2': [2, u_hide]})
+        ctx.blocks[u_front]['parent'] = if_pal
+        ctx.blocks[u_hide]['parent'] = if_pal
+        ctx.chain([u_hat, if_pal])
+
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=400)
+        s_sid = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, str(sid)]]})
+        rx = ctx.add('operator_random', inputs={'FROM': [1, [4, '-100']], 'TO': [1, [4, '100']]})
+        s_rx = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_X', 'v_spawn_x']}, inputs={'VALUE': [3, rx, [4, '0']]})
+        ry = ctx.add('operator_random', inputs={'FROM': [1, [4, '-60']], 'TO': [1, [4, '40']]})
+        s_ry = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_Y', 'v_spawn_y']}, inputs={'VALUE': [3, ry, [4, '0']]})
+        bc_sp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SPAWN_REQUEST', 'b_spawn_req']]})
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        ctx.chain([c_hat, s_sid, s_rx, s_ry, bc_sp, p_snd])
+
+        costume = ASSETS[f'pal_card_{sid}']
+        sprites.append(make_sprite(f'PalItem_{sid}', [costume], [sound_meta['snd_click']], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
 
 # 9. InspectorUI Builder (Selected Entity Inspector)
 def build_inspector_ui():
@@ -1634,6 +1597,285 @@ def build_compendium_ui(ASSETS=costume_meta):
         'x': 0, 'y': 0, 'size': 100, 'direction': 90,
         'draggable': False, 'rotationStyle': "don't rotate"
     }
+
+
+# 9b. Compendium Independent Navigation Tab Sprites
+def build_all_compendium_tabs(ASSETS=costume_meta):
+    tab_defs = [
+        ('CompTab_Overview', -167, 88, 1, 'tab_overview_inactive', 'tab_overview_active'),
+        ('CompTab_Elements', -85, 88, 2, 'tab_elements_inactive', 'tab_elements_active'),
+        ('CompTab_Molecules', 1, 88, 3, 'tab_molecules_inactive', 'tab_molecules_active'),
+        ('CompTab_Radicals', 88, 88, 5, 'tab_radicals_inactive', 'tab_radicals_active'),
+        ('CompTab_Ions', 169, 88, 6, 'tab_ions_inactive', 'tab_ions_active')
+    ]
+    sprites = []
+    for name, x, y, tab_id, c_inact_name, c_act_name in tab_defs:
+        ctx = BlockContext()
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+        f_hide = ctx.add('looks_hide')
+        ctx.chain([f_hat, f_goto, f_hide])
+
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        is_comp = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        if tab_id == 3:
+            is_t3 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, '3']]})
+            is_t4 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, '4']]})
+            is_act = ctx.add('operator_or', inputs={'OPERAND1': [2, is_t3], 'OPERAND2': [2, is_t4]})
+        else:
+            is_act = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, str(tab_id)]]})
+
+        c_act = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_act_name]]})
+        c_inact = ctx.add('looks_switchcostumeto', inputs={'COSTUME': [1, [4, c_inact_name]]})
+        if_act = ctx.add('control_if_else', inputs={'CONDITION': [2, is_act], 'SUBSTACK': [2, c_act], 'SUBSTACK2': [2, c_inact]})
+        ctx.blocks[c_act]['parent'] = if_act
+        ctx.blocks[c_inact]['parent'] = if_act
+
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        ctx.chain([if_act, u_front, u_show])
+
+        u_hide = ctx.add('looks_hide')
+        if_comp = ctx.add('control_if_else', inputs={'CONDITION': [2, is_comp], 'SUBSTACK': [2, if_act], 'SUBSTACK2': [2, u_hide]})
+        ctx.blocks[if_act]['parent'] = if_comp
+        ctx.blocks[u_hide]['parent'] = if_comp
+        ctx.chain([u_hat, if_comp])
+
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+        s_tab = ctx.add('data_setvariableto', fields={'VARIABLE': ['COMPENDIUM_TAB', 'v_comp_tab']}, inputs={'VALUE': [1, [4, str(tab_id)]]})
+        bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        ctx.chain([c_hat, s_tab, bc_u, p_snd])
+
+        costumes = [ASSETS[c_inact_name], ASSETS[c_act_name]]
+        sprites.append(make_sprite(name, costumes, [sound_meta['snd_click']], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
+
+
+# 9c. Compendium Action Buttons (Close X, Close Bottom, Reset)
+def build_all_compendium_buttons(ASSETS=costume_meta):
+    btn_defs = [
+        ('CompBtn_CloseX', 197, 112, 'comp_btn_close_x', 'close', 'snd_click'),
+        ('CompBtn_CloseBottom', 151, -111, 'comp_btn_close_bottom', 'close', 'snd_click'),
+        ('CompBtn_Reset', -151, -111, 'comp_btn_reset', 'reset', 'snd_delete')
+    ]
+    sprites = []
+    for name, x, y, c_name, action, snd_name in btn_defs:
+        ctx = BlockContext()
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+        f_hide = ctx.add('looks_hide')
+        ctx.chain([f_hat, f_goto, f_hide])
+
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        is_comp = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        ctx.chain([u_front, u_show])
+        u_hide = ctx.add('looks_hide')
+        if_comp = ctx.add('control_if_else', inputs={'CONDITION': [2, is_comp], 'SUBSTACK': [2, u_front], 'SUBSTACK2': [2, u_hide]})
+        ctx.blocks[u_front]['parent'] = if_comp
+        ctx.blocks[u_hide]['parent'] = if_comp
+        ctx.chain([u_hat, if_comp])
+
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': [snd_name, None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        if action == 'close':
+            s_close = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_COMPENDIUM', 'v_compendium']}, inputs={'VALUE': [1, [4, '0']]})
+            u_hide2 = ctx.add('looks_hide')
+            bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, s_close, u_hide2, bc_u, p_snd])
+        elif action == 'reset':
+            bc_clr = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'CLEAR_ALL', 'b_clear_all']]})
+            bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            ctx.chain([c_hat, bc_clr, bc_u, p_snd])
+
+        sprites.append(make_sprite(name, [ASSETS[c_name]], [sound_meta[snd_name]], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
+
+
+# 9d. Compendium Pagination Buttons (Next Page, Prev Page)
+def build_all_compendium_pagination(ASSETS=costume_meta):
+    p_defs = [
+        ('CompBtn_NextPage', 163, 64, 'comp_btn_next', 3, 4),
+        ('CompBtn_PrevPage', 85, 64, 'comp_btn_prev', 4, 3)
+    ]
+    sprites = []
+    for name, x, y, c_name, active_tab, target_tab in p_defs:
+        ctx = BlockContext()
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+        f_hide = ctx.add('looks_hide')
+        ctx.chain([f_hat, f_goto, f_hide])
+
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        is_comp = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        is_tab = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, str(active_tab)]]})
+        both = ctx.add('operator_and', inputs={'OPERAND1': [2, is_comp], 'OPERAND2': [2, is_tab]})
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        ctx.chain([u_front, u_show])
+        u_hide = ctx.add('looks_hide')
+        if_show = ctx.add('control_if_else', inputs={'CONDITION': [2, both], 'SUBSTACK': [2, u_front], 'SUBSTACK2': [2, u_hide]})
+        ctx.blocks[u_front]['parent'] = if_show
+        ctx.blocks[u_hide]['parent'] = if_show
+        ctx.chain([u_hat, if_show])
+
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+        s_tab = ctx.add('data_setvariableto', fields={'VARIABLE': ['COMPENDIUM_TAB', 'v_comp_tab']}, inputs={'VALUE': [1, [4, str(target_tab)]]})
+        bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        ctx.chain([c_hat, s_tab, bc_u, p_snd])
+
+        sprites.append(make_sprite(name, [ASSETS[c_name]], [sound_meta['snd_click']], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
+
+
+# 9e. Compendium Category Jump Cards (Overview Tab 1)
+def build_all_compendium_categories(ASSETS=costume_meta):
+    cat_defs = [
+        ('CompCatCard_Atoms', -157, -27, 'comp_cat_atoms', 2),
+        ('CompCatCard_Molecules', -53, -27, 'comp_cat_molecules', 3),
+        ('CompCatCard_Radicals', 51, -27, 'comp_cat_radicals', 5),
+        ('CompCatCard_Ions', 155, -27, 'comp_cat_ions', 6)
+    ]
+    sprites = []
+    for name, x, y, c_name, target_tab in cat_defs:
+        ctx = BlockContext()
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+        f_hide = ctx.add('looks_hide')
+        ctx.chain([f_hat, f_goto, f_hide])
+
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        is_comp = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        is_tab1 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        both = ctx.add('operator_and', inputs={'OPERAND1': [2, is_comp], 'OPERAND2': [2, is_tab1]})
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        ctx.chain([u_front, u_show])
+        u_hide = ctx.add('looks_hide')
+        if_show = ctx.add('control_if_else', inputs={'CONDITION': [2, both], 'SUBSTACK': [2, u_front], 'SUBSTACK2': [2, u_hide]})
+        ctx.blocks[u_front]['parent'] = if_show
+        ctx.blocks[u_hide]['parent'] = if_show
+        ctx.chain([u_hat, if_show])
+
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+        s_tab = ctx.add('data_setvariableto', fields={'VARIABLE': ['COMPENDIUM_TAB', 'v_comp_tab']}, inputs={'VALUE': [1, [4, str(target_tab)]]})
+        bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_click', None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        ctx.chain([c_hat, s_tab, bc_u, p_snd])
+
+        sprites.append(make_sprite(name, [ASSETS[c_name]], [sound_meta['snd_click']], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
+
+
+# 9f. Compendium Base Element Cards (Elements Tab 2)
+def build_all_compendium_element_cards(ASSETS=costume_meta):
+    sprites = []
+    for sid in range(1, 20):
+        if sid <= 10:
+            x = -185 + (sid - 1) * 41
+            y = 19
+        else:
+            x = -164 + (sid - 11) * 41
+            y = -53
+
+        ctx = BlockContext()
+        f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+        f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+        f_hide = ctx.add('looks_hide')
+        ctx.chain([f_hat, f_goto, f_hide])
+
+        u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+        is_comp = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+        is_tab2 = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, '2']]})
+        both = ctx.add('operator_and', inputs={'OPERAND1': [2, is_comp], 'OPERAND2': [2, is_tab2]})
+        u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+        u_show = ctx.add('looks_show')
+        ctx.chain([u_front, u_show])
+        u_hide = ctx.add('looks_hide')
+        if_show = ctx.add('control_if_else', inputs={'CONDITION': [2, both], 'SUBSTACK': [2, u_front], 'SUBSTACK2': [2, u_hide]})
+        ctx.blocks[u_front]['parent'] = if_show
+        ctx.blocks[u_hide]['parent'] = if_show
+        ctx.chain([u_hat, if_show])
+
+        c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+        s_sid = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, str(sid)]]})
+        rx = ctx.add('operator_random', inputs={'FROM': [1, [4, '-70']], 'TO': [1, [4, '70']]})
+        s_rx = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_X', 'v_spawn_x']}, inputs={'VALUE': [3, rx, [4, '0']]})
+        ry = ctx.add('operator_random', inputs={'FROM': [1, [4, '-20']], 'TO': [1, [4, '30']]})
+        s_ry = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_Y', 'v_spawn_y']}, inputs={'VALUE': [3, ry, [4, '0']]})
+        bc_sp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SPAWN_REQUEST', 'b_spawn_req']]})
+        s_insp = ctx.add('data_setvariableto', fields={'VARIABLE': ['INSPECT_SPECIES_ID', 'v_inspect_id']}, inputs={'VALUE': [1, [4, str(sid)]]})
+        s_info = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_INFO', 'v_info']}, inputs={'VALUE': [1, [4, '1']]})
+        bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+        snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_bond', None]}, shadow=True)
+        p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+        ctx.chain([c_hat, s_sid, s_rx, s_ry, bc_sp, s_insp, s_info, bc_u, p_snd])
+
+        c_name = f'comp_elem_card_{sid}'
+        sprites.append(make_sprite(f'CompCard_Elem_{sid}', [ASSETS[c_name]], [sound_meta['snd_bond']], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
+
+
+# 9g. Compendium Chemical Species Cards (Molecules, Radicals, Ions)
+def build_all_compendium_species_cards(ASSETS=costume_meta):
+    tab_configs = [
+        ("mol1", [20, 21, 22, 25, 39, 40, 44, 47], 3),
+        ("mol2", [30, 32, 57, 58, 60, 71, 85, 106], 4),
+        ("rad", [41, 42, 43, 28, 46, 29, 27, 56], 5),
+        ("ion", [109, 111, 118, 117, 123, 124, 119, 129], 6)
+    ]
+    card_cols = [-157, -53, 51, 155]
+    card_rows = [17, -55]
+    sprites = []
+    for prefix, ids, target_tab in tab_configs:
+        for idx, sid in enumerate(ids):
+            x = card_cols[idx % 4]
+            y = card_rows[idx // 4]
+
+            ctx = BlockContext()
+            f_hat = ctx.add('event_whenflagclicked', topLevel=True, x=50, y=50)
+            f_goto = ctx.add('motion_gotoxy', inputs={'X': [1, [4, str(x)]], 'Y': [1, [4, str(y)]]})
+            f_hide = ctx.add('looks_hide')
+            ctx.chain([f_hat, f_goto, f_hide])
+
+            u_hat = ctx.add('event_whenbroadcastreceived', fields={'BROADCAST_OPTION': ['UPDATE_UI', 'b_update_ui']}, topLevel=True, x=50, y=200)
+            is_comp = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'SHOW_COMPENDIUM', 'v_compendium'], [10, '']], 'OPERAND2': [1, [10, '1']]})
+            is_tab = ctx.add('operator_equals', inputs={'OPERAND1': [3, [12, 'COMPENDIUM_TAB', 'v_comp_tab'], [10, '']], 'OPERAND2': [1, [10, str(target_tab)]]})
+            both = ctx.add('operator_and', inputs={'OPERAND1': [2, is_comp], 'OPERAND2': [2, is_tab]})
+            u_front = ctx.add('looks_gotofrontback', fields={'FRONT_BACK': ['front']})
+            u_show = ctx.add('looks_show')
+            ctx.chain([u_front, u_show])
+            u_hide = ctx.add('looks_hide')
+            if_show = ctx.add('control_if_else', inputs={'CONDITION': [2, both], 'SUBSTACK': [2, u_front], 'SUBSTACK2': [2, u_hide]})
+            ctx.blocks[u_front]['parent'] = if_show
+            ctx.blocks[u_hide]['parent'] = if_show
+            ctx.chain([u_hat, if_show])
+
+            c_hat = ctx.add('event_whenthisspriteclicked', topLevel=True, x=50, y=450)
+            s_sid = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_SPECIES_ID', 'v_spawn_id']}, inputs={'VALUE': [1, [4, str(sid)]]})
+            rx = ctx.add('operator_random', inputs={'FROM': [1, [4, '-70']], 'TO': [1, [4, '70']]})
+            s_rx = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_X', 'v_spawn_x']}, inputs={'VALUE': [3, rx, [4, '0']]})
+            ry = ctx.add('operator_random', inputs={'FROM': [1, [4, '-20']], 'TO': [1, [4, '30']]})
+            s_ry = ctx.add('data_setvariableto', fields={'VARIABLE': ['SPAWN_Y', 'v_spawn_y']}, inputs={'VALUE': [3, ry, [4, '0']]})
+            bc_sp = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'SPAWN_REQUEST', 'b_spawn_req']]})
+            s_insp = ctx.add('data_setvariableto', fields={'VARIABLE': ['INSPECT_SPECIES_ID', 'v_inspect_id']}, inputs={'VALUE': [1, [4, str(sid)]]})
+            s_info = ctx.add('data_setvariableto', fields={'VARIABLE': ['SHOW_INFO', 'v_info']}, inputs={'VALUE': [1, [4, '1']]})
+            bc_u = ctx.add('event_broadcast', inputs={'BROADCAST_INPUT': [1, [11, 'UPDATE_UI', 'b_update_ui']]})
+            snd_m = ctx.add('sound_sounds_menu', fields={'SOUND_MENU': ['snd_bond', None]}, shadow=True)
+            p_snd = ctx.add('sound_play', inputs={'SOUND_MENU': [1, snd_m]})
+            ctx.chain([c_hat, s_sid, s_rx, s_ry, bc_sp, s_insp, s_info, bc_u, p_snd])
+
+            c_name = f'comp_{prefix}_card_{sid}'
+            sprite_name = f'CompCard_{prefix.capitalize()}_{sid}'
+            sprites.append(make_sprite(sprite_name, [ASSETS[c_name]], [sound_meta['snd_bond']], ctx.blocks, visible=False, x=x, y=y))
+    return sprites
 
 
 # ==============================================================================

@@ -37,9 +37,32 @@ async function testExhaustiveCatalog() {
     vm.runtime.ioDevices.mouse.postData({ x: cx, y: cy, canvasWidth: cw, canvasHeight: ch });
   };
 
+  // Verify all 57 independent compendium sprites exist as separate targets
+  const compIndependentSprites = vm.runtime.targets.filter(t => 
+    t.getName().startsWith('CompTab_') ||
+    t.getName().startsWith('CompBtn_') ||
+    t.getName().startsWith('CompCatCard_') ||
+    t.getName().startsWith('CompCard_')
+  );
+  assert.strictEqual(compIndependentSprites.length, 65, 'Must have exactly 65 independent compendium sprites');
+  console.log('[PASS] Verified all 65 independent compendium sprites exist as dedicated Scratch targets');
+
   const clickComp = (sx, sy) => {
     setMouse(sx, sy);
-    vm.runtime.startHats('event_whenthisspriteclicked', null, compUI);
+    const visibleCompSprites = vm.runtime.targets.filter(t => 
+      t.getName().startsWith('Comp') && t.getName() !== 'CompendiumUI' && t.visible
+    );
+    let best = null;
+    let bestDist = Infinity;
+    for (const t of visibleCompSprites) {
+      const dist = Math.hypot(t.x - sx, t.y - sy);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = t;
+      }
+    }
+    const target = (best && bestDist < 60) ? best : compUI;
+    vm.runtime.startHats('event_whenthisspriteclicked', null, target);
     for (let i = 0; i < 8; i++) vm.runtime._step();
   };
 
