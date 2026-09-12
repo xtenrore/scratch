@@ -1,0 +1,1 @@
+Every clickable object MUST be its own separate element. Do not combine, group, or reuse clickable elements. Each button, icon, item, card, tab, menu entry, and interactive object must have its own independent clickable element and its own interaction. Do not question or reinterpret this requirement—apply it everywhere in the project.
