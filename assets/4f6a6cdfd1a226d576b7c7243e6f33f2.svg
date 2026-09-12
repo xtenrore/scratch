@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
+
+  <!-- Chassis Frame (440x250) -->
+  <rect width="440" height="250" rx="3" fill="#11141C" stroke="#2B3448" stroke-width="1.5"/>
+  
+  <!-- Header Bar -->
+  <rect x="0" y="0" width="440" height="26" rx="3" fill="#181D2A"/>
+  <line x1="0" y1="26" x2="440" y2="26" stroke="#2B3448" stroke-width="1"/>
+  <circle cx="14" cy="13" r="4" fill="#38BDF8"/>
+  <text x="26" y="17" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="bold" fill="#F8FAFC">Free Radical Species</text>
+  <text x="390" y="17" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#94A3B8" text-anchor="end">UV Photolysis Required</text>
+  
+  <!-- Close Button Bay in Upper Right -->
+  <rect x="406" y="5" width="22" height="16" rx="2" fill="#1C1418" stroke="#EF4444" stroke-width="1"/>
+  <text x="417" y="16.5" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#EF4444" text-anchor="middle">×</text>
+
+  <!-- Navigation Tabs -->
+  <rect x="14" y="28" width="78" height="18" rx="2" fill="#10131B" stroke="#22293A" stroke-width="1"/>
+  <text x="53.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Overview</text>
+  <rect x="96" y="28" width="78" height="18" rx="2" fill="#10131B" stroke="#22293A" stroke-width="1"/>
+  <text x="135.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Elements</text>
+  <rect x="178" y="28" width="86" height="18" rx="2" fill="#10131B" stroke="#22293A" stroke-width="1"/>
+  <text x="221.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Molecules</text>
+  <rect x="268" y="28" width="80" height="18" rx="2" fill="#181D2A" stroke="#EF4444" stroke-width="1"/>
+  <text x="308.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#EF4444" text-anchor="middle">Radicals</text>
+  <line x1="272" y1="46" x2="344" y2="46" stroke="#EF4444" stroke-width="2"/>
+  <rect x="352" y="28" width="74" height="18" rx="2" fill="#10131B" stroke="#22293A" stroke-width="1"/>
+  <text x="389.0" y="40.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="normal" fill="#64748B" text-anchor="middle">Ions</text>
+
+  <!-- Bottom Action Bar -->
+  <rect x="0" y="222" width="440" height="28" rx="3" fill="#181D2A"/>
+  <line x1="0" y1="222" x2="440" y2="222" stroke="#2B3448" stroke-width="1"/>
+  
+  <!-- Reset Button [D] -->
+  <rect x="14" y="226" width="110" height="20" rx="2" fill="#241318" stroke="#EF4444" stroke-width="1"/>
+  <text x="69" y="239" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F87171" text-anchor="middle">Reset Archive [D]</text>
+  
+  <!-- Center Hint -->
+  <text x="220" y="239" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#94A3B8" text-anchor="middle">Click species to inject or inspect • [×] to close</text>
+  
+  <!-- Close Catalog Button -->
+  <rect x="316" y="226" width="110" height="20" rx="2" fill="#0C253D" stroke="#38BDF8" stroke-width="1"/>
+  <text x="371" y="239" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#38BDF8" text-anchor="middle">Close Catalog [×]</text>
+
+  <rect x="10" y="50" width="420" height="168" rx="2" fill="#0B0E15" stroke="#1D2433" stroke-width="1"/>
+  <rect x="14" y="54" width="220" height="16" rx="1" fill="#131722"/>
+  <text x="22" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8">SELECT ANY SPECIES CARD BELOW TO INJECT INTO CHAMBER</text>
+  <rect x="270" y="54" width="70" height="16" rx="2" fill="#261318" stroke="#EF4444" stroke-width="0.8"/>
+  <text x="305" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#EF4444" text-anchor="middle">RADICALS</text>
+  <rect x="348" y="54" width="70" height="16" rx="2" fill="#181D2A" stroke="#2E374C" stroke-width="0.8"/>
+  <text x="383" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">UV ACTIVE</text>
+</svg>

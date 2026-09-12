@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="28" viewBox="0 0 44 28">
+  <rect x="1" y="1" width="42" height="26" rx="2" fill="#151924" stroke="#262E40" stroke-width="1"/>
+  <line x1="2" y1="2" x2="42" y2="2" stroke="#30394D" stroke-width="1"/>
+  
+  
+          <circle cx="22" cy="10" r="6" fill="none" stroke="#CBD5E1" stroke-width="1.2"/>
+          <text x="22" y="13.5" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="#CBD5E1" text-anchor="middle">?</text>
+        
+  <text x="22" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#94A3B8" text-anchor="middle">Help</text>
+</svg>

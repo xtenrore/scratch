@@ -139,67 +139,85 @@ def gen_discover():
     return make_wav(samples)
 
 def gen_ambient():
-    dur = 6.0
+    dur = 24.0
     n = int(RATE * dur)
-    samples = []
-    
-    # Pre-generate smooth cyclic noise buffer (6.0s seamless loop)
+    samples = [0.0] * n
+
+    # 1. Four 6-second chord progressions (Dmaj7 -> Gmaj7 -> Bm9 -> Asus4/A)
+    chords = [
+        (0.0, 6.0, 73.42, [146.83, 220.00, 277.18, 369.99]),
+        (6.0, 6.0, 98.00, [196.00, 246.94, 293.66, 369.99]),
+        (12.0, 6.0, 61.74, [185.00, 220.00, 277.18, 293.66]),
+        (18.0, 6.0, 55.00, [164.81, 220.00, 293.66, 369.99])
+    ]
+
+    for chord_start, chord_dur, bass_f, pad_fs in chords:
+        i_start = int(chord_start * RATE)
+        i_end = int((chord_start + chord_dur) * RATE)
+        for i in range(i_start, min(n, i_end)):
+            t = (i - i_start) / RATE
+            env = (math.sin(math.pi * t / chord_dur) ** 1.2)
+            bass = math.sin(2 * math.pi * bass_f * (i / RATE)) * 0.28
+            pad = 0.0
+            for pf in pad_fs:
+                p1 = math.sin(2 * math.pi * pf * (i / RATE))
+                p2 = math.sin(2 * math.pi * (pf * 1.0025) * (i / RATE))
+                pad += (p1 + p2) * 0.075
+            samples[i] += (bass + pad) * env
+
+    # 2. Crystalline bell melody (sparkling science motif)
+    bells = [
+        (0.6, 3.5, 739.99, 0.42),   # F#5
+        (2.1, 3.0, 880.00, 0.36),   # A5
+        (3.6, 3.5, 1108.73, 0.32),  # C#6
+        (6.6, 3.5, 987.77, 0.42),   # B5
+        (8.1, 3.0, 739.99, 0.36),   # F#5
+        (9.6, 3.5, 587.33, 0.38),   # D5
+        (12.6, 3.5, 880.00, 0.42),  # A5
+        (14.1, 3.0, 1108.73, 0.36), # C#6
+        (15.6, 3.5, 1318.51, 0.32), # E6
+        (18.6, 3.5, 1174.66, 0.42), # D6
+        (20.1, 3.0, 880.00, 0.36),  # A5
+        (21.6, 3.5, 739.99, 0.36),  # F#5
+    ]
+
+    for b_start, b_dur, freq, amp in bells:
+        i_start = int(b_start * RATE)
+        i_dur = int(b_dur * RATE)
+        for k in range(i_dur):
+            idx = (i_start + k) % n
+            t = k / RATE
+            env = math.exp(-2.2 * t) * (1.0 - k / i_dur)
+            b1 = math.sin(2 * math.pi * freq * t)
+            b2 = math.sin(2 * math.pi * (freq * 2.756) * t) * 0.22
+            b3 = math.sin(2 * math.pi * (freq * 5.404) * t) * 0.08
+            samples[idx] += (b1 + b2 + b3) * amp * env * 0.35
+
+    # 3. Soft low-pass vacuum chamber ambience
     random.seed(1337)
     raw_noise = [random.random() * 2.0 - 1.0 for _ in range(n)]
-    # 2-pass moving average for smooth low-pass filtered vacuum chamber air tone
-    filt_noise = [0.0] * n
-    k = 80
-    window_sum = sum(raw_noise[:k])
+    k_win = 80
+    window_sum = sum(raw_noise[:k_win])
     for i in range(n):
-        window_sum += raw_noise[(i + k) % n] - raw_noise[i]
-        filt_noise[i] = (window_sum / k) * 0.08
+        window_sum += raw_noise[(i + k_win) % n] - raw_noise[i]
+        samples[i] += (window_sum / k_win) * 0.04
 
+    # 4. Soft analog saturation and scaling
+    max_v = max(abs(s) for s in samples) or 1.0
     for i in range(n):
-        t = i / RATE
-        # Cyclic LFOs (exact integer periods over 6s)
-        # LFO 1: 0.3333 Hz (period 3.0s, exactly 2 cycles over 6s)
-        lfo1 = 0.5 + 0.5 * math.cos(2 * math.pi * (2.0 / dur) * t)
-        # LFO 2: 0.1666 Hz (period 6.0s, exactly 1 cycle over 6s)
-        lfo2 = 0.5 + 0.5 * math.sin(2 * math.pi * (1.0 / dur) * t)
+        x = (samples[i] / max_v) * 1.5
+        sat = math.tanh(x) * 26000
+        samples[i] = sat
 
-        # 1. Fundamental sub drone (A1 = 55 Hz, 330 cycles over 6s)
-        sub = math.sin(2 * math.pi * 55.0 * t) * 0.32
-        
-        # 2. Detuned binaural vacuum hum (329 and 331 cycles over 6s -> 0.333 Hz beat)
-        beat1 = math.sin(2 * math.pi * (329.0 / dur) * t) * 0.14
-        beat2 = math.sin(2 * math.pi * (331.0 / dur) * t) * 0.14
-
-        # 3. Sub-octave deep warmth (27.5 Hz, 165 cycles over 6s)
-        deep = math.sin(2 * math.pi * 27.5 * t) * 0.22
-
-        # 4. Fifth harmonic warmth (82.5 Hz, 495 cycles over 6s)
-        fifth = math.sin(2 * math.pi * 82.5 * t) * 0.14
-
-        # 5. Octave harmonic with subtle breathing (110 Hz, 660 cycles over 6s)
-        octave = math.sin(2 * math.pi * 110.0 * t) * (0.09 + 0.06 * lfo1)
-
-        # 6. Ethereal atmospheric fifth (165 Hz, 990 cycles over 6s)
-        air1 = math.sin(2 * math.pi * 165.0 * t) * (0.05 * lfo2)
-
-        # 7. Sci-fi crystalline shimmer resonance (330 Hz, 1980 cycles over 6s)
-        shimmer = math.sin(2 * math.pi * 330.0 * t) * (0.02 + 0.015 * lfo1)
-
-        # 8. Vacuum chamber low-pass ambient air tone
-        hiss = filt_noise[i]
-
-        val = (sub + beat1 + beat2 + deep + fifth + octave + air1 + shimmer + hiss) * 19000
-        samples.append(val)
-
-    # 10ms smooth crossfade at loop boundaries to ensure 100% zero-pop seamless looping
-    fade_len = int(RATE * 0.01)  # 220 samples
+    # 5. Seamless loop crossfade (150ms)
+    fade_len = int(RATE * 0.15)
     for j in range(fade_len):
         w = 0.5 * (1.0 - math.cos(math.pi * j / fade_len))
-        # blend head and tail
-        tail_val = samples[n - fade_len + j]
-        head_val = samples[j]
-        blended = tail_val * (1.0 - w) + head_val * w
-        samples[j] = blended
-        samples[n - fade_len + j] = blended
+        tail_idx = n - fade_len + j
+        head_idx = j
+        blended = samples[tail_idx] * (1.0 - w) + samples[head_idx] * w
+        samples[head_idx] = blended
+        samples[tail_idx] = blended
 
     return make_wav(samples)
 

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="155" viewBox="0 0 180 155">
+  <!-- Card Base Surface -->
+  <rect width="180" height="155" rx="3" fill="#121622" stroke="#2B3448" stroke-width="1.2"/>
+  
+  <!-- Header Bar -->
+  <rect x="0" y="0" width="180" height="22" rx="3" fill="#191E2D"/>
+  <line x1="0" y1="22" x2="180" y2="22" stroke="#2B3448" stroke-width="1"/>
+  <circle cx="12" cy="11" r="3.5" fill="#38BDF8"/>
+  <text x="20" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="#38BDF8">SPECTROMETER ANALYSIS</text>
+  <text x="168" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#64748B" text-anchor="end">#98</text>
+
+  <!-- Visual Formula Box -->
+  <rect x="12" y="28" width="46" height="34" rx="2" fill="#A855F7" stroke="#7E22CE" stroke-width="1.2"/>
+  <text x="35" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">NaBr</text>
+
+  <!-- Species Name & Classification -->
+  <text x="66" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="bold" fill="#F8FAFC">Sodium Bromide</text>
+  <text x="66" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8">Ionic Salt</text>
+  <text x="66" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="bold" fill="#94A3B8">Neutral (0)</text>
+
+  <line x1="12" y1="68" x2="168" y2="68" stroke="#1F2636" stroke-width="1"/>
+
+  <!-- Properties Grid -->
+  <text x="14" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B">Composition:</text>
+  <text x="76" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F1F5F9">Na: 1, Br: 1</text>
+
+  <text x="14" y="93" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B">Formula:</text>
+  <text x="76" y="93" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#38BDF8">NaBr</text>
+
+  <text x="14" y="106" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B">Catalog Status:</text>
+  <text x="76" y="106" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#10B981">Discovered ★</text>
+
+  <!-- Description Box -->
+  <rect x="10" y="114" width="160" height="34" rx="2" fill="#0A0C13" stroke="#1E2534" stroke-width="1"/>
+  <text x="14" y="126" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8">White crystalline salt historicall</text>
+  <text x="14" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8">y used as an anticonvulsant.</text>
+</svg>

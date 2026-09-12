@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="g_7" cx="32%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+      <stop offset="40%" stop-color="#EF4444" stop-opacity="1.0"/>
+      <stop offset="100%" stop-color="#B91C1C" stop-opacity="1.0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="23.5" fill="none" stroke="#B91C1C" stroke-width="0.75" stroke-dasharray="2,2" opacity="0.45"/>
+  <circle cx="32" cy="32" r="21" fill="url(#g_7)" stroke="#B91C1C" stroke-width="1.6"/>
+  <rect x="11" y="11" width="12" height="9" rx="1.5" fill="#0C0E14" stroke="#B91C1C" stroke-width="0.75"/>
+  <text x="17" y="18" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="bold" fill="#38BDF8" text-anchor="middle">8</text>
+  <text x="32" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="bold" fill="#FFFFFF" text-anchor="middle">O</text>
+</svg>

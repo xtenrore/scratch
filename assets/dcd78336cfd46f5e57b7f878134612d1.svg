@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="98" height="124" viewBox="0 0 98 124">
+  <rect width="98" height="124" rx="2" fill="#141824" stroke="#EF4444" stroke-width="1"/>
+  <text x="49" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="#EF4444" text-anchor="middle">Radicals</text>
+  <text x="49" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">19</text>
+  <text x="49" y="64" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#EF4444" text-anchor="middle">UV Photolysis</text>
+  <text x="49" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8" text-anchor="middle">Unpaired Electrons</text>
+  <rect x="8" y="96" width="82" height="18" rx="2" fill="#261318" stroke="#EF4444" stroke-width="0.8"/>
+  <text x="49" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#EF4444" text-anchor="middle">Browse [4]</text>
+</svg>

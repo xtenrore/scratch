@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="56" viewBox="0 0 38 56">
+  <rect width="38" height="56" rx="2" fill="#141824" stroke="#A855F7" stroke-width="1"/>
+  <text x="19" y="11" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" fill="#94A3B8" text-anchor="middle">Z=11</text>
+  <circle cx="19" cy="24" r="8.5" fill="#A855F7" stroke="#7E22CE" stroke-width="0.8"/>
+  <text x="19" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Na</text>
+  <text x="19" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="6" font-weight="bold" fill="#F8FAFC" text-anchor="middle">Sodiu</text>
+  <rect x="5" y="45" width="28" height="8" rx="1" fill="#0E281C" stroke="#A855F7" stroke-width="0.5"/>
+  <text x="19" y="51" font-family="system-ui, -apple-system, sans-serif" font-size="5" font-weight="bold" fill="#A855F7" text-anchor="middle">[ADD]</text>
+</svg>

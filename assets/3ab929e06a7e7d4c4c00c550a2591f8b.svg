@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="78" height="18" viewBox="0 0 78 18">
+  <rect width="78" height="18" rx="2" fill="#181D2A" stroke="#6366F1" stroke-width="1"/>
+  <text x="39.0" y="12.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#6366F1" text-anchor="middle">Overview</text>
+  <line x1="4" y1="18" x2="74" y2="18" stroke="#6366F1" stroke-width="2"/>
+</svg>

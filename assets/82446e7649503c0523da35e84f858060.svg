@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360">
+
+  <!-- Main Stage Vacuum Field Canvas (480x360) -->
+  <rect width="480" height="360" fill="#0C0E14"/>
+  
+  <!-- Precision Header Bar (Y: 0 to 24) -->
+  <rect x="0" y="0" width="480" height="24" fill="#141722"/>
+  <line x1="0" y1="24" x2="480" y2="24" stroke="#252B3C" stroke-width="1"/>
+  
+  <!-- Header Title & Instrument Indicators -->
+  <circle cx="16" cy="12" r="4.5" fill="#38BDF8"/>
+  <circle cx="16" cy="12" r="2" fill="#FFFFFF"/>
+  <text x="28" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="bold" fill="#F8FAFC">MOLECULAR SYNTHESIS CHAMBER</text>
+  <text x="240" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#94A3B8" text-anchor="middle">HIGH-VACUUM CHEMISTRY SIMULATOR • 129 TARGET SPECIES</text>
+  <text x="466" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="#F59E0B" text-anchor="end">P: 1.2 × 10⁻⁷ TORR</text>
+  
+  <!-- Tool Rail Tray (Y: 24 to 58) -->
+  <rect x="0" y="24" width="480" height="34" fill="#10131B"/>
+  <line x1="0" y1="58" x2="480" y2="58" stroke="#1E2433" stroke-width="1"/>
+
+  <!-- Main Reaction Chamber (Y: 58 to 328, width 468, x: 6 to 474) -->
+  <rect x="6" y="58" width="468" height="270" rx="3" fill="#08090D" stroke="#202636" stroke-width="1.2"/>
+  
+  <!-- Chamber Precision Optical Crosshairs -->
+  <line x1="235" y1="193" x2="245" y2="193" stroke="#22293A" stroke-width="1"/>
+  <line x1="240" y1="188" x2="240" y2="198" stroke="#22293A" stroke-width="1"/>
+  <line x1="115" y1="193" x2="125" y2="193" stroke="#1A202E" stroke-width="0.8"/>
+  <line x1="120" y1="188" x2="120" y2="198" stroke="#1A202E" stroke-width="0.8"/>
+  <line x1="355" y1="193" x2="365" y2="193" stroke="#1A202E" stroke-width="0.8"/>
+  <line x1="360" y1="188" x2="360" y2="198" stroke="#1A202E" stroke-width="0.8"/>
+  
+  <!-- Chamber Corner Brackets -->
+  <path d="M 12 70 L 12 64 L 18 64" fill="none" stroke="#283144" stroke-width="1"/>
+  <path d="M 468 70 L 468 64 L 462 64" fill="none" stroke="#283144" stroke-width="1"/>
+  <path d="M 12 316 L 12 322 L 18 322" fill="none" stroke="#283144" stroke-width="1"/>
+  <path d="M 468 316 L 468 322 L 462 322" fill="none" stroke="#283144" stroke-width="1"/>
+
+  <!-- Bottom Telemetry Console Strip (Y: 328 to 360) -->
+  <rect x="0" y="328" width="480" height="32" fill="#141722"/>
+  <line x1="0" y1="328" x2="480" y2="328" stroke="#252B3C" stroke-width="1"/>
+
+  <!-- Cryogenic Thermal Perimeter Accent -->
+  <rect x="6" y="58" width="468" height="270" rx="3" fill="none" stroke="#0EA5E9" stroke-width="1.5" opacity="0.85"/>
+  <line x1="8" y1="62" x2="472" y2="62" stroke="#0EA5E9" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="8" y1="324" x2="472" y2="324" stroke="#0EA5E9" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  
+  <!-- Cryostat Status Tag -->
+  <rect x="140" y="65" width="200" height="18" rx="2" fill="#0C1B2A" stroke="#0EA5E9" stroke-width="1"/>
+  <circle cx="150" cy="74" r="3" fill="#38BDF8"/>
+  <text x="242" y="77.5" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#7DD3FC" text-anchor="middle">CRYOSTAT TEMPERATURE: 2.7 K • TIME FROZEN</text>
+</svg>

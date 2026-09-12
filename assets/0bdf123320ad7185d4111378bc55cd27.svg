@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="20" viewBox="0 0 110 20">
+  <rect width="110" height="20" rx="2" fill="#241318" stroke="#EF4444" stroke-width="1"/>
+  <text x="55" y="13" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#F87171" text-anchor="middle">Reset Archive [D]</text>
+</svg>

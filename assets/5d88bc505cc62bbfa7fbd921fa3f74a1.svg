@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="g_91" cx="32%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65"/>
+      <stop offset="40%" stop-color="#D97706" stop-opacity="1.0"/>
+      <stop offset="100%" stop-color="#92400E" stop-opacity="1.0"/>
+    </radialGradient>
+  </defs>
+  <rect x="9" y="17" width="46" height="30" rx="15" fill="url(#g_91)" stroke="#92400E" stroke-width="1.6"/>
+  <line x1="20" y1="32" x2="44" y2="32" stroke="#FFFFFF" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="2,2"/>
+  <text x="32" y="37" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Br₂</text>
+</svg>

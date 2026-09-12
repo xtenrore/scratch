@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="22" viewBox="0 0 460 22">
+  <rect width="460" height="22" rx="2" fill="#10131B" stroke="#22293A" stroke-width="1"/>
+  <circle cx="12" cy="11" r="3" fill="#10B981"/>
+  <text x="22" y="14.5" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#10B981">CHAMBER READY • DRAG ATOMS TO MERGE • [A] ADD  [X] DEL  [I] INSPECT  [U] UV  [F] FREE</text>
+</svg>

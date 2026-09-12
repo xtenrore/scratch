@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="98" height="124" viewBox="0 0 98 124">
+  <rect width="98" height="124" rx="2" fill="#141824" stroke="#A855F7" stroke-width="1"/>
+  <text x="49" y="16" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="bold" fill="#A855F7" text-anchor="middle">Ions</text>
+  <text x="49" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">22</text>
+  <text x="49" y="64" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" fill="#A855F7" text-anchor="middle">Cosmic Ionization</text>
+  <text x="49" y="78" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#94A3B8" text-anchor="middle">Charged Particles</text>
+  <rect x="8" y="96" width="82" height="18" rx="2" fill="#221133" stroke="#A855F7" stroke-width="0.8"/>
+  <text x="49" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="7.5" font-weight="bold" fill="#A855F7" text-anchor="middle">Browse [5]</text>
+</svg>
